@@ -130,106 +130,223 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
         document.body
       )}
 
-      {/* Sticky Header - Adapts to container width */}
-      {/* Sticky Header - Adapts to container width */}
-      {/* Sticky Header - Adapts to container width */}
-      <header className="sticky top-0 z-30 flex justify-between items-center px-6 md:px-8 py-6 pt-safe border-b border-white/10 bg-[#0A0A0A]/95 backdrop-blur-xl shrink-0">
-        <div>
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-yellow-400 flex items-center gap-3">
-            <Sparkles size={28} className="text-orange-400" />
-            AOCC Command Center
+      {/* ENHANCED STICKY HEADER - Premium Command Center Design */}
+      <header className="sticky top-0 z-30 flex justify-between items-center px-6 md:px-8 py-5 md:py-6 pt-safe border-b border-white/10 glass-panel-elevated shrink-0 transition-all duration-300">
+        <div className="flex-1">
+          {/* Main Title with Premium Gradient */}
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tight mb-3 flex items-center gap-3 group">
+            <div className="relative">
+              <Sparkles size={28} className="text-orange-400 group-hover:text-orange-300 transition-colors" />
+              <div className="absolute inset-0 blur-md bg-orange-500/30 group-hover:bg-orange-500/50 transition-all"></div>
+            </div>
+            <span className="text-gradient-orange animate-in fade-in slide-in-from-left-5 duration-700">
+              AOCC Command Center
+            </span>
           </h1>
+
+          {/* Status Badge - Interactive */}
           <div
             onClick={toggleSystemStatus}
-            className="flex items-center gap-2 text-sm text-slate-400 mt-3 cursor-pointer hover:text-white transition-colors bg-white/5 py-2 px-4 rounded-full border border-white/5 hover:bg-white/10 w-fit"
+            className="inline-flex items-center gap-3 text-sm px-4 py-2.5 rounded-xl border transition-all duration-300 cursor-pointer group hover:scale-105 active:scale-100 shadow-lg"
+            style={{
+              background: systemStatus === 'nominal'
+                ? 'linear-gradient(to right, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05))'
+                : 'linear-gradient(to right, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.1))',
+              borderColor: systemStatus === 'nominal' ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.4)',
+              boxShadow: systemStatus === 'nominal'
+                ? '0 0 20px rgba(16, 185, 129, 0.1)'
+                : '0 0 25px rgba(239, 68, 68, 0.2)'
+            }}
             title="Click to toggle status for demo"
           >
-            <span className="flex items-center gap-2"><Clock size={14} /> 09:42 AM</span>
-            <span className={`w-2 h-2 rounded-full ${systemStatus === 'nominal' ? 'bg-emerald-500' : 'bg-red-500 animate-pulse'}`}></span>
-            <span className={`font-semibold ${systemStatus === 'nominal' ? 'text-emerald-400' : 'text-red-400'}`}>
-              {systemStatus === 'nominal' ? 'System Nominal' : 'Active Incidents'}
+            <span className="flex items-center gap-2 text-white/70 group-hover:text-white/90 transition-colors font-medium">
+              <Clock size={16} className="text-white/50" />
+              <span className="font-mono">09:42 AM</span>
+            </span>
+
+            {/* Divider */}
+            <div className="w-px h-4 bg-white/10"></div>
+
+            {/* Pulsing Status Indicator */}
+            <div className="relative flex items-center">
+              {systemStatus === 'alert' && (
+                <span className="absolute w-3 h-3 rounded-full bg-red-500 animate-ping opacity-75"></span>
+              )}
+              <span className={`relative w-2.5 h-2.5 rounded-full ${systemStatus === 'nominal' ? 'bg-emerald-400 shadow-emerald-400/50' : 'bg-red-500 shadow-red-500/50'} shadow-lg`}></span>
+            </div>
+
+            <span className={`font-bold uppercase text-xs tracking-wider transition-colors ${systemStatus === 'nominal' ? 'text-emerald-400' : 'text-red-400'}`}>
+              {systemStatus === 'nominal' ? 'All Systems Nominal' : '⚠ Active Incidents'}
             </span>
           </div>
         </div>
-
       </header>
 
-      {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto p-6 md:p-8 pb-32 space-y-8 animate-slide-up">
-        <div className="max-w-7xl mx-auto space-y-8">
-          {/* KPI Cards Row */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <GlassCard variant="dark" className="p-6 md:p-8 rounded-3xl border border-white/10 bg-gradient-to-br from-orange-500/10 to-transparent hover:border-orange-500/30 transition-colors group">
-              <p className="text-sm font-bold text-orange-200/50 uppercase tracking-widest mb-4 group-hover:text-orange-200 transition-colors">Total Pax (1hr)</p>
-              <div className="flex items-end justify-between">
-                <p className="text-5xl md:text-6xl font-black text-white tracking-tight">2,450</p>
-                <div className="flex flex-col items-end mb-1">
-                  <p className="text-sm font-bold text-emerald-400 flex items-center gap-1 bg-emerald-500/10 px-3 py-1.5 rounded-lg border border-emerald-500/20">
-                    <span>↑</span> 12%
-                  </p>
-                  <p className="text-xs text-slate-500 mt-2 font-medium">vs average</p>
+      {/* Scrollable Content - Premium Layout */}
+      <div className="flex-1 overflow-y-auto p-6 md:p-8 pb-32 space-y-8">
+        <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-5 duration-700">
+
+          {/* ENHANCED KPI CARDS - Premium Command Center Metrics */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+
+            {/* Total Passengers Card */}
+            <div className="group relative overflow-hidden rounded-3xl p-[1px] bg-gradient-to-br from-orange-500/20 via-transparent to-transparent hover:from-orange-500/30 transition-all duration-500">
+              <GlassCard variant="dark" className="p-6 md:p-8 rounded-3xl h-full relative overflow-hidden card-glow-orange">
+                {/* Subtle Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                {/* Content */}
+                <div className="relative z-10">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-2 h-2 rounded-full bg-orange-400 animate-pulse"></div>
+                    <p className="text-xs font-bold text-orange-400/70 uppercase tracking-[0.2em] group-hover:text-orange-400 transition-colors">
+                      Total Pax (1hr)
+                    </p>
+                  </div>
+
+                  <div className="flex items-end justify-between">
+                    <div className="flex items-baseline gap-3">
+                      <p className="text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tighter leading-none group-hover:scale-105 transition-transform duration-300">
+                        2,450
+                      </p>
+                      <span className="text-lg text-white/30 font-medium mb-2">pax</span>
+                    </div>
+
+                    <div className="flex flex-col items-end">
+                      <div className="flex items-center gap-1.5 bg-emerald-500/15 px-3 py-2 rounded-xl border border-emerald-500/30 shadow-lg shadow-emerald-500/10 group-hover:shadow-emerald-500/20 transition-shadow">
+                        <span className="text-emerald-400 text-sm font-bold">↑</span>
+                        <span className="text-emerald-400 text-sm font-bold">12%</span>
+                      </div>
+                      <p className="text-xs text-white/40 mt-2 font-medium">vs average</p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </GlassCard>
-            <GlassCard variant="dark" className={`p-6 md:p-8 rounded-3xl border border-white/10 bg-gradient-to-br transition-all duration-500 ${systemStatus === 'nominal' ? 'from-emerald-500/10 hover:border-emerald-500/30' : 'from-red-500/10 border-red-500/50'}`}>
-              <p className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">Avg Wait Time</p>
-              <div className="flex items-end justify-between">
-                <p className={`text-5xl md:text-6xl font-black tracking-tight ${systemStatus === 'nominal' ? 'text-white' : 'text-red-500'}`}>
-                  {systemStatus === 'nominal' ? '12m' : '35m'}
-                </p>
-                <p className={`text-sm font-medium px-3 py-1.5 rounded-lg border ${systemStatus === 'nominal' ? 'text-slate-400 bg-white/5 border-white/5' : 'text-red-200 bg-red-500/20 border-red-500/20'} mb-1`}>Security Check A</p>
-              </div>
-            </GlassCard>
+
+                {/* Decorative Corner Accent */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/5 rounded-full blur-3xl group-hover:bg-orange-500/10 transition-colors"></div>
+              </GlassCard>
+            </div>
+
+            {/* Average Wait Time Card - Dynamic Status */}
+            <div className={`group relative overflow-hidden rounded-3xl p-[1px] transition-all duration-500 ${systemStatus === 'nominal' ? 'bg-gradient-to-br from-emerald-500/20 via-transparent to-transparent hover:from-emerald-500/30' : 'bg-gradient-to-br from-red-500/30 via-red-500/10 to-transparent'}`}>
+              <GlassCard
+                variant="dark"
+                className={`p-6 md:p-8 rounded-3xl h-full relative overflow-hidden transition-all duration-500 ${systemStatus === 'nominal' ? 'card-glow-orange' : 'border-red-500/40 shadow-2xl shadow-red-500/20'}`}
+              >
+                {/* Alert Pulse Effect */}
+                {systemStatus === 'alert' && (
+                  <div className="absolute inset-0 bg-red-500/5 animate-pulse"></div>
+                )}
+
+                {/* Gradient Overlay */}
+                <div className={`absolute inset-0 bg-gradient-to-br transition-opacity duration-500 ${systemStatus === 'nominal' ? 'from-emerald-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100' : 'from-red-500/10 via-transparent to-transparent opacity-100'}`}></div>
+
+                {/* Content */}
+                <div className="relative z-10">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className={`w-2 h-2 rounded-full ${systemStatus === 'nominal' ? 'bg-emerald-400' : 'bg-red-500 animate-pulse'}`}></div>
+                    <p className={`text-xs font-bold uppercase tracking-[0.2em] transition-colors ${systemStatus === 'nominal' ? 'text-white/50 group-hover:text-white/70' : 'text-red-300/70'}`}>
+                      Avg Wait Time
+                    </p>
+                  </div>
+
+                  <div className="flex items-end justify-between">
+                    <div className="flex items-baseline gap-3">
+                      <p className={`text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-none transition-all duration-500 ${systemStatus === 'nominal' ? 'text-white group-hover:scale-105' : 'text-red-400 scale-110'}`}>
+                        {systemStatus === 'nominal' ? '12m' : '35m'}
+                      </p>
+                      {systemStatus === 'alert' && (
+                        <AlertTriangle className="text-red-400 animate-pulse mb-2" size={24} />
+                      )}
+                    </div>
+
+                    <div className={`px-3 py-2 rounded-xl border font-medium text-xs transition-all ${systemStatus === 'nominal' ? 'text-white/60 bg-white/5 border-white/10' : 'text-red-100 bg-red-500/20 border-red-500/40 shadow-lg shadow-red-500/20'}`}>
+                      Security Check A
+                    </div>
+                  </div>
+                </div>
+
+                {/* Decorative Corner Accent */}
+                <div className={`absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl transition-all duration-500 ${systemStatus === 'nominal' ? 'bg-emerald-500/5 group-hover:bg-emerald-500/10' : 'bg-red-500/15'}`}></div>
+              </GlassCard>
+            </div>
           </div>
 
-          {/* SECTION 1: PREDICTIVE HEATMAP (God View) */}
-          <GlassCard variant="dark" className="rounded-2xl md:rounded-3xl border border-white/10 overflow-hidden relative group shadow-2xl">
-            <div className="p-6 border-b border-white/5 flex justify-between items-center bg-[#1a1614]">
-              <h2 className="text-xl font-bold text-white flex items-center gap-4">
-                <span className="relative flex h-4 w-4">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-4 w-4 bg-orange-500"></span>
-                </span>
-                Terminal Heatmap (Live)
-              </h2>
-              <span className="text-xs font-bold tracking-widest bg-white/5 text-slate-400 px-4 py-2 rounded-lg uppercase border border-white/5">Floor 1</span>
-            </div>
 
-            <div className="relative h-64 sm:h-80 md:h-96 lg:h-[32rem] bg-[#050202] w-full overflow-hidden border-y border-red-900/30">
-              {/* Base Floor Plan Grid (Geometric/Tech) */}
-              <div className="absolute inset-0 opacity-20" style={{
-                backgroundImage: 'linear-gradient(to right, #EF4444 1px, transparent 1px), linear-gradient(to bottom, #EF4444 1px, transparent 1px)',
-                backgroundSize: '40px 40px'
-              }}></div>
+          {/* ENHANCED SECTION: PREDICTIVE HEATMAP - Premium God View */}
+          <section className="group">
+            <GlassCard variant="dark" className="rounded-2xl md:rounded-3xl border border-white/10 overflow-hidden relative shadow-2xl hover:shadow-orange-500/10 transition-all duration-500">
+              {/* Premium Header */}
+              <div className="p-5 md:p-6 border-b border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-gradient-to-r from-neutral-900/95 via-neutral-900/90 to-neutral-900/95 backdrop-blur-xl">
+                <div className="flex items-center gap-4">
+                  {/* Animated Live Indicator */}
+                  <div className="relative flex h-5 w-5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-5 w-5 bg-gradient-to-br from-orange-400 to-red-500 shadow-lg shadow-orange-500/50"></span>
+                  </div>
 
-              {/* Structures */}
-              <div className="absolute top-8 left-8 w-24 h-40 md:w-32 md:h-52 border-2 border-[#5D4037] bg-[#3E2723]/80 rounded-lg"></div> {/* Check-in */}
-              <div className="absolute top-8 right-8 w-24 h-40 md:w-32 md:h-52 border-2 border-[#5D4037] bg-[#3E2723]/80 rounded-lg"></div> {/* Security */}
-
-              {/* Heatmap Overlays - INCREASED OPACITY & SIZE FOR BETTER VISIBILITY */}
-              {/* Congestion Hotspot with Dashed Ring */}
-              <div className={`absolute top-12 right-12 w-28 h-28 md:w-40 md:h-40 rounded-full transition-all duration-1000 ${systemStatus === 'nominal' ? 'opacity-30' : 'opacity-100'}`}>
-                {/* Blur Blob */}
-                <div className={`absolute inset-0 rounded-full blur-3xl animate-pulse mix-blend-screen ${systemStatus === 'nominal' ? 'bg-emerald-500' : 'bg-red-500/60'}`}></div>
-
-                {/* Dashed Ring - Visible only on alert */}
-                {systemStatus === 'alert' && (
-                  <div className="absolute inset-2 border-4 border-red-500/60 rounded-full border-dashed animate-spin-slow opacity-80"></div>
-                )}
-              </div>
-              <div className="absolute top-16 left-12 w-24 h-24 md:w-32 md:h-32 bg-orange-500/30 rounded-full blur-2xl mix-blend-screen px-4"></div>
-
-              {/* Labels */}
-              {systemStatus === 'alert' && (
-                <div className="absolute top-48 right-12 text-[10px] font-bold text-red-100 bg-red-900/90 px-3 py-1.5 rounded border border-red-500/50 animate-bounce shadow-lg shadow-red-900/50">
-                  ⚠️ Congestion Detected
+                  <div>
+                    <h2 className="text-xl md:text-2xl font-bold text-white flex items-center gap-2">
+                      Terminal Heatmap
+                      <span className="text-xs font-mono text-orange-400 bg-orange-500/10 px-2 py-1 rounded border border-orange-500/30">LIVE</span>
+                    </h2>
+                    <p className="text-xs text-white/50 mt-0.5 font-medium">Real-time crowd density monitoring</p>
+                  </div>
                 </div>
-              )}
-              <div className="absolute top-48 left-12 text-[10px] font-bold text-red-100 bg-black/80 px-2 py-1 rounded border border-red-500/40 shadow-sm backdrop-blur-sm">
-                Check-in Area B
+
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-bold tracking-widest bg-white/5 text-white/60 px-4 py-2 rounded-lg uppercase border border-white/10 hover:bg-white/10 transition-colors cursor-default">
+                    Floor 1
+                  </span>
+                </div>
               </div>
-            </div>
-          </GlassCard>
+
+              {/* Heatmap Canvas */}
+              <div className="relative h-64 sm:h-80 md:h-96 lg:h-[32rem] bg-gradient-to-br from-[#0a0505] via-[#050202] to-[#0a0505] w-full overflow-hidden border-y border-red-900/20">
+                {/* Enhanced Grid Pattern */}
+                <div className="absolute inset-0 opacity-15" style={{
+                  backgroundImage: 'linear-gradient(to right, #EF4444 1px, transparent 1px), linear-gradient(to bottom, #EF4444 1px, transparent 1px)',
+                  backgroundSize: '40px 40px'
+                }}></div>
+
+                {/* Radial Vignette Effect */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]"></div>
+
+                {/* Structures with Enhanced Styling */}
+                <div className="absolute top-8 left-8 w-24 h-40 md:w-32 md:h-52 border-2 border-[#5D4037] bg-[#3E2723]/80 rounded-lg shadow-2xl backdrop-blur-sm">
+                  <div className="absolute top-2 left-2 text-[8px] text-orange-200/40 font-mono font-bold">CHECK-IN B</div>
+                </div>
+                <div className="absolute top-8 right-8 w-24 h-40 md:w-32 md:h-52 border-2 border-[#5D4037] bg-[#3E2723]/80 rounded-lg shadow-2xl backdrop-blur-sm">
+                  <div className="absolute top-2 left-2 text-[8px] text-orange-200/40 font-mono font-bold">SECURITY A</div>
+                </div>
+
+                {/* Enhanced Heatmap Overlays */}
+                <div className={`absolute top-12 right-12 w-28 h-28 md:w-40 md:h-40 rounded-full transition-all duration-1000 ${systemStatus === 'nominal' ? 'opacity-30' : 'opacity-100'}`}>
+                  {/* Blur Blob with Better Blending */}
+                  <div className={`absolute inset-0 rounded-full blur-3xl animate-pulse mix-blend-screen ${systemStatus === 'nominal' ? 'bg-emerald-500' : 'bg-red-500/70'}`}></div>
+
+                  {/* Dashed Alert Ring */}
+                  {systemStatus === 'alert' && (
+                    <>
+                      <div className="absolute inset-2 border-4 border-red-500/60 rounded-full border-dashed animate-spin-slow opacity-80"></div>
+                      <div className="absolute inset-6 border-2 border-red-400/40 rounded-full border-dashed animate-spin-slow opacity-60" style={{ animationDirection: 'reverse', animationDuration: '12s' }}></div>
+                    </>
+                  )}
+                </div>
+                <div className="absolute top-16 left-12 w-24 h-24 md:w-32 md:h-32 bg-orange-500/30 rounded-full blur-2xl mix-blend-screen"></div>
+
+                {/* Enhanced Labels */}
+                {systemStatus === 'alert' && (
+                  <div className="absolute top-48 right-12 text-[10px] md:text-xs font-bold text-red-100 bg-red-900/90 px-3 py-2 rounded-lg border border-red-500/50 animate-bounce shadow-xl shadow-red-900/50 backdrop-blur-md">
+                    ⚠️ Congestion Detected
+                  </div>
+                )}
+                <div className="absolute top-48 left-12 text-[10px] font-bold text-white/70 bg-black/80 px-2 py-1 rounded border border-white/20 shadow-sm backdrop-blur-sm">
+                  Check-in Area B
+                </div>
+              </div>
+            </GlassCard>
+          </section>
 
           <div className="flex flex-col md:grid md:grid-cols-2 gap-6">
             {/* SECTION 2: LIVE ALERTS FEED */}
@@ -488,14 +605,27 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
 
       </div>
 
-      {/* Floating AI Assistant Button - OUTSIDE scroll container to prevent unexpected movement */}
+      {/* PREMIUM FLOATING AI ASSISTANT BUTTON */}
       <button
         onClick={() => setIsChatbotOpen(true)}
-        className="fixed bottom-24 md:bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-br from-orange-600 to-red-600 shadow-[0_4px_20px_rgba(234,88,12,0.4)] flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-[60] group border border-white/10"
+        className="fixed bottom-24 md:bottom-8 right-6 md:right-8 w-16 h-16 md:w-[72px] md:h-[72px] rounded-full bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300 z-[60] group border-2 border-white/20 hover:border-white/40 shadow-2xl"
+        style={{
+          boxShadow: '0 0 40px rgba(234, 88, 12, 0.4), 0 10px 30px rgba(0, 0, 0, 0.3)'
+        }}
         aria-label="Open AI Assistant"
       >
-        <Bot size={24} className="text-white" />
-        <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-[#0A0A0A] animate-pulse"></span>
+        {/* Rotating gradient glow */}
+        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-orange-400 to-red-500 blur-xl opacity-60 group-hover:opacity-80 transition-opacity animate-pulse-slow"></div>
+
+        {/* Icon */}
+        <Bot size={28} className="text-white relative z-10 drop-shadow-lg group-hover:rotate-12 transition-transform" />
+
+        {/* Status indicator */}
+        <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-500 border-3 border-[#0A0A0A] animate-pulse shadow-lg shadow-emerald-500/50 flex items-center justify-center">
+          <span className="w-2 h-2 rounded-full bg-white"></span>
+        </span>
+
+        {/* Ping animation ring */}
         <div className="absolute inset-0 rounded-full bg-orange-500 animate-ping opacity-20"></div>
       </button>
 

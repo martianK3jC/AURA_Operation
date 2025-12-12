@@ -52,20 +52,20 @@ const OperatorLayout: React.FC<OperatorLayoutProps> = ({ children, currentScreen
                 <div className="blob w-[350px] h-[350px] md:w-[400px] md:h-[400px] bottom-[-75px] right-[-75px] md:bottom-[-100px] md:right-[-100px] blob-orange" />
             </div>
 
-            {/* SIDEBAR */}
-            <aside className={`hidden md:flex flex-col h-[100dvh] z-50 fixed left-0 top-0 transition-all duration-300 ease-in-out backdrop-blur-xl border-r border-neutral-800 bg-neutral-900/95 ${isCollapsed ? 'w-20 p-4 items-center' : 'w-64 p-4'}`}>
+            {/* PREMIUM SIDEBAR - Command Center Navigation */}
+            <aside className={`hidden md:flex flex-col h-[100dvh] z-50 fixed left-0 top-0 transition-all duration-300 ease-in-out backdrop-blur-2xl border-r border-white/10 glass-panel-elevated ${isCollapsed ? 'w-20 p-4 items-center' : 'w-64 p-4'}`}>
 
-                {/* Collapse Toggle Button */}
+                {/* Collapse Toggle Button - Enhanced */}
                 <button
                     onClick={() => setIsCollapsed(!isCollapsed)}
-                    className={`mb-4 flex items-center rounded-lg p-3 transition-all duration-200 hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2 ${isCollapsed ? 'justify-center' : 'justify-start'} hover:bg-neutral-800`}
+                    className={`mb-6 flex items-center rounded-xl p-3 transition-all duration-200 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:ring-offset-2 focus:ring-offset-neutral-950 group ${isCollapsed ? 'justify-center' : 'justify-start'} border border-white/5 hover:border-white/20`}
                     title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
                     aria-label={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                        className={`transition-transform duration-150 ease-out ${isCollapsed ? '-rotate-90' : ''} text-neutral-400`}
+                        className={`transition-all duration-300 ease-out ${isCollapsed ? '-rotate-90' : ''} text-white/60 group-hover:text-white`}
                     >
                         <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
                         <line x1="9" x2="9" y1="3" y2="21" />
@@ -74,34 +74,57 @@ const OperatorLayout: React.FC<OperatorLayoutProps> = ({ children, currentScreen
                     </svg>
                 </button>
 
-                {/* Logo Area */}
-                <div className={`mb-8 flex items-center gap-2 transition-all duration-300 ${isCollapsed ? 'justify-center px-0' : 'px-2'}`}>
-                    <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 shadow-lg transition-all duration-200 bg-gradient-to-br from-red-600 to-rose-700">
-                        <Sparkles size={18} className="text-white" />
+                {/* Premium Logo Area with Glow Effect */}
+                <div className={`mb-8 flex items-center gap-3 transition-all duration-300 ${isCollapsed ? 'justify-center px-0' : 'px-2'}`}>
+                    <div className="relative group/logo">
+                        {/* Glow effect behind logo */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl blur-md opacity-50 group-hover/logo:opacity-75 transition-opacity"></div>
+
+                        {/* Logo container */}
+                        <div className="relative w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-2xl transition-all duration-300 bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 group-hover/logo:scale-110">
+                            <Sparkles size={20} className="text-white drop-shadow-lg" />
+                        </div>
                     </div>
-                    <h1 className={`text-xl font-bold tracking-tight whitespace-nowrap overflow-hidden transition-all duration-300 ${isCollapsed ? 'w-0 opacity-0' : 'w-auto opacity-100'} text-white`}>AURA</h1>
+
+                    <div className={`overflow-hidden transition-all duration-300 ${isCollapsed ? 'w-0 opacity-0' : 'w-auto opacity-100'}`}>
+                        <h1 className="text-xl font-black tracking-tight whitespace-nowrap text-white">AURA</h1>
+                        <p className="text-[10px] text-white/40 uppercase tracking-wider font-bold">Operations</p>
+                    </div>
                 </div>
 
-                {/* Navigation Items */}
-                <div className="flex-1 flex flex-col gap-4 overflow-y-auto px-2 my-4">
-                    <p className={`text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-2 whitespace-nowrap overflow-hidden text-ellipsis transition-all duration-300 ${isCollapsed ? 'text-center px-0 text-[10px]' : 'px-2'}`}>{isCollapsed ? 'Control...' : 'Control Center'}</p>
+                {/* Navigation Items with Enhanced Styling */}
+                <div className="flex-1 flex flex-col gap-3 overflow-y-auto px-2 my-4">
+                    {/* Section Label */}
+                    <div className={`flex items-center gap-2 mb-2 transition-all duration-300 ${isCollapsed ? 'justify-center' : ''}`}>
+                        <div className={`h-px bg-gradient-to-r from-transparent via-white/20 to-transparent flex-1 ${isCollapsed ? 'hidden' : ''}`}></div>
+                        <p className={`text-[10px] font-bold text-white/40 uppercase tracking-[0.15em] whitespace-nowrap transition-all duration-300 ${isCollapsed ? 'rotate-90 text-[8px]' : ''}`}>
+                            {isCollapsed ? 'Menu' : 'Control Center'}
+                        </p>
+                        <div className={`h-px bg-gradient-to-r from-transparent via-white/20 to-transparent flex-1 ${isCollapsed ? 'hidden' : ''}`}></div>
+                    </div>
+
                     {navItems.map((item) => (
-                        <button key={item.id} onClick={() => onNavigate(item.target as any)} className={navItemClass(item.target)} title={isCollapsed ? item.label : undefined}>
+                        <button
+                            key={item.id}
+                            onClick={() => onNavigate(item.target as any)}
+                            className={navItemClass(item.target)}
+                            title={isCollapsed ? item.label : undefined}
+                        >
                             <item.icon size={20} className="shrink-0" />
-                            <span className={`text-sm font-medium whitespace-nowrap overflow-hidden transition-all duration-300 ${isCollapsed ? 'w-0 opacity-0' : 'w-auto opacity-100'}`}>{item.label}</span>
+                            <span className={`text-sm font-semibold whitespace-nowrap overflow-hidden transition-all duration-300 ${isCollapsed ? 'w-0 opacity-0' : 'w-auto opacity-100'}`}>{item.label}</span>
                         </button>
                     ))}
                 </div>
 
-                {/* Logout Button */}
+                {/* Enhanced Logout Button */}
                 <button
                     onClick={() => setShowLogoutConfirm(true)}
-                    className={`flex items-center gap-3 p-3 rounded-lg transition-all duration-200 mt-4 border w-full focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2 focus:ring-offset-neutral-950 ${isCollapsed ? 'justify-center' : ''} border-neutral-800 hover:bg-red-500/10 text-neutral-400 hover:text-red-400 hover:border-red-500/30`}
+                    className={`flex items-center gap-3 p-3 rounded-xl transition-all duration-200 mt-4 border w-full focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2 focus:ring-offset-neutral-950 group ${isCollapsed ? 'justify-center' : ''} border-white/10 hover:bg-red-500/10 text-white/60 hover:text-red-400 hover:border-red-500/40 shadow-lg hover:shadow-red-500/20`}
                     title={isCollapsed ? 'Logout' : undefined}
                     aria-label="Logout from application"
                 >
-                    <LogOut size={20} className="shrink-0" />
-                    {!isCollapsed && <span className="text-sm font-medium whitespace-nowrap">Logout</span>}
+                    <LogOut size={20} className="shrink-0 group-hover:scale-110 transition-transform" />
+                    {!isCollapsed && <span className="text-sm font-semibold whitespace-nowrap">Logout</span>}
                 </button>
             </aside>
 

@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   CUSTOM SCROLLBAR - Premium Dark Theme
+   ============================================ */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 99px;
+    transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* ============================================
+   AMBIENT BACKGROUND BLOBS
+   Design System: Operator Theme
+   ============================================ */
+.blob {
+    position: absolute;
+    filter: blur(100px);
+    z-index: 0;
+    opacity: 0.3;
+    border-radius: 50%;
+    animation: blob-float 12s infinite ease-in-out alternate;
+    will-change: transform;
+}
+
+.blob-red {
+    background: radial-gradient(circle, #dc2626 0%, #991b1b 100%);
+}
+
+.blob-orange {
+    background: radial-gradient(circle, #ea580c 0%, #c2410c 100%);
+}
+
+@keyframes blob-float {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    100% {
+        transform: translate(20px, -20px) scale(1.05);
+        opacity: 0.3;
+    }
+}
+
+/* ============================================
+   CUSTOM ANIMATIONS
+   ============================================ */
+@keyframes spin-slow {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin-slow {
+    animation: spin-slow 8s linear infinite;
+}
+
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        opacity: 1;
+        box-shadow: 0 0 20px rgba(234, 88, 12, 0.3);
+    }
+
+    50% {
+        opacity: 0.7;
+        box-shadow: 0 0 40px rgba(234, 88, 12, 0.5);
+    }
+}
+
+.animate-pulse-glow {
+    animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+/* Hide scrollbar but allow scroll */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Glassmorphism Panels */
+.glass-panel {
+    background: rgba(23, 23, 23, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-elevated {
+    background: rgba(23, 23, 23, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* Safe area for mobile */
+@supports (padding: max(0px)) {
+    .pt-safe {
+        padding-top: max(env(safe-area-inset-top), 0px);
+    }
+
+    .pb-safe {
+        padding-bottom: max(env(safe-area-inset-bottom), 0px);
+    }
+}
+
+/* ============================================
+   TEXT GRADIENTS
+   ============================================ */
+.text-gradient-orange {
+    background: linear-gradient(to right, #fb923c, #fbbf24);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.text-gradient-red {
+    background: linear-gradient(to right, #ef4444, #dc2626);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ============================================
+   FOCUS STATES - Accessibility
+   ============================================ */
+.focus-operator:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.3);
+    border-color: rgba(234, 88, 12, 0.6);
+}
+
+/* ============================================
+   PREMIUM CARD EFFECTS
+   ============================================ */
+.card-glow-orange {
+    transition: all 0.3s ease;
+}
+
+.card-glow-orange:hover {
+    box-shadow: 0 0 30px rgba(234, 88, 12, 0.15);
+    border-color: rgba(234, 88, 12, 0.4);
+}
+
+/* ============================================
+   LOADING SHIMMER EFFECT
+   ============================================ */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.shimmer {
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.03) 50%,
+            rgba(255, 255, 255, 0) 100%);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+}
