@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+
+import * as React from 'react';
+import { useState } from 'react';
 import { LayoutDashboard, LogOut, Sparkles } from 'lucide-react';
 import { ScreenId } from '../types';
 import ConfirmationModal from '../components/ConfirmationModal';
@@ -46,8 +48,8 @@ const OperatorLayout: React.FC<OperatorLayoutProps> = ({ children, currentScreen
 
             {/* Ambient Blobs - Operator Theme (Red/Orange) */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-                <div className="blob-red w-[350px] h-[350px] md:w-[400px] md:h-[400px] top-[-75px] left-[-75px] md:top-[-100px] md:left-[-100px] animate-pulse-slow" />
-                <div className="blob-orange w-[350px] h-[350px] md:w-[400px] md:h-[400px] bottom-[-75px] right-[-75px] md:bottom-[-100px] md:right-[-100px]" />
+                <div className="blob w-[350px] h-[350px] md:w-[400px] md:h-[400px] top-[-75px] left-[-75px] md:top-[-100px] md:left-[-100px] animate-pulse-slow blob-red" />
+                <div className="blob w-[350px] h-[350px] md:w-[400px] md:h-[400px] bottom-[-75px] right-[-75px] md:bottom-[-100px] md:right-[-100px] blob-orange" />
             </div>
 
             {/* SIDEBAR */}
@@ -57,6 +59,8 @@ const OperatorLayout: React.FC<OperatorLayoutProps> = ({ children, currentScreen
                 <button
                     onClick={() => setIsCollapsed(!isCollapsed)}
                     className={`mb-4 flex items-center rounded-lg p-3 transition-all duration-200 hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2 ${isCollapsed ? 'justify-center' : 'justify-start'} hover:bg-neutral-800`}
+                    title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
+                    aria-label={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -94,6 +98,7 @@ const OperatorLayout: React.FC<OperatorLayoutProps> = ({ children, currentScreen
                     onClick={() => setShowLogoutConfirm(true)}
                     className={`flex items-center gap-3 p-3 rounded-lg transition-all duration-200 mt-4 border w-full focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2 focus:ring-offset-neutral-950 ${isCollapsed ? 'justify-center' : ''} border-neutral-800 hover:bg-red-500/10 text-neutral-400 hover:text-red-400 hover:border-red-500/30`}
                     title={isCollapsed ? 'Logout' : undefined}
+                    aria-label="Logout from application"
                 >
                     <LogOut size={20} className="shrink-0" />
                     {!isCollapsed && <span className="text-sm font-medium whitespace-nowrap">Logout</span>}

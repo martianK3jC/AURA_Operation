@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import { ScreenId } from '../types';
 import GlassCard from '../components/GlassCard';
 import Loader from '../components/Loader';
-import OperatorChatbot from '../components/OperatorChatbot';
+import OperatorChatbot from '../components/OperatorChatbot.tsx';
 import { useToast } from '../contexts/ToastContext';
 import { LogOut, AlertTriangle, Users, Eye, CheckCircle, Clock, ShieldAlert, Sparkles, Bot } from 'lucide-react';
 import ConfirmationModal from '../components/ConfirmationModal';

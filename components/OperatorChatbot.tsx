@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import * as React from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User as UserIcon, Sparkles, X } from 'lucide-react';
 
 interface Message {
@@ -143,8 +144,8 @@ const OperatorChatbot: React.FC<OperatorChatbotProps> = ({ isOpen, onClose }) =>
                         >
                             {/* Avatar */}
                             <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.type === 'ai'
-                                    ? 'bg-gradient-to-br from-orange-500 to-red-600'
-                                    : 'bg-neutral-700'
+                                ? 'bg-gradient-to-br from-orange-500 to-red-600'
+                                : 'bg-neutral-700'
                                 }`}>
                                 {msg.type === 'ai' ? (
                                     <Bot size={18} className="text-white" />
@@ -155,8 +156,8 @@ const OperatorChatbot: React.FC<OperatorChatbotProps> = ({ isOpen, onClose }) =>
 
                             {/* Message */}
                             <div className={`max-w-[75%] ${msg.type === 'ai'
-                                    ? 'bg-neutral-800 border border-neutral-700'
-                                    : 'bg-gradient-to-br from-orange-600 to-red-600'
+                                ? 'bg-neutral-800 border border-neutral-700'
+                                : 'bg-gradient-to-br from-orange-600 to-red-600'
                                 } rounded-2xl p-3 ${msg.type === 'user' ? 'rounded-tr-none' : 'rounded-tl-none'}`}>
                                 <p className="text-white text-sm whitespace-pre-line leading-relaxed">
                                     {msg.text}
