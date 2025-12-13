@@ -147,7 +147,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
 
             {/* AI Bounding Box Simulation */}
             <div className={`absolute top-1/2 left-1/2 w-[35%] h-[40%] md:w-48 md:h-72 border md:border-2 -translate-x-1/2 -translate-y-1/2 transition-colors duration-500 z-10 ${expandedCam === 1 && systemStatus === 'alert' ? 'border-red-500/80 shadow-[0_0_30px_rgba(239,68,68,0.3)]' : 'border-emerald-500/60 shadow-[0_0_20px_rgba(16,185,129,0.2)]'}`}>
-              <div className={`absolute -top-6 md:-top-8 left-0 text-white text-[10px] md:text-xs font-mono font-bold px-1.5 py-0.5 md:px-2 md:py-1 rounded backdrop-blur-md ${expandedCam === 1 && systemStatus === 'alert' ? 'bg-red-600/80' : 'bg-emerald-600/80'}`}>
+              <div className={`absolute -top-6 md:-top-8 left-0 text-white text-xs md:text-xs font-mono font-bold px-1.5 py-0.5 md:px-2 md:py-1 rounded backdrop-blur-md ${expandedCam === 1 && systemStatus === 'alert' ? 'bg-red-600/80' : 'bg-emerald-600/80'}`}>
                 {expandedCam === 1 && systemStatus === 'alert' ? 'CROWD DENSITY: CRITICAL' : 'SUBJECT: 98%'}
               </div>
               {/* Corners */}
@@ -286,13 +286,13 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                         {/* Tooltip */}
                         <div className="absolute left-0 bottom-full mb-2 w-48 bg-neutral-900/95 backdrop-blur-xl border border-white/20 p-3 rounded-xl shadow-2xl opacity-0 group-hover/tooltip:opacity-100 transition-opacity pointer-events-none z-50 translate-y-2 group-hover/tooltip:translate-y-0 duration-200">
                           <div className="flex justify-between items-center mb-1.5">
-                            <span className="text-[10px] uppercase text-white/40 font-bold tracking-wider">Normal Range</span>
-                            <span className="text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">2k - 3k</span>
+                            <span className="text-xs uppercase text-white/40 font-bold tracking-wider">Normal Range</span>
+                            <span className="text-xs text-emerald-400 font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">2k - 3k</span>
                           </div>
                           <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mb-1.5">
                             <div className="h-full bg-gradient-to-r from-emerald-500 to-amber-500 w-[60%] rounded-full"></div>
                           </div>
-                          <p className="text-[10px] text-white/50 leading-tight">Current passenger volume is within optimal operational limits.</p>
+                          <p className="text-xs text-white/50 leading-tight">Current passenger volume is within optimal operational limits.</p>
                         </div>
                       </div>
                       <span className="text-lg text-white/30 font-medium mb-2">pax</span>
@@ -345,13 +345,13 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                         {/* Tooltip */}
                         <div className="absolute left-0 bottom-full mb-2 w-48 bg-neutral-900/95 backdrop-blur-xl border border-white/20 p-3 rounded-xl shadow-2xl opacity-0 group-hover/tooltip:opacity-100 transition-opacity pointer-events-none z-50 translate-y-2 group-hover/tooltip:translate-y-0 duration-200">
                           <div className="flex justify-between items-center mb-1.5">
-                            <span className="text-[10px] uppercase text-white/40 font-bold tracking-wider">Target</span>
-                            <span className="text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">&lt; 15 min</span>
+                            <span className="text-xs uppercase text-white/40 font-bold tracking-wider">Target</span>
+                            <span className="text-xs text-emerald-400 font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">&lt; 15 min</span>
                           </div>
                           <div className="h-1.5 bg-white/10 rounded-full overflow-hidden mb-1.5">
                             <div className={`h-full transition-all duration-500 rounded-full ${systemStatus === 'nominal' ? 'w-[40%] bg-emerald-500' : 'w-[100%] bg-red-500 animate-pulse'}`}></div>
                           </div>
-                          <p className="text-[10px] text-white/50 leading-tight">
+                          <p className="text-xs text-white/50 leading-tight">
                             {systemStatus === 'nominal' ? 'Queue wait times are performing optimally.' : '⚠️ Alert: Wait times exceeding service level agreements.'}
                           </p>
                         </div>
@@ -427,7 +427,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                 {/* Terminal Structures - Enhanced with Gold Accents */}
                 {/* Check-in Counter B */}
                 <div className="absolute top-6 md:top-8 left-6 md:left-8 w-20 sm:w-24 md:w-32 h-32 sm:h-40 md:h-52 border-2 border-amber-900/40 bg-gradient-to-br from-amber-950/60 to-neutral-900/80 rounded-lg shadow-2xl backdrop-blur-sm group/building hover:border-amber-700/60 transition-all duration-300">
-                  <div className="absolute top-2 left-2 text-[8px] md:text-[10px] text-amber-400/70 font-mono font-bold tracking-wider">CHECK-IN B</div>
+                  <div className="absolute top-2 left-2 text-[8px] md:text-xs text-amber-400/70 font-mono font-bold tracking-wider">CHECK-IN B</div>
 
                   {/* Building Icon */}
                   <div className="absolute bottom-2 right-2 opacity-20 group-hover/building:opacity-30 transition-opacity">
@@ -446,7 +446,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
 
                 {/* Security Checkpoint A */}
                 <div className="absolute top-6 md:top-8 right-6 md:right-8 w-20 sm:w-24 md:w-32 h-32 sm:h-40 md:h-52 border-2 border-amber-900/40 bg-gradient-to-br from-amber-950/60 to-neutral-900/80 rounded-lg shadow-2xl backdrop-blur-sm group/building hover:border-amber-700/60 transition-all duration-300">
-                  <div className="absolute top-2 left-2 text-[8px] md:text-[10px] text-amber-400/70 font-mono font-bold tracking-wider">SECURITY A</div>
+                  <div className="absolute top-2 left-2 text-[8px] md:text-xs text-amber-400/70 font-mono font-bold tracking-wider">SECURITY A</div>
 
                   {/* Building Icon */}
                   <div className="absolute bottom-2 right-2 opacity-20 group-hover/building:opacity-30 transition-opacity">
@@ -492,7 +492,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                 {/* Enhanced Labels with Better Styling */}
                 {systemStatus === 'alert' && (
                   <div className="absolute top-40 md:top-48 right-8 md:right-12 max-w-[140px] md:max-w-none">
-                    <div className="flex items-center gap-2 text-[10px] md:text-xs font-bold text-red-100 bg-gradient-to-r from-red-900/95 to-red-800/90 px-3 py-2 rounded-lg border border-red-500/60 animate-bounce shadow-xl shadow-red-900/50 backdrop-blur-md">
+                    <div className="flex items-center gap-2 text-xs md:text-xs font-bold text-red-100 bg-gradient-to-r from-red-900/95 to-red-800/90 px-3 py-2 rounded-lg border border-red-500/60 animate-bounce shadow-xl shadow-red-900/50 backdrop-blur-md">
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="shrink-0">
                         <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
                         <path d="M12 9v4" />
@@ -504,19 +504,19 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                 )}
 
                 <div className="absolute top-40 md:top-48 left-8 md:left-12">
-                  <div className="text-[10px] md:text-xs font-bold text-amber-200/90 bg-gradient-to-r from-amber-950/90 to-neutral-900/80 px-3 py-1.5 rounded-lg border border-amber-700/40 shadow-lg backdrop-blur-md hover:border-amber-600/60 transition-colors">
+                  <div className="text-xs md:text-xs font-bold text-amber-200/90 bg-gradient-to-r from-amber-950/90 to-neutral-900/80 px-3 py-1.5 rounded-lg border border-amber-700/40 shadow-lg backdrop-blur-md hover:border-amber-600/60 transition-colors">
                     Check-in Area B
                   </div>
                 </div>
 
                 {/* Status indicator in bottom right */}
-                <div className="absolute bottom-4 right-4 flex items-center gap-2 text-[10px] font-mono text-white/50 bg-black/60 px-3 py-1.5 rounded-lg border border-white/10 backdrop-blur-md">
+                <div className="absolute bottom-4 right-4 flex items-center gap-2 text-xs font-mono text-white/50 bg-black/60 px-3 py-1.5 rounded-lg border border-white/10 backdrop-blur-md">
                   <div className={`w-2 h-2 rounded-full ${systemStatus === 'nominal' ? 'bg-emerald-400' : 'bg-red-500'} animate-pulse`}></div>
                   <span className="hidden md:inline">{systemStatus === 'nominal' ? 'NORMAL OPS' : 'ALERT MODE'}</span>
                 </div>
 
                 {/* Legend */}
-                <div className="absolute bottom-4 left-4 flex flex-col gap-1.5 text-[9px] md:text-[10px] font-mono">
+                <div className="absolute bottom-4 left-4 flex flex-col gap-1.5 text-[10px] md:text-xs font-mono">
                   <div className="flex items-center gap-2 text-white/40 bg-black/40 px-2 py-1 rounded border border-white/10 backdrop-blur-sm">
                     <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
                     <span>Low Density</span>
@@ -550,12 +550,12 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                     <h2 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
                       Predictive Alerts
                     </h2>
-                    <p className="text-[10px] text-white/40 font-medium mt-0.5">AI-powered threat detection</p>
+                    <p className="text-xs text-white/40 font-medium mt-0.5">AI-powered threat detection</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></div>
-                  <span className="text-[10px] font-mono text-emerald-400/90 bg-emerald-500/10 px-2.5 py-1.5 rounded-lg border border-emerald-500/30 font-bold">
+                  <span className="text-xs font-mono text-emerald-400/90 bg-emerald-500/10 px-2.5 py-1.5 rounded-lg border border-emerald-500/30 font-bold">
                     AUTO-REFRESH
                   </span>
                 </div>
@@ -583,9 +583,9 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                           <div>
                             <div className="flex items-center gap-2 mb-1">
                               <span className="font-bold text-base text-red-200">System Alert</span>
-                              <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-red-600/30 text-red-200 border border-red-500/40 uppercase tracking-wider">Critical</span>
+                              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-600/30 text-red-200 border border-red-500/40 uppercase tracking-wider">Critical</span>
                             </div>
-                            <span className="text-[10px] text-red-300/60 font-mono">Just now • High Priority</span>
+                            <span className="text-xs text-red-300/60 font-mono">Just now • High Priority</span>
                           </div>
                         </div>
                       </div>
@@ -672,7 +672,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                                 {alert.location}
                               </span>
                               {alert.status !== 'resolved' && (
-                                <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider ${alert.type === 'critical'
+                                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider ${alert.type === 'critical'
                                   ? 'bg-red-600/30 text-red-200 border border-red-500/40'
                                   : 'bg-amber-600/30 text-amber-200 border border-amber-500/40'
                                   }`}>
@@ -680,7 +680,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                                 </span>
                               )}
                             </div>
-                            <span className="text-[10px] text-white/40 font-mono">{alert.time}</span>
+                            <span className="text-xs text-white/40 font-mono">{alert.time}</span>
                           </div>
                         </div>
                       </div>
@@ -761,8 +761,8 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                   <div className="absolute top-2 left-2 bg-black/60 px-1.5 py-0.5 rounded text-[8px] font-mono text-white flex items-center gap-1 z-10">
                     <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span> REC
                   </div>
-                  <div className="absolute bottom-2 left-2 text-[10px] font-bold text-white shadow-black drop-shadow-md z-10">CAM 04: Check-in</div>
-                  <div className={`absolute top-2 right-2 text-[10px] font-mono px-1 rounded border z-10 ${systemStatus === 'nominal' ? 'text-yellow-400 bg-yellow-950/80 border-yellow-500/30' : 'text-red-400 bg-red-950/80 border-red-500/30'}`}>
+                  <div className="absolute bottom-2 left-2 text-xs font-bold text-white shadow-black drop-shadow-md z-10">CAM 04: Check-in</div>
+                  <div className={`absolute top-2 right-2 text-xs font-mono px-1 rounded border z-10 ${systemStatus === 'nominal' ? 'text-yellow-400 bg-yellow-950/80 border-yellow-500/30' : 'text-red-400 bg-red-950/80 border-red-500/30'}`}>
                     {systemStatus === 'nominal' ? 'DENSITY: MED' : 'DENSITY: HIGH'}
                   </div>
                   <div className={`absolute top-1/2 left-1/2 w-8 h-12 border -translate-x-1/2 -translate-y-1/2 transition-colors z-10 ${systemStatus === 'nominal' ? 'border-yellow-500/50' : 'border-red-500/80'}`}></div>
@@ -786,8 +786,8 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                   <div className="absolute top-2 left-2 bg-black/60 px-1.5 py-0.5 rounded text-[8px] font-mono text-white flex items-center gap-1 z-10">
                     <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span> REC
                   </div>
-                  <div className="absolute bottom-2 left-2 text-[10px] font-bold text-white shadow-black drop-shadow-md z-10">CAM 08: Security</div>
-                  <div className="absolute top-2 right-2 text-[10px] font-mono text-orange-400 bg-orange-950/80 px-1 rounded border border-orange-500/30 z-10">
+                  <div className="absolute bottom-2 left-2 text-xs font-bold text-white shadow-black drop-shadow-md z-10">CAM 08: Security</div>
+                  <div className="absolute top-2 right-2 text-xs font-mono text-orange-400 bg-orange-950/80 px-1 rounded border border-orange-500/30 z-10">
                     FLOW: SMOOTH
                   </div>
                   <div className="absolute inset-0 bg-amber-500/0 group-hover:bg-amber-500/10 transition-colors flex items-center justify-center pointer-events-none z-20">
