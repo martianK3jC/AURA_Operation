@@ -263,8 +263,8 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
 
             {/* Total Passengers Card */}
-            <div className="group relative overflow-hidden rounded-3xl p-[1px] bg-gradient-to-br from-yellow-500/20 via-transparent to-transparent hover:from-yellow-500/30 transition-all duration-500">
-              <GlassCard variant="dark" className="p-5 md:p-6 lg:p-8 rounded-3xl h-full relative overflow-hidden">
+            <div className="group relative rounded-3xl p-[1px] bg-gradient-to-br from-yellow-500/20 via-transparent to-transparent hover:from-yellow-500/30 transition-all duration-500 z-10 hover:z-20">
+              <GlassCard variant="dark" className="p-5 md:p-6 lg:p-8 rounded-3xl h-full relative">
                 {/* Subtle Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
@@ -314,10 +314,10 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
             </div>
 
             {/* Average Wait Time Card - Dynamic Status */}
-            <div className={`group relative overflow-hidden rounded-3xl p-[1px] transition-all duration-500 ${systemStatus === 'nominal' ? 'bg-gradient-to-br from-emerald-500/20 via-transparent to-transparent hover:from-emerald-500/30' : 'bg-gradient-to-br from-red-500/30 via-red-500/10 to-transparent'}`}>
+            <div className={`group relative rounded-3xl p-[1px] transition-all duration-500 z-10 hover:z-20 ${systemStatus === 'nominal' ? 'bg-gradient-to-br from-emerald-500/20 via-transparent to-transparent hover:from-emerald-500/30' : 'bg-gradient-to-br from-red-500/30 via-red-500/10 to-transparent'}`}>
               <GlassCard
                 variant="dark"
-                className={`p-5 md:p-6 lg:p-8 rounded-3xl h-full relative overflow-hidden transition-all duration-500 ${systemStatus === 'nominal' ? '' : 'border-red-500/40 shadow-2xl shadow-red-500/20'}`}
+                className={`p-5 md:p-6 lg:p-8 rounded-3xl h-full relative transition-all duration-500 ${systemStatus === 'nominal' ? '' : 'border-red-500/40 shadow-2xl shadow-red-500/20'}`}
               >
                 {/* Alert Pulse Effect */}
                 {systemStatus === 'alert' && (
