@@ -119,16 +119,16 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
           <div className="w-full max-w-6xl aspect-video bg-neutral-950 rounded-2xl border border-white/20 shadow-2xl relative overflow-hidden" onClick={e => e.stopPropagation()}>
             {/* Fake Video Feed Content */}
             <div className="absolute inset-0 flex items-center justify-center bg-black">
-              <Users size={64} className="text-neutral-700 animate-pulse" />
-              {/* Scanlines effect */}
-              <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px] pointer-events-none opacity-20"></div>
+              <Users size={64} className="text-neutral-700" />
+              {/* Scanlines effect - Reduced Opacity */}
+              <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px] pointer-events-none opacity-10"></div>
             </div>
 
             {/* Header Overlay */}
             <div className="absolute top-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-b from-black/90 to-transparent flex flex-col md:flex-row justify-between items-start md:items-center gap-4 z-20">
               <div>
                 <h2 className="text-white font-bold text-lg md:text-3xl flex items-center gap-2 md:gap-3">
-                  <span className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-aura-red animate-pulse shadow-[0_0_10px_rgba(220,38,38,0.5)]"></span>
+                  <span className={`w-3 h-3 md:w-4 md:h-4 rounded-full bg-aura-red shadow-[0_0_10px_rgba(220,38,38,0.5)] ${systemStatus === 'alert' ? 'animate-pulse' : ''}`}></span>
                   <span className="drop-shadow-md text-sm sm:text-lg md:text-3xl max-w-[200px] md:max-w-none leading-tight">{expandedCam === 1 ? 'CAM 04: Check-in Area' : 'CAM 08: Security Checkpoint'}</span>
                 </h2>
                 <p className="text-slate-300 text-xs md:text-base font-mono mt-1 md:mt-2 bg-black/40 inline-block px-2 py-1 rounded border border-white/10">
@@ -202,7 +202,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
             {/* Pulsing Status Indicator */}
             <div className="relative flex items-center">
               {systemStatus === 'alert' && (
-                <span className="absolute w-3 h-3 rounded-full bg-aura-red animate-ping opacity-75"></span>
+                <span className="absolute w-3 h-3 rounded-full bg-aura-red animate-pulse opacity-75"></span>
               )}
               <span className={`relative w-2.5 h-2.5 rounded-full ${systemStatus === 'nominal' ? 'bg-emerald-400 shadow-emerald-400/50' : 'bg-aura-red shadow-aura-red/50'} shadow-lg`}></span>
             </div>
@@ -271,7 +271,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                 {/* Content */}
                 <div className="relative z-10">
                   <div className="flex items-center gap-2 mb-4">
-                    <div className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></div>
+                    <div className="w-2 h-2 rounded-full bg-amber-400"></div>
                     <p className="text-xs font-bold text-amber-400/70 uppercase tracking-[0.2em] group-hover:text-amber-400 transition-colors">
                       Total Pax (1hr)
                     </p>
@@ -319,10 +319,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                 variant="dark"
                 className={`p-5 md:p-6 lg:p-8 rounded-3xl h-full relative transition-all duration-500 ${systemStatus === 'nominal' ? '' : 'border-aura-red/40 shadow-2xl shadow-aura-red/20'}`}
               >
-                {/* Alert Pulse Effect */}
-                {systemStatus === 'alert' && (
-                  <div className="absolute inset-0 bg-aura-red/5 animate-pulse"></div>
-                )}
+                <div className="absolute inset-0 bg-aura-red/5"></div>
 
                 {/* Gradient Overlay */}
                 <div className={`absolute inset-0 bg-gradient-to-br transition-opacity duration-500 ${systemStatus === 'nominal' ? 'from-emerald-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100' : 'from-aura-red/10 via-transparent to-transparent opacity-100'}`}></div>
@@ -330,7 +327,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                 {/* Content */}
                 <div className="relative z-10">
                   <div className="flex items-center gap-2 mb-4">
-                    <div className={`w-2 h-2 rounded-full ${systemStatus === 'nominal' ? 'bg-emerald-400' : 'bg-aura-red animate-pulse'}`}></div>
+                    <div className={`w-2 h-2 rounded-full ${systemStatus === 'nominal' ? 'bg-emerald-400' : 'bg-aura-red'}`}></div>
                     <p className={`text-xs font-bold uppercase tracking-[0.2em] transition-colors ${systemStatus === 'nominal' ? 'text-white/50 group-hover:text-white/70' : 'text-red-300/70'}`}>
                       Avg Wait Time
                     </p>
@@ -349,7 +346,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                             <span className="text-xs text-emerald-400 font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">&lt; 15 min</span>
                           </div>
                           <div className="h-1.5 bg-white/10 rounded-full overflow-hidden mb-1.5">
-                            <div className={`h-full transition-all duration-500 rounded-full ${systemStatus === 'nominal' ? 'w-[40%] bg-emerald-500' : 'w-[100%] bg-aura-red animate-pulse'}`}></div>
+                            <div className={`h-full transition-all duration-500 rounded-full ${systemStatus === 'nominal' ? 'w-[40%] bg-emerald-500' : 'w-[100%] bg-aura-red'}`}></div>
                           </div>
                           <p className="text-xs text-white/50 leading-tight">
                             {systemStatus === 'nominal' ? 'Queue wait times are performing optimally.' : '⚠️ Alert: Wait times exceeding service level agreements.'}
@@ -357,7 +354,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                         </div>
                       </div>
                       {systemStatus === 'alert' && (
-                        <AlertTriangle className="text-aura-red animate-pulse mb-2" size={24} />
+                        <AlertTriangle className="text-aura-red mb-2" size={24} />
                       )}
                     </div>
 
@@ -382,7 +379,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                 <div className="flex items-center gap-3 md:gap-4">
                   {/* Animated Live Indicator */}
                   <div className="relative flex h-4 w-4 md:h-5 md:w-5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                    <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-50"></span>
                     <span className="relative inline-flex rounded-full h-full w-full bg-gradient-to-br from-amber-400 to-yellow-500 shadow-lg shadow-amber-500/50"></span>
                   </div>
 
@@ -410,16 +407,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                   backgroundSize: '40px 40px'
                 }}></div>
 
-                {/* Scanning Line Effect */}
-                <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                  <div
-                    className="absolute w-full h-1 bg-gradient-to-r from-transparent via-amber-400/30 to-transparent blur-sm"
-                    style={{
-                      animation: 'scan 4s ease-in-out infinite',
-                      top: '0%'
-                    }}
-                  ></div>
-                </div>
+
 
                 {/* Radial Vignette Effect */}
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.5)_100%)]"></div>
@@ -461,38 +449,39 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
 
                 {/* Enhanced Heatmap Overlays - Premium Gold Theme */}
                 {/* Main hotspot (Security area) */}
+                {/* Main hotspot (Security area) */}
                 <div className={`absolute top-10 md:top-12 right-10 md:right-12 w-24 h-24 sm:w-28 sm:h-28 md:w-40 md:h-40 rounded-full transition-all duration-1000 ${systemStatus === 'nominal' ? 'opacity-40' : 'opacity-100'}`}>
                   {/* Multi-layer glow effect */}
-                  <div className={`absolute inset-0 rounded-full blur-3xl animate-pulse ${systemStatus === 'nominal' ? 'bg-gradient-to-br from-emerald-500/60 to-green-400/40' : 'bg-gradient-to-br from-aura-red/80 to-orange-600/60'}`}></div>
+                  <div className={`absolute inset-0 rounded-full blur-3xl ${systemStatus === 'nominal' ? 'bg-gradient-to-br from-emerald-500/60 to-green-400/40' : 'bg-gradient-to-br from-aura-red/80 to-orange-600/60'}`}></div>
                   <div className={`absolute inset-2 rounded-full blur-2xl ${systemStatus === 'nominal' ? 'bg-emerald-400/40' : 'bg-red-400/50'}`}></div>
 
-                  {/* Dashed Alert Rings */}
+                  {/* Dashed Alert Rings - Static when alert */}
                   {systemStatus === 'alert' && (
                     <>
-                      <div className="absolute inset-0 border-4 border-aura-red/50 rounded-full border-dashed animate-spin-slow"></div>
-                      <div className="absolute inset-3 border-2 border-orange-400/40 rounded-full border-dashed animate-spin-slow opacity-60" style={{ animationDirection: 'reverse', animationDuration: '12s' }}></div>
+                      <div className="absolute inset-0 border-4 border-aura-red/50 rounded-full border-dashed opacity-50"></div>
+                      <div className="absolute inset-3 border-2 border-orange-400/40 rounded-full border-dashed opacity-40"></div>
                     </>
                   )}
 
                   {/* Center pulse */}
-                  <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full ${systemStatus === 'nominal' ? 'bg-emerald-400' : 'bg-aura-red'} animate-ping`}></div>
+                  <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full ${systemStatus === 'nominal' ? 'bg-emerald-400' : 'bg-aura-red'} ${systemStatus === 'alert' ? 'animate-pulse' : ''}`}></div>
                 </div>
 
                 {/* Secondary hotspot (Check-in area) */}
                 <div className="absolute top-14 md:top-16 left-10 md:left-12 w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full opacity-40">
-                  <div className="absolute inset-0 rounded-full blur-3xl bg-gradient-to-br from-amber-500/50 to-yellow-500/30 animate-pulse" style={{ animationDuration: '3s' }}></div>
+                  <div className="absolute inset-0 rounded-full blur-3xl bg-gradient-to-br from-amber-500/50 to-yellow-500/30 opacity-50"></div>
                   <div className="absolute inset-2 rounded-full blur-xl bg-amber-400/30"></div>
                 </div>
 
                 {/* Tertiary ambient glow */}
                 <div className="absolute bottom-16 left-1/2 -translate-x-1/2 w-32 h-32 md:w-48 md:h-48 rounded-full opacity-20">
-                  <div className="absolute inset-0 rounded-full blur-3xl bg-gradient-to-br from-yellow-500/40 to-amber-600/20 animate-pulse" style={{ animationDuration: '5s' }}></div>
+                  <div className="absolute inset-0 rounded-full blur-3xl bg-gradient-to-br from-yellow-500/40 to-amber-600/20 opacity-50"></div>
                 </div>
 
                 {/* Enhanced Labels with Better Styling */}
                 {systemStatus === 'alert' && (
                   <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20">
-                    <div className="flex items-center gap-2 text-xs md:text-xs font-bold text-red-100 bg-gradient-to-r from-red-900/95 to-red-800/90 px-3 py-2 rounded-lg border border-aura-red/60 animate-bounce shadow-xl shadow-red-900/50 backdrop-blur-md">
+                    <div className="flex items-center gap-2 text-xs md:text-xs font-bold text-red-100 bg-gradient-to-r from-red-900/95 to-red-800/90 px-3 py-2 rounded-lg border border-aura-red/60 shadow-xl shadow-red-900/50 backdrop-blur-md">
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="shrink-0">
                         <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
                         <path d="M12 9v4" />
@@ -505,7 +494,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
 
                 {/* Status indicator in bottom right */}
                 <div className="absolute bottom-4 right-4 flex items-center gap-2 text-xs font-mono text-white/50 bg-black/60 px-3 py-1.5 rounded-lg border border-white/10 backdrop-blur-md">
-                  <div className={`w-2 h-2 rounded-full ${systemStatus === 'nominal' ? 'bg-emerald-400' : 'bg-aura-red'} animate-pulse`}></div>
+                  <div className={`w-2 h-2 rounded-full ${systemStatus === 'nominal' ? 'bg-emerald-400' : 'bg-aura-red'} ${systemStatus === 'alert' ? 'animate-pulse' : ''}`}></div>
                   <span className="hidden md:inline">{systemStatus === 'nominal' ? 'NORMAL OPS' : 'ALERT MODE'}</span>
                 </div>
 
@@ -548,7 +537,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
                   <span className="text-xs font-mono text-emerald-400/90 bg-emerald-500/10 px-2.5 py-1.5 rounded-lg border border-emerald-500/30 font-bold">
                     AUTO-REFRESH
                   </span>
@@ -560,7 +549,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                 {systemStatus === 'alert' && !alerts.find(a => a.id === 99) && (
                   <GlassCard variant="dark" className="p-5 rounded-2xl border-2 border-aura-red/40 bg-gradient-to-br from-red-950/40 to-red-900/20 relative overflow-hidden group hover:border-aura-red/60 transition-all duration-300">
                     {/* Alert pulse background */}
-                    <div className="absolute inset-0 bg-aura-red/5 animate-pulse"></div>
+                    <div className="absolute inset-0 bg-aura-red/5"></div>
 
                     {/* Severity indicator stripe */}
                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-aura-red to-red-700"></div>
@@ -569,7 +558,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                       <div className="flex justify-between items-start mb-3">
                         <div className="flex items-center gap-3">
                           <div className="relative">
-                            <div className="absolute inset-0 bg-aura-red rounded-full blur-md opacity-50 animate-pulse"></div>
+                            <div className="absolute inset-0 bg-aura-red rounded-full blur-md opacity-50"></div>
                             <div className="relative bg-aura-red/20 p-2 rounded-full border-2 border-aura-red/50">
                               <ShieldAlert size={18} className="text-aura-red" />
                             </div>
@@ -914,69 +903,71 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
       <OperatorChatbot isOpen={isChatbotOpen} onClose={() => setIsChatbotOpen(false)} />
 
       {/* Keyboard Shortcuts Modal */}
-      {isShortcutsOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm animate-in fade-in duration-300">
-          <div className="bg-neutral-900 border border-white/10 rounded-2xl p-8 max-w-md w-full shadow-2xl relative">
-            <button
-              onClick={() => setIsShortcutsOpen(false)}
-              className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors"
-            >
-              <LogOut size={20} className="rotate-180" />
-            </button>
+      {
+        isShortcutsOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm animate-in fade-in duration-300">
+            <div className="bg-neutral-900 border border-white/10 rounded-2xl p-8 max-w-md w-full shadow-2xl relative">
+              <button
+                onClick={() => setIsShortcutsOpen(false)}
+                className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors"
+              >
+                <LogOut size={20} className="rotate-180" />
+              </button>
 
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 bg-white/5 rounded-xl border border-white/10">
-                <HelpCircle className="text-white" size={24} />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-white">Keyboard Shortcuts</h3>
-                <p className="text-sm text-neutral-400">Power user controls</p>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex items-center justify-between group">
-                <span className="text-neutral-300 group-hover:text-white transition-colors">Toggle Help</span>
-                <kbd className="px-3 py-1.5 bg-neutral-800 border border-white/10 rounded-lg text-white font-mono text-sm group-hover:bg-neutral-700 transition-colors shadow-lg shadow-black/50">?</kbd>
-              </div>
-              <div className="w-full h-px bg-white/5"></div>
-
-              <div className="flex items-center justify-between group">
-                <span className="text-neutral-300 group-hover:text-white transition-colors">Close Modals / Cancel</span>
-                <kbd className="px-3 py-1.5 bg-neutral-800 border border-white/10 rounded-lg text-white font-mono text-sm group-hover:bg-neutral-700 transition-colors shadow-lg shadow-black/50">Esc</kbd>
-              </div>
-              <div className="w-full h-px bg-white/5"></div>
-
-              <div className="flex items-center justify-between group">
-                <span className="text-neutral-300 group-hover:text-white transition-colors">Toggle System Status</span>
-                <div className="flex gap-1">
-                  <kbd className="px-3 py-1.5 bg-neutral-800 border border-white/10 rounded-lg text-white font-mono text-sm group-hover:bg-neutral-700 transition-colors shadow-lg shadow-black/50">Shift</kbd>
-                  <span className="text-white/30 self-center">+</span>
-                  <kbd className="px-3 py-1.5 bg-neutral-800 border border-white/10 rounded-lg text-white font-mono text-sm group-hover:bg-neutral-700 transition-colors shadow-lg shadow-black/50">Space</kbd>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-3 bg-white/5 rounded-xl border border-white/10">
+                  <HelpCircle className="text-white" size={24} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white">Keyboard Shortcuts</h3>
+                  <p className="text-sm text-neutral-400">Power user controls</p>
                 </div>
               </div>
-              <div className="w-full h-px bg-white/5"></div>
 
-              <div className="flex items-center justify-between group">
-                <span className="text-neutral-300 group-hover:text-white transition-colors">Broadcast Announcement</span>
-                <div className="flex gap-1">
-                  <kbd className="px-3 py-1.5 bg-neutral-800 border border-white/10 rounded-lg text-white font-mono text-sm group-hover:bg-neutral-700 transition-colors shadow-lg shadow-black/50">Shift</kbd>
-                  <span className="text-white/30 self-center">+</span>
-                  <kbd className="px-3 py-1.5 bg-neutral-800 border border-white/10 rounded-lg text-white font-mono text-sm group-hover:bg-neutral-700 transition-colors shadow-lg shadow-black/50">B</kbd>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between group">
+                  <span className="text-neutral-300 group-hover:text-white transition-colors">Toggle Help</span>
+                  <kbd className="px-3 py-1.5 bg-neutral-800 border border-white/10 rounded-lg text-white font-mono text-sm group-hover:bg-neutral-700 transition-colors shadow-lg shadow-black/50">?</kbd>
+                </div>
+                <div className="w-full h-px bg-white/5"></div>
+
+                <div className="flex items-center justify-between group">
+                  <span className="text-neutral-300 group-hover:text-white transition-colors">Close Modals / Cancel</span>
+                  <kbd className="px-3 py-1.5 bg-neutral-800 border border-white/10 rounded-lg text-white font-mono text-sm group-hover:bg-neutral-700 transition-colors shadow-lg shadow-black/50">Esc</kbd>
+                </div>
+                <div className="w-full h-px bg-white/5"></div>
+
+                <div className="flex items-center justify-between group">
+                  <span className="text-neutral-300 group-hover:text-white transition-colors">Toggle System Status</span>
+                  <div className="flex gap-1">
+                    <kbd className="px-3 py-1.5 bg-neutral-800 border border-white/10 rounded-lg text-white font-mono text-sm group-hover:bg-neutral-700 transition-colors shadow-lg shadow-black/50">Shift</kbd>
+                    <span className="text-white/30 self-center">+</span>
+                    <kbd className="px-3 py-1.5 bg-neutral-800 border border-white/10 rounded-lg text-white font-mono text-sm group-hover:bg-neutral-700 transition-colors shadow-lg shadow-black/50">Space</kbd>
+                  </div>
+                </div>
+                <div className="w-full h-px bg-white/5"></div>
+
+                <div className="flex items-center justify-between group">
+                  <span className="text-neutral-300 group-hover:text-white transition-colors">Broadcast Announcement</span>
+                  <div className="flex gap-1">
+                    <kbd className="px-3 py-1.5 bg-neutral-800 border border-white/10 rounded-lg text-white font-mono text-sm group-hover:bg-neutral-700 transition-colors shadow-lg shadow-black/50">Shift</kbd>
+                    <span className="text-white/30 self-center">+</span>
+                    <kbd className="px-3 py-1.5 bg-neutral-800 border border-white/10 rounded-lg text-white font-mono text-sm group-hover:bg-neutral-700 transition-colors shadow-lg shadow-black/50">B</kbd>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="mt-8 p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-start gap-3">
-              <Activity className="text-amber-500 shrink-0 mt-0.5" size={16} />
-              <p className="text-xs text-amber-200/80 leading-relaxed">
-                Shortcuts are disabled when typing in the chatbot or search fields to prevent accidental triggers.
-              </p>
+              <div className="mt-8 p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-start gap-3">
+                <Activity className="text-amber-500 shrink-0 mt-0.5" size={16} />
+                <p className="text-xs text-amber-200/80 leading-relaxed">
+                  Shortcuts are disabled when typing in the chatbot or search fields to prevent accidental triggers.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </OperatorLayout>
+        )
+      }
+    </OperatorLayout >
   );
 };
 
