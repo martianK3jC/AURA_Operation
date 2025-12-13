@@ -9,7 +9,7 @@ import { useToast } from '../contexts/ToastContext';
 import { LogOut, AlertTriangle, Users, Eye, CheckCircle, Clock, ShieldAlert, Bot, Megaphone, FileText, Radio, HelpCircle, Activity } from 'lucide-react';
 import ConfirmationModal from '../components/ConfirmationModal';
 import OperatorLayout from './OperatorLayout.tsx';
-import auraLogo from '../img/aura_logo.png';
+import auraLogo from '../img/aura_logo_rounded_v2.png';
 
 interface Props {
   onNavigate: (screen: ScreenId) => void;

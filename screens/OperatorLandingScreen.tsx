@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Lock, Activity, Globe, Zap } from 'lucide-react';
-import auraLogo from '../img/aura_logo.png';
+import auraLogo from '../img/aura_logo_rounded_v2.png';
 import { ScreenId } from '../types';
 
 interface OperatorLandingScreenProps {

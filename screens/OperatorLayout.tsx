@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { LayoutDashboard, LogOut } from 'lucide-react';
-import auraLogo from '../img/aura_logo.png';
+import auraLogo from '../img/aura_logo_rounded_v2.png';
 import { ScreenId } from '../types';
 import ConfirmationModal from '../components/ConfirmationModal';
 
