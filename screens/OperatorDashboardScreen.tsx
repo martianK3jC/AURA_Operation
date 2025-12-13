@@ -436,109 +436,210 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
           <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 md:gap-6">
             {/* SECTION 2: LIVE ALERTS FEED */}
             <section>
-              <div className="flex justify-between items-end mb-4 px-1">
-                <h2 className="text-xs font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
-                  <ShieldAlert size={14} />
-                  Predictive Alerts
-                </h2>
-                <span className="text-[10px] font-mono text-emerald-500/80 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/20">AUTO-REFRESH: ON</span>
+              {/* Enhanced Section Header */}
+              <div className="flex justify-between items-center mb-5 px-1">
+                <div className="flex items-center gap-3">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-amber-500/20 rounded-lg blur-md"></div>
+                    <div className="relative bg-gradient-to-br from-amber-500/10 to-transparent p-2 rounded-lg border border-amber-500/20">
+                      <ShieldAlert size={16} className="text-amber-400" />
+                    </div>
+                  </div>
+                  <div>
+                    <h2 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                      Predictive Alerts
+                    </h2>
+                    <p className="text-[10px] text-white/40 font-medium mt-0.5">AI-powered threat detection</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></div>
+                  <span className="text-[10px] font-mono text-emerald-400/90 bg-emerald-500/10 px-2.5 py-1.5 rounded-lg border border-emerald-500/30 font-bold">
+                    AUTO-REFRESH
+                  </span>
+                </div>
               </div>
 
               <div className="space-y-3">
+                {/* Critical System Alert */}
                 {systemStatus === 'alert' && !alerts.find(a => a.id === 99) && (
-                  <GlassCard variant="dark" className="p-4 rounded-xl border-l-4 border-red-500 bg-red-900/20 animate-slide-up">
-                    <div className="flex justify-between items-start mb-2">
-                      <div className="flex items-center gap-2">
-                        <ShieldAlert size={16} className="text-red-500 animate-pulse" />
-                        <span className="font-semibold text-sm text-red-200">System Alert</span>
+                  <GlassCard variant="dark" className="p-5 rounded-2xl border-2 border-red-500/40 bg-gradient-to-br from-red-950/40 to-red-900/20 relative overflow-hidden group hover:border-red-500/60 transition-all duration-300">
+                    {/* Alert pulse background */}
+                    <div className="absolute inset-0 bg-red-500/5 animate-pulse"></div>
+
+                    {/* Severity indicator stripe */}
+                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-red-500 to-red-700"></div>
+
+                    <div className="relative z-10">
+                      <div className="flex justify-between items-start mb-3">
+                        <div className="flex items-center gap-3">
+                          <div className="relative">
+                            <div className="absolute inset-0 bg-red-500 rounded-full blur-md opacity-50 animate-pulse"></div>
+                            <div className="relative bg-red-500/20 p-2 rounded-full border-2 border-red-500/50">
+                              <ShieldAlert size={18} className="text-red-400" />
+                            </div>
+                          </div>
+                          <div>
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="font-bold text-base text-red-200">System Alert</span>
+                              <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-red-600/30 text-red-200 border border-red-500/40 uppercase tracking-wider">Critical</span>
+                            </div>
+                            <span className="text-[10px] text-red-300/60 font-mono">Just now • High Priority</span>
+                          </div>
+                        </div>
                       </div>
-                      <span className="text-[10px] text-red-300/70">Just now</span>
+
+                      <p className="text-sm text-red-100/90 mb-4 font-medium leading-relaxed">
+                        🚨 Critical capacity threshold reached at Security B. Immediate action required.
+                      </p>
+
+                      <button
+                        onClick={() => {
+                          setConfirmModal({
+                            isOpen: true,
+                            title: 'Initiate Crowd Control?',
+                            message: '⚠️ This will lock down the terminal and dispatch all available security units. This action cannot be undone immediately.',
+                            confirmText: 'INITIATE PROTOCOL',
+                            isDangerous: true,
+                            onConfirm: () => {
+                              window.alert('Protocol Initiated. Security teams dispatched.');
+                              closeConfirm();
+                            }
+                          });
+                        }}
+                        className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white text-xs py-3 rounded-xl transition-all shadow-xl shadow-red-900/30 font-bold uppercase tracking-wider flex items-center justify-center gap-2 group/btn"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover/btn:rotate-90 transition-transform">
+                          <circle cx="12" cy="12" r="10" />
+                          <path d="M12 6v6l4 2" />
+                        </svg>
+                        Initiate Crowd Control Protocol
+                      </button>
                     </div>
-                    <p className="text-sm text-red-100 mb-3 font-medium">Critical capacity threshold reached at Security B.</p>
-                    <button
-                      onClick={() => {
-                        setConfirmModal({
-                          isOpen: true,
-                          title: 'Initiate Crowd Control?',
-                          message: '⚠️ This will lock down the terminal and dispatch all available security units. This action cannot be undone immediately.',
-                          confirmText: 'INITIATE PROTOCOL',
-                          isDangerous: true,
-                          onConfirm: () => {
-                            window.alert('Protocol Initiated. Security teams dispatched.');
-                            closeConfirm();
-                          }
-                        });
-                      }}
-                      className="w-full bg-red-600 hover:bg-red-500 text-white text-xs py-2 rounded-lg transition-colors shadow-lg shadow-red-900/20 font-bold"
-                    >
-                      INITIATE CROWD CONTROL PROTOCOL
-                    </button>
                   </GlassCard>
                 )}
 
+                {/* All Clear State */}
                 {alerts.filter(a => a.status !== 'resolved').length === 0 && (
-                  <div className="flex flex-col items-center justify-center py-12 text-center">
-                    <div className="text-5xl mb-4">✅</div>
-                    <h3 className="text-lg font-bold text-white mb-2">All Clear</h3>
-                    <p className="text-sm text-neutral-400 max-w-sm">No active alerts. All systems operating nominally.</p>
+                  <div className="flex flex-col items-center justify-center py-16 px-4 text-center bg-gradient-to-br from-emerald-950/20 to-transparent rounded-2xl border border-emerald-500/10">
+                    <div className="relative mb-5">
+                      <div className="absolute inset-0 bg-emerald-500/20 rounded-full blur-2xl animate-pulse"></div>
+                      <div className="relative text-6xl">✅</div>
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-2">All Clear</h3>
+                    <p className="text-sm text-emerald-400/70 max-w-sm font-medium">
+                      No active alerts detected. All systems operating nominally.
+                    </p>
+                    <div className="mt-4 flex items-center gap-2 text-xs text-white/40">
+                      <Clock size={12} />
+                      <span>Last checked: {new Date().toLocaleTimeString()}</span>
+                    </div>
                   </div>
                 )}
 
+                {/* Regular Alerts */}
                 {alerts.map(alert => (
-                  <GlassCard variant="dark" key={alert.id} className={`p-4 rounded-xl border-l-4 transition-all duration-300 ${alert.status === 'resolved' ? 'border-green-500 opacity-60 bg-[#3E2723]/50' : alert.type === 'critical' ? 'border-red-500 bg-[#3E2723]/50' : 'border-orange-500 bg-[#3E2723]/50'}`}>
-                    <div className="flex justify-between items-start mb-2">
-                      <div className="flex items-center gap-2">
-                        {alert.status === 'resolved' ? <CheckCircle size={16} className="text-green-500" /> : <AlertTriangle size={16} className={alert.type === 'critical' ? 'text-red-500' : 'text-orange-500'} />}
-                        <span className={`font-semibold text-sm ${alert.status === 'resolved' ? 'text-[#D7CCC8]' : 'text-white'}`}>{alert.location}</span>
-                      </div>
-                      <span className="text-[10px] text-[#A1887F]">{alert.time}</span>
-                    </div>
-                    <p className={`text-sm mb-3 ${alert.status === 'resolved' ? 'text-[#8D6E63] line-through' : 'text-[#D7CCC8]'}`}>{alert.message}</p>
+                  <GlassCard
+                    variant="dark"
+                    key={alert.id}
+                    className={`p-4 rounded-xl border-l-4 transition-all duration-300 group relative overflow-hidden ${alert.status === 'resolved'
+                        ? 'border-emerald-500/60 opacity-60 bg-emerald-950/20 hover:opacity-80'
+                        : alert.type === 'critical'
+                          ? 'border-red-500/60 bg-gradient-to-br from-red-950/30 to-transparent hover:border-red-500/80'
+                          : 'border-amber-500/60 bg-gradient-to-br from-amber-950/20 to-transparent hover:border-amber-500/80'
+                      }`}
+                  >
+                    {/* Subtle glow on hover */}
+                    <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${alert.status === 'resolved' ? 'bg-emerald-500/5' : alert.type === 'critical' ? 'bg-red-500/5' : 'bg-amber-500/5'
+                      }`}></div>
 
-                    {alert.status !== 'resolved' && (
-                      <div className="flex gap-2">
-                        <button
-                          onClick={() => {
-                            setConfirmModal({
-                              isOpen: true,
-                              title: 'Acknowledge Alert',
-                              message: 'Acknowledging this alert will remove it from the active queue. Are you sure you have verified the situation?',
-                              confirmText: 'Acknowledge',
-                              isDangerous: false,
-                              onConfirm: () => {
-                                handleResolve(alert.id);
-                                closeConfirm();
-                              }
-                            });
-                          }}
-                          className="flex-1 bg-transparent border border-white/20 hover:bg-white/10 text-stone-300 hover:text-white text-xs py-2 rounded-lg transition-all font-medium"
-                        >
-                          Acknowledge
-                        </button>
-                        <button
-                          onClick={() => {
-                            setConfirmModal({
-                              isOpen: true,
-                              title: 'Deploy Staff',
-                              message: `Deploy monitoring staff to ${alert.location}? This will reallocate resources from other zones.`,
-                              confirmText: 'Deploy Staff',
-                              isDangerous: false,
-                              onConfirm: () => {
-                                handleResolve(alert.id);
-                                closeConfirm();
-                              }
-                            });
-                          }}
-                          className="flex-1 bg-amber-600 hover:bg-amber-500 text-white text-xs py-2 rounded-lg transition-colors shadow-lg shadow-amber-900/20 font-medium"
-                        >
-                          Deploy Staff
-                        </button>
+                    <div className="relative z-10">
+                      <div className="flex justify-between items-start mb-2">
+                        <div className="flex items-center gap-2.5">
+                          {alert.status === 'resolved' ? (
+                            <div className="bg-emerald-500/20 p-1.5 rounded-lg border border-emerald-500/30">
+                              <CheckCircle size={16} className="text-emerald-400" />
+                            </div>
+                          ) : (
+                            <div className={`p-1.5 rounded-lg border ${alert.type === 'critical' ? 'bg-red-500/20 border-red-500/30' : 'bg-amber-500/20 border-amber-500/30'}`}>
+                              <AlertTriangle size={16} className={alert.type === 'critical' ? 'text-red-400' : 'text-amber-400'} />
+                            </div>
+                          )}
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <span className={`font-bold text-sm ${alert.status === 'resolved' ? 'text-emerald-300' : 'text-white'}`}>
+                                {alert.location}
+                              </span>
+                              {alert.status !== 'resolved' && (
+                                <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider ${alert.type === 'critical'
+                                    ? 'bg-red-600/30 text-red-200 border border-red-500/40'
+                                    : 'bg-amber-600/30 text-amber-200 border border-amber-500/40'
+                                  }`}>
+                                  {alert.type}
+                                </span>
+                              )}
+                            </div>
+                            <span className="text-[10px] text-white/40 font-mono">{alert.time}</span>
+                          </div>
+                        </div>
                       </div>
-                    )}
+
+                      <p className={`text-sm mb-3 leading-relaxed ${alert.status === 'resolved' ? 'text-emerald-300/60 line-through' : 'text-white/80'
+                        }`}>
+                        {alert.message}
+                      </p>
+
+                      {alert.status !== 'resolved' && (
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => {
+                              setConfirmModal({
+                                isOpen: true,
+                                title: 'Acknowledge Alert',
+                                message: 'Acknowledging this alert will remove it from the active queue. Are you sure you have verified the situation?',
+                                confirmText: 'Acknowledge',
+                                isDangerous: false,
+                                onConfirm: () => {
+                                  handleResolve(alert.id);
+                                  closeConfirm();
+                                }
+                              });
+                            }}
+                            className="flex-1 bg-transparent border-2 border-white/20 hover:bg-white/10 hover:border-white/30 text-white text-xs py-2.5 rounded-lg transition-all font-semibold backdrop-blur-sm"
+                          >
+                            Acknowledge
+                          </button>
+                          <button
+                            onClick={() => {
+                              setConfirmModal({
+                                isOpen: true,
+                                title: 'Deploy Staff',
+                                message: `Deploy monitoring staff to ${alert.location}? This will reallocate resources from other zones.`,
+                                confirmText: 'Deploy Staff',
+                                isDangerous: false,
+                                onConfirm: () => {
+                                  handleResolve(alert.id);
+                                  closeConfirm();
+                                }
+                              });
+                            }}
+                            className="flex-1 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white text-xs py-2.5 rounded-lg transition-all shadow-lg shadow-amber-900/30 font-semibold flex items-center justify-center gap-1.5"
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                              <circle cx="9" cy="7" r="4" />
+                              <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                            </svg>
+                            Deploy Staff
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </GlassCard>
                 ))}
               </div>
-            </section>
+            </section>\r
 
             {/* SECTION 3: CCTV AI MONITORING */}
             <section>
