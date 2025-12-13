@@ -1,6 +1,4 @@
 
-import React from 'react';
-
 const Loader = ({ text = 'Loading...' }: { text?: string }) => (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
         <div className="flex flex-col items-center gap-4">

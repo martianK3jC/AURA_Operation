@@ -162,18 +162,18 @@ const ToastItem: React.FC<{ toast: Toast; onRemove: () => void; duration: number
 
 export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
     const [toasts, setToasts] = useState<{ toast: Toast; duration: number }[]>([]);
-    const [nextId, setNextId] = useState(1);
 
-    const showToast = (type: ToastType, message: string, duration: number = 4000) => {
-        const id = nextId;
-        setNextId(id + 1);
+    // Use useCallback to stabilize reference and prevent ToastItem re-renders
+    const removeToast = React.useCallback((id: number) => {
+        setToasts(prev => prev.filter(item => item.toast.id !== id));
+    }, []);
+
+    const showToast = React.useCallback((type: ToastType, message: string, duration: number = 4000) => {
+        // Use timestamp + random for unique ID to avoid collisions during rapid updates
+        const id = Date.now() + Math.random();
         const newToast = { id, type, message, progress: 100 };
         setToasts(prev => [...prev, { toast: newToast, duration }]);
-    };
-
-    const removeToast = (id: number) => {
-        setToasts(prev => prev.filter(item => item.toast.id !== id));
-    };
+    }, []);
 
     return (
         <ToastContext.Provider value={{ showToast }}>

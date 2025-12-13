@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import OperatorLandingScreen from './screens/OperatorLandingScreen';
 import OperatorDashboardScreen from './screens/OperatorDashboardScreen';
 import { ToastProvider } from './contexts/ToastContext';
