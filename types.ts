@@ -14,7 +14,8 @@ export type ScreenId =
     | 'arrival-dashboard'
     | 'destination-input'
     | 'transportation-options'
-    | 'route-tracking';
+    | 'route-tracking'
+    | 'operator-landing';
 
 export interface TimelineStep {
     icon?: 'home' | 'car' | 'bag' | 'shield' | 'passport' | 'door';

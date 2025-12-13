@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import OperatorLandingScreen from './screens/OperatorLandingScreen';
 import OperatorDashboardScreen from './screens/OperatorDashboardScreen';
 import { ToastProvider } from './contexts/ToastContext';
 import { ScreenId } from './types';
 
 const App = () => {
-    // Defaulting to operator-dashboard as it's the main focus currently
-    const [currentScreen, setCurrentScreen] = useState<ScreenId>('operator-dashboard');
+    // Defaulting to operator-landing for login flow
+    const [currentScreen, setCurrentScreen] = useState<ScreenId>('operator-landing');
 
     const renderScreen = () => {
         switch (currentScreen) {
+            case 'operator-landing':
+                return <OperatorLandingScreen onNavigate={setCurrentScreen} />;
             case 'operator-dashboard':
                 return <OperatorDashboardScreen onNavigate={setCurrentScreen} />;
             default:

@@ -37,7 +37,7 @@ const OperatorLayout: React.FC<OperatorLayoutProps> = ({ children, currentScreen
                 title="Log Out"
                 message="Are you sure you want to log out? You will be returned to the Landing Screen."
                 onConfirm={() => {
-                    onNavigate('landing');
+                    onNavigate('operator-landing');
                     setShowLogoutConfirm(false);
                 }}
                 onCancel={() => setShowLogoutConfirm(false)}
