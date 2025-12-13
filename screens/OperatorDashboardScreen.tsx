@@ -131,10 +131,10 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
       )}
 
       {/* ENHANCED STICKY HEADER - Premium Command Center Design */}
-      <header className="sticky top-0 z-30 flex justify-between items-center px-6 md:px-8 py-5 md:py-6 pt-safe border-b border-white/10 glass-panel-elevated shrink-0 transition-all duration-300">
+      <header className="sticky top-0 z-30 flex justify-between items-center px-4 md:px-6 lg:px-8 py-4 md:py-5 lg:py-6 pt-safe border-b border-white/10 glass-panel-elevated shrink-0 transition-all duration-300">
         <div className="flex-1">
           {/* Main Title with Premium Gradient */}
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tight mb-3 flex items-center gap-3 group">
+          <h1 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-black tracking-tight mb-2 md:mb-3 flex items-center gap-2 md:gap-3 group">
             <div className="relative">
               <Sparkles size={28} className="text-orange-400 group-hover:text-orange-300 transition-colors" />
               <div className="absolute inset-0 blur-md bg-orange-500/30 group-hover:bg-orange-500/50 transition-all"></div>
@@ -183,15 +183,15 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
       </header>
 
       {/* Scrollable Content - Premium Layout */}
-      <div className="flex-1 overflow-y-auto p-6 md:p-8 pb-32 space-y-8">
+      <div className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 pb-32 space-y-6 md:space-y-8">
         <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-5 duration-700">
 
           {/* ENHANCED KPI CARDS - Premium Command Center Metrics */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
 
             {/* Total Passengers Card */}
             <div className="group relative overflow-hidden rounded-3xl p-[1px] bg-gradient-to-br from-yellow-500/20 via-transparent to-transparent hover:from-yellow-500/30 transition-all duration-500">
-              <GlassCard variant="dark" className="p-6 md:p-8 rounded-3xl h-full relative overflow-hidden">
+              <GlassCard variant="dark" className="p-5 md:p-6 lg:p-8 rounded-3xl h-full relative overflow-hidden">
                 {/* Subtle Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
@@ -206,7 +206,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
 
                   <div className="flex items-end justify-between">
                     <div className="flex items-baseline gap-3">
-                      <p className="text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tighter leading-none group-hover:scale-105 transition-transform duration-300">
+                      <p className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white tracking-tighter leading-none group-hover:scale-105 transition-transform duration-300">
                         2,450
                       </p>
                       <span className="text-lg text-white/30 font-medium mb-2">pax</span>
@@ -231,7 +231,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
             <div className={`group relative overflow-hidden rounded-3xl p-[1px] transition-all duration-500 ${systemStatus === 'nominal' ? 'bg-gradient-to-br from-emerald-500/20 via-transparent to-transparent hover:from-emerald-500/30' : 'bg-gradient-to-br from-red-500/30 via-red-500/10 to-transparent'}`}>
               <GlassCard
                 variant="dark"
-                className={`p-6 md:p-8 rounded-3xl h-full relative overflow-hidden transition-all duration-500 ${systemStatus === 'nominal' ? '' : 'border-red-500/40 shadow-2xl shadow-red-500/20'}`}
+                className={`p-5 md:p-6 lg:p-8 rounded-3xl h-full relative overflow-hidden transition-all duration-500 ${systemStatus === 'nominal' ? '' : 'border-red-500/40 shadow-2xl shadow-red-500/20'}`}
               >
                 {/* Alert Pulse Effect */}
                 {systemStatus === 'alert' && (
@@ -252,7 +252,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
 
                   <div className="flex items-end justify-between">
                     <div className="flex items-baseline gap-3">
-                      <p className={`text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-none transition-all duration-500 ${systemStatus === 'nominal' ? 'text-white group-hover:scale-105' : 'text-red-400 scale-110'}`}>
+                      <p className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tighter leading-none transition-all duration-500 ${systemStatus === 'nominal' ? 'text-white group-hover:scale-105' : 'text-red-400 scale-110'}`}>
                         {systemStatus === 'nominal' ? '12m' : '35m'}
                       </p>
                       {systemStatus === 'alert' && (
@@ -277,16 +277,16 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
           <section className="group">
             <GlassCard variant="dark" className="rounded-2xl md:rounded-3xl border border-white/10 overflow-hidden relative shadow-2xl hover:shadow-amber-500/10 transition-all duration-500">
               {/* Premium Header */}
-              <div className="p-5 md:p-6 border-b border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-gradient-to-r from-neutral-900/95 via-neutral-900/90 to-neutral-900/95 backdrop-blur-xl">
-                <div className="flex items-center gap-4">
+              <div className="p-4 md:p-5 lg:p-6 border-b border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 md:gap-4 bg-gradient-to-r from-neutral-900/95 via-neutral-900/90 to-neutral-900/95 backdrop-blur-xl">
+                <div className="flex items-center gap-3 md:gap-4">
                   {/* Animated Live Indicator */}
-                  <div className="relative flex h-5 w-5">
+                  <div className="relative flex h-4 w-4 md:h-5 md:w-5">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-5 w-5 bg-gradient-to-br from-amber-400 to-yellow-500 shadow-lg shadow-amber-500/50"></span>
+                    <span className="relative inline-flex rounded-full h-full w-full bg-gradient-to-br from-amber-400 to-yellow-500 shadow-lg shadow-amber-500/50"></span>
                   </div>
 
                   <div>
-                    <h2 className="text-xl md:text-2xl font-bold text-white flex items-center gap-2">
+                    <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-white flex items-center gap-2">
                       Terminal Heatmap
                       <span className="text-xs font-mono text-amber-400 bg-amber-500/10 px-2 py-1 rounded border border-amber-500/30">LIVE</span>
                     </h2>
@@ -348,7 +348,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
             </GlassCard>
           </section>
 
-          <div className="flex flex-col md:grid md:grid-cols-2 gap-6">
+          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 md:gap-6">
             {/* SECTION 2: LIVE ALERTS FEED */}
             <section>
               <div className="flex justify-between items-end mb-4 px-1">
