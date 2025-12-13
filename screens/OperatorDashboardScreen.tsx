@@ -284,7 +284,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                           2,450
                         </p>
                         {/* Tooltip */}
-                        <div className="absolute left-0 bottom-full mb-2 w-48 bg-neutral-900/95 backdrop-blur-xl border border-white/20 p-3 rounded-xl shadow-2xl opacity-0 group-hover/tooltip:opacity-100 transition-opacity pointer-events-none z-50 translate-y-2 group-hover/tooltip:translate-y-0 duration-200">
+                        <div className="absolute left-0 top-full mt-2 w-48 bg-neutral-900/95 backdrop-blur-xl border border-white/20 p-3 rounded-xl shadow-2xl opacity-0 group-hover/tooltip:opacity-100 transition-opacity pointer-events-none z-[100] translate-y-[-10px] group-hover/tooltip:translate-y-0 duration-200">
                           <div className="flex justify-between items-center mb-1.5">
                             <span className="text-xs uppercase text-white/40 font-bold tracking-wider">Normal Range</span>
                             <span className="text-xs text-emerald-400 font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">2k - 3k</span>
@@ -343,7 +343,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                           {systemStatus === 'nominal' ? '12m' : '35m'}
                         </p>
                         {/* Tooltip */}
-                        <div className="absolute left-0 bottom-full mb-2 w-48 bg-neutral-900/95 backdrop-blur-xl border border-white/20 p-3 rounded-xl shadow-2xl opacity-0 group-hover/tooltip:opacity-100 transition-opacity pointer-events-none z-50 translate-y-2 group-hover/tooltip:translate-y-0 duration-200">
+                        <div className="absolute left-0 top-full mt-2 w-48 bg-neutral-900/95 backdrop-blur-xl border border-white/20 p-3 rounded-xl shadow-2xl opacity-0 group-hover/tooltip:opacity-100 transition-opacity pointer-events-none z-[100] translate-y-[-10px] group-hover/tooltip:translate-y-0 duration-200">
                           <div className="flex justify-between items-center mb-1.5">
                             <span className="text-xs uppercase text-white/40 font-bold tracking-wider">Target</span>
                             <span className="text-xs text-emerald-400 font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">&lt; 15 min</span>

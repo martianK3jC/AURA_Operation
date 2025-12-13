@@ -97,8 +97,8 @@ const OperatorLayout: React.FC<OperatorLayoutProps> = ({ children, currentScreen
                     {/* Section Label */}
                     <div className={`flex items-center gap-2 mb-2 transition-all duration-300 ${isCollapsed ? 'justify-center' : ''}`}>
                         <div className={`h-px bg-gradient-to-r from-transparent via-white/20 to-transparent flex-1 ${isCollapsed ? 'hidden' : ''}`}></div>
-                        <p className={`text-[10px] font-bold text-white/40 uppercase tracking-[0.15em] whitespace-nowrap transition-all duration-300 ${isCollapsed ? 'rotate-90 text-[8px]' : ''}`}>
-                            {isCollapsed ? 'Menu' : 'Control Center'}
+                        <p className={`text-[10px] font-bold text-white/40 uppercase tracking-[0.15em] whitespace-nowrap transition-all duration-300 ${isCollapsed ? 'rotate-90 text-[10px] my-4' : ''}`}>
+                            {isCollapsed ? 'AOCC' : 'Control Center'}
                         </p>
                         <div className={`h-px bg-gradient-to-r from-transparent via-white/20 to-transparent flex-1 ${isCollapsed ? 'hidden' : ''}`}></div>
                     </div>
