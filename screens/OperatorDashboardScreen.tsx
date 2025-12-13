@@ -18,8 +18,8 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
   const { showToast } = useToast();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
   const [alerts, setAlerts] = useState([
-    { id: 1, type: 'critical', message: 'High volume predicted at Domestic Security (+20m)', location: 'Checkpoint A', time: '09:41 AM', status: 'pending' },
-    { id: 2, type: 'warning', message: 'Gate 5 boarding queue exceeding capacity', location: 'Gate 5', time: '09:38 AM', status: 'pending' },
+    { id: 1, type: 'critical', message: 'High volume predicted in 20 mins. Rec: Open 1 lane & deploy 2 staff.', location: 'Domestic Security', time: '09:41 AM', status: 'pending' },
+    { id: 2, type: 'warning', message: 'Unattended Baggage detected. Security dispatch recommended.', location: 'North Wing, Gate 3', time: '09:38 AM', status: 'pending' },
   ]);
 
   const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
