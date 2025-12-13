@@ -183,7 +183,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
       </header>
 
       {/* Scrollable Content - Premium Layout */}
-      <div className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 pb-32 space-y-6 md:space-y-8">
+      <div className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 pb-40 md:pb-32 lg:pb-24 space-y-6 md:space-y-8">
         <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-5 duration-700">
 
           {/* ENHANCED KPI CARDS - Premium Command Center Metrics */}
@@ -302,49 +302,134 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
               </div>
 
               {/* Heatmap Canvas */}
-              <div className="relative h-64 sm:h-80 md:h-96 lg:h-[32rem] bg-gradient-to-br from-[#0a0505] via-[#050202] to-[#0a0505] w-full overflow-hidden border-y border-red-900/20">
-                {/* Enhanced Grid Pattern */}
-                <div className="absolute inset-0 opacity-15" style={{
-                  backgroundImage: 'linear-gradient(to right, #EF4444 1px, transparent 1px), linear-gradient(to bottom, #EF4444 1px, transparent 1px)',
+              <div className="relative h-64 sm:h-80 md:h-96 lg:h-[32rem] bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 w-full overflow-hidden">
+                {/* Animated Grid Pattern - Gold Theme */}
+                <div className="absolute inset-0 opacity-10" style={{
+                  backgroundImage: 'linear-gradient(to right, #F59E0B 1px, transparent 1px), linear-gradient(to bottom, #F59E0B 1px, transparent 1px)',
                   backgroundSize: '40px 40px'
                 }}></div>
 
+                {/* Scanning Line Effect */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                  <div
+                    className="absolute w-full h-1 bg-gradient-to-r from-transparent via-amber-400/30 to-transparent blur-sm"
+                    style={{
+                      animation: 'scan 4s ease-in-out infinite',
+                      top: '0%'
+                    }}
+                  ></div>
+                </div>
+
                 {/* Radial Vignette Effect */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]"></div>
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.5)_100%)]"></div>
 
-                {/* Structures with Enhanced Styling */}
-                <div className="absolute top-8 left-8 w-24 h-40 md:w-32 md:h-52 border-2 border-[#5D4037] bg-[#3E2723]/80 rounded-lg shadow-2xl backdrop-blur-sm">
-                  <div className="absolute top-2 left-2 text-[8px] text-orange-200/40 font-mono font-bold">CHECK-IN B</div>
+                {/* Terminal Structures - Enhanced with Gold Accents */}
+                {/* Check-in Counter B */}
+                <div className="absolute top-6 md:top-8 left-6 md:left-8 w-20 sm:w-24 md:w-32 h-32 sm:h-40 md:h-52 border-2 border-amber-900/40 bg-gradient-to-br from-amber-950/60 to-neutral-900/80 rounded-lg shadow-2xl backdrop-blur-sm group/building hover:border-amber-700/60 transition-all duration-300">
+                  <div className="absolute top-2 left-2 text-[8px] md:text-[10px] text-amber-400/70 font-mono font-bold tracking-wider">CHECK-IN B</div>
+
+                  {/* Building Icon */}
+                  <div className="absolute bottom-2 right-2 opacity-20 group-hover/building:opacity-30 transition-opacity">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-amber-500">
+                      <rect x="3" y="3" width="18" height="18" rx="2" />
+                      <path d="M9 3v18" />
+                      <path d="M15 3v18" />
+                      <path d="M3 9h18" />
+                      <path d="M3 15h18" />
+                    </svg>
+                  </div>
+
+                  {/* Glow effect */}
+                  <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-amber-500/5 to-transparent opacity-0 group-hover/building:opacity-100 transition-opacity"></div>
                 </div>
-                <div className="absolute top-8 right-8 w-24 h-40 md:w-32 md:h-52 border-2 border-[#5D4037] bg-[#3E2723]/80 rounded-lg shadow-2xl backdrop-blur-sm">
-                  <div className="absolute top-2 left-2 text-[8px] text-orange-200/40 font-mono font-bold">SECURITY A</div>
+
+                {/* Security Checkpoint A */}
+                <div className="absolute top-6 md:top-8 right-6 md:right-8 w-20 sm:w-24 md:w-32 h-32 sm:h-40 md:h-52 border-2 border-amber-900/40 bg-gradient-to-br from-amber-950/60 to-neutral-900/80 rounded-lg shadow-2xl backdrop-blur-sm group/building hover:border-amber-700/60 transition-all duration-300">
+                  <div className="absolute top-2 left-2 text-[8px] md:text-[10px] text-amber-400/70 font-mono font-bold tracking-wider">SECURITY A</div>
+
+                  {/* Building Icon */}
+                  <div className="absolute bottom-2 right-2 opacity-20 group-hover/building:opacity-30 transition-opacity">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-amber-500">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                    </svg>
+                  </div>
+
+                  {/* Glow effect */}
+                  <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-amber-500/5 to-transparent opacity-0 group-hover/building:opacity-100 transition-opacity"></div>
                 </div>
 
-                {/* Enhanced Heatmap Overlays */}
-                <div className={`absolute top-12 right-12 w-28 h-28 md:w-40 md:h-40 rounded-full transition-all duration-1000 ${systemStatus === 'nominal' ? 'opacity-30' : 'opacity-100'}`}>
-                  {/* Blur Blob with Better Blending */}
-                  <div className={`absolute inset-0 rounded-full blur-3xl animate-pulse mix-blend-screen ${systemStatus === 'nominal' ? 'bg-emerald-500' : 'bg-red-500/70'}`}></div>
+                {/* Enhanced Heatmap Overlays - Premium Gold Theme */}
+                {/* Main hotspot (Security area) */}
+                <div className={`absolute top-10 md:top-12 right-10 md:right-12 w-24 h-24 sm:w-28 sm:h-28 md:w-40 md:h-40 rounded-full transition-all duration-1000 ${systemStatus === 'nominal' ? 'opacity-40' : 'opacity-100'}`}>
+                  {/* Multi-layer glow effect */}
+                  <div className={`absolute inset-0 rounded-full blur-3xl animate-pulse ${systemStatus === 'nominal' ? 'bg-gradient-to-br from-emerald-500/60 to-green-400/40' : 'bg-gradient-to-br from-red-500/80 to-orange-600/60'}`}></div>
+                  <div className={`absolute inset-2 rounded-full blur-2xl ${systemStatus === 'nominal' ? 'bg-emerald-400/40' : 'bg-red-400/50'}`}></div>
 
-                  {/* Dashed Alert Ring */}
+                  {/* Dashed Alert Rings */}
                   {systemStatus === 'alert' && (
                     <>
-                      <div className="absolute inset-2 border-4 border-red-500/60 rounded-full border-dashed animate-spin-slow opacity-80"></div>
-                      <div className="absolute inset-6 border-2 border-red-400/40 rounded-full border-dashed animate-spin-slow opacity-60" style={{ animationDirection: 'reverse', animationDuration: '12s' }}></div>
+                      <div className="absolute inset-0 border-4 border-red-500/50 rounded-full border-dashed animate-spin-slow"></div>
+                      <div className="absolute inset-3 border-2 border-orange-400/40 rounded-full border-dashed animate-spin-slow opacity-60" style={{ animationDirection: 'reverse', animationDuration: '12s' }}></div>
                     </>
                   )}
-                </div>
-                <div className="absolute top-16 left-12 w-24 h-24 md:w-32 md:h-32 bg-orange-500/30 rounded-full blur-2xl mix-blend-screen"></div>
 
-                {/* Enhanced Labels */}
+                  {/* Center pulse */}
+                  <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full ${systemStatus === 'nominal' ? 'bg-emerald-400' : 'bg-red-500'} animate-ping`}></div>
+                </div>
+
+                {/* Secondary hotspot (Check-in area) */}
+                <div className="absolute top-14 md:top-16 left-10 md:left-12 w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full opacity-40">
+                  <div className="absolute inset-0 rounded-full blur-3xl bg-gradient-to-br from-amber-500/50 to-yellow-500/30 animate-pulse" style={{ animationDuration: '3s' }}></div>
+                  <div className="absolute inset-2 rounded-full blur-xl bg-amber-400/30"></div>
+                </div>
+
+                {/* Tertiary ambient glow */}
+                <div className="absolute bottom-16 left-1/2 -translate-x-1/2 w-32 h-32 md:w-48 md:h-48 rounded-full opacity-20">
+                  <div className="absolute inset-0 rounded-full blur-3xl bg-gradient-to-br from-yellow-500/40 to-amber-600/20 animate-pulse" style={{ animationDuration: '5s' }}></div>
+                </div>
+
+                {/* Enhanced Labels with Better Styling */}
                 {systemStatus === 'alert' && (
-                  <div className="absolute top-48 right-12 text-[10px] md:text-xs font-bold text-red-100 bg-red-900/90 px-3 py-2 rounded-lg border border-red-500/50 animate-bounce shadow-xl shadow-red-900/50 backdrop-blur-md">
-                    ⚠️ Congestion Detected
+                  <div className="absolute top-40 md:top-48 right-8 md:right-12 max-w-[140px] md:max-w-none">
+                    <div className="flex items-center gap-2 text-[10px] md:text-xs font-bold text-red-100 bg-gradient-to-r from-red-900/95 to-red-800/90 px-3 py-2 rounded-lg border border-red-500/60 animate-bounce shadow-xl shadow-red-900/50 backdrop-blur-md">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="shrink-0">
+                        <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+                        <path d="M12 9v4" />
+                        <path d="M12 17h.01" />
+                      </svg>
+                      <span>Congestion Alert</span>
+                    </div>
                   </div>
                 )}
-                <div className="absolute top-48 left-12 text-[10px] font-bold text-white/70 bg-black/80 px-2 py-1 rounded border border-white/20 shadow-sm backdrop-blur-sm">
-                  Check-in Area B
+
+                <div className="absolute top-40 md:top-48 left-8 md:left-12">
+                  <div className="text-[10px] md:text-xs font-bold text-amber-200/90 bg-gradient-to-r from-amber-950/90 to-neutral-900/80 px-3 py-1.5 rounded-lg border border-amber-700/40 shadow-lg backdrop-blur-md hover:border-amber-600/60 transition-colors">
+                    Check-in Area B
+                  </div>
                 </div>
-              </div>
+
+                {/* Status indicator in bottom right */}
+                <div className="absolute bottom-4 right-4 flex items-center gap-2 text-[10px] font-mono text-white/50 bg-black/60 px-3 py-1.5 rounded-lg border border-white/10 backdrop-blur-md">
+                  <div className={`w-2 h-2 rounded-full ${systemStatus === 'nominal' ? 'bg-emerald-400' : 'bg-red-500'} animate-pulse`}></div>
+                  <span className="hidden md:inline">{systemStatus === 'nominal' ? 'NORMAL OPS' : 'ALERT MODE'}</span>
+                </div>
+
+                {/* Legend */}
+                <div className="absolute bottom-4 left-4 flex flex-col gap-1.5 text-[9px] md:text-[10px] font-mono">
+                  <div className="flex items-center gap-2 text-white/40 bg-black/40 px-2 py-1 rounded border border-white/10 backdrop-blur-sm">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
+                    <span>Low Density</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-white/40 bg-black/40 px-2 py-1 rounded border border-white/10 backdrop-blur-sm">
+                    <div className="w-2 h-2 rounded-full bg-amber-500"></div>
+                    <span>Medium</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-white/40 bg-black/40 px-2 py-1 rounded border border-white/10 backdrop-blur-sm">
+                    <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                    <span>High Density</span>
+                  </div>
+                </div>
+              </div>\r
             </GlassCard>
           </section>
 
