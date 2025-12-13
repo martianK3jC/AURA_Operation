@@ -429,7 +429,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                     <span>High Density</span>
                   </div>
                 </div>
-              </div>\r
+              </div>
             </GlassCard>
           </section>
 
@@ -543,10 +543,10 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                     variant="dark"
                     key={alert.id}
                     className={`p-4 rounded-xl border-l-4 transition-all duration-300 group relative overflow-hidden ${alert.status === 'resolved'
-                        ? 'border-emerald-500/60 opacity-60 bg-emerald-950/20 hover:opacity-80'
-                        : alert.type === 'critical'
-                          ? 'border-red-500/60 bg-gradient-to-br from-red-950/30 to-transparent hover:border-red-500/80'
-                          : 'border-amber-500/60 bg-gradient-to-br from-amber-950/20 to-transparent hover:border-amber-500/80'
+                      ? 'border-emerald-500/60 opacity-60 bg-emerald-950/20 hover:opacity-80'
+                      : alert.type === 'critical'
+                        ? 'border-red-500/60 bg-gradient-to-br from-red-950/30 to-transparent hover:border-red-500/80'
+                        : 'border-amber-500/60 bg-gradient-to-br from-amber-950/20 to-transparent hover:border-amber-500/80'
                       }`}
                   >
                     {/* Subtle glow on hover */}
@@ -572,8 +572,8 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                               </span>
                               {alert.status !== 'resolved' && (
                                 <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider ${alert.type === 'critical'
-                                    ? 'bg-red-600/30 text-red-200 border border-red-500/40'
-                                    : 'bg-amber-600/30 text-amber-200 border border-amber-500/40'
+                                  ? 'bg-red-600/30 text-red-200 border border-red-500/40'
+                                  : 'bg-amber-600/30 text-amber-200 border border-amber-500/40'
                                   }`}>
                                   {alert.type}
                                 </span>
@@ -639,7 +639,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                   </GlassCard>
                 ))}
               </div>
-            </section>\r
+            </section>
 
             {/* SECTION 3: CCTV AI MONITORING */}
             <section>
