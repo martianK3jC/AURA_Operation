@@ -6,7 +6,7 @@ import GlassCard from '../components/GlassCard';
 import Loader from '../components/Loader';
 import OperatorChatbot from '../components/OperatorChatbot.tsx';
 import { useToast } from '../contexts/ToastContext';
-import { LogOut, AlertTriangle, Users, Eye, CheckCircle, Clock, ShieldAlert, Sparkles, Bot } from 'lucide-react';
+import { LogOut, AlertTriangle, Users, Eye, CheckCircle, Clock, ShieldAlert, Sparkles, Bot, Megaphone, FileText, Radio, HelpCircle, Activity } from 'lucide-react';
 import ConfirmationModal from '../components/ConfirmationModal';
 import OperatorLayout from './OperatorLayout.tsx';
 
@@ -21,6 +21,38 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
     { id: 1, type: 'critical', message: 'High volume predicted at Domestic Security (+20m)', location: 'Checkpoint A', time: '09:41 AM', status: 'pending' },
     { id: 2, type: 'warning', message: 'Gate 5 boarding queue exceeding capacity', location: 'Gate 5', time: '09:38 AM', status: 'pending' },
   ]);
+
+  const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
+
+  React.useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      // Toggle Help
+      if (e.key === '?' && !isChatbotOpen) {
+        setIsShortcutsOpen(prev => !prev);
+      }
+      // Close Modals
+      if (e.key === 'Escape') {
+        setIsShortcutsOpen(false);
+        setExpandedCam(null);
+      }
+      // Toggle System Status (Shift + Space)
+      if (e.shiftKey && e.code === 'Space' && !isChatbotOpen) {
+        e.preventDefault(); // Prevent scrolling
+        setSystemStatus(prev => {
+          const newStatus = prev === 'nominal' ? 'alert' : 'nominal';
+          showToast(newStatus === 'alert' ? 'error' : 'success', `System Status changed to: ${newStatus.toUpperCase()}`);
+          return newStatus;
+        });
+      }
+      // Broadcast Shortcut (Shift + B)
+      if (e.shiftKey && (e.key === 'B' || e.key === 'b') && !isChatbotOpen) {
+        e.preventDefault();
+        showToast('info', '📢 Broadcast system activated. Speak to announce.');
+      }
+    };
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [isChatbotOpen]);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -180,6 +212,47 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
             </span>
           </div>
         </div>
+
+        {/* Quick Actions Bar - Senior Operator Requested */}
+        <div className="hidden xl:flex items-center gap-2 ml-6 animate-in slide-in-from-right-5 fade-in duration-500 delay-100">
+          <button
+            onClick={() => showToast('info', '📢 Broadcast system activated. Speak to announce.')}
+            className="p-2.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 hover:border-amber-500/30 text-white/60 hover:text-amber-400 transition-all group relative"
+            title="Broadcast Announcement"
+          >
+            <Megaphone size={20} />
+            <span className="absolute top-12 left-1/2 -translate-x-1/2 px-2 py-1 bg-neutral-900 border border-white/10 text-xs text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-50 shadow-xl">Broadcast</span>
+          </button>
+
+          <button
+            onClick={() => showToast('success', '📄 Shift Report generated and sent to management.')}
+            className="p-2.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 hover:border-blue-500/30 text-white/60 hover:text-blue-400 transition-all group relative"
+            title="Generate Report"
+          >
+            <FileText size={20} />
+            <span className="absolute top-12 left-1/2 -translate-x-1/2 px-2 py-1 bg-neutral-900 border border-white/10 text-xs text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-50 shadow-xl">Log Report</span>
+          </button>
+
+          <button
+            onClick={() => showToast('info', '📻 Connecting to Security Channel 1...')}
+            className="p-2.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 hover:border-emerald-500/30 text-white/60 hover:text-emerald-400 transition-all group relative"
+            title="Security Comms"
+          >
+            <Radio size={20} />
+            <span className="absolute top-12 left-1/2 -translate-x-1/2 px-2 py-1 bg-neutral-900 border border-white/10 text-xs text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-50 shadow-xl">Comms</span>
+          </button>
+
+          <div className="w-px h-8 bg-white/5 mx-2"></div>
+
+          <button
+            className="p-2.5 rounded-lg border border-white/10 bg-amber-500/10 hover:bg-amber-500/20 hover:border-amber-500/50 text-amber-500 transition-all group relative"
+            title="Emergency Overview"
+          >
+            <Activity size={20} />
+            <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse"></div>
+            <span className="absolute top-12 right-0 px-2 py-1 bg-neutral-900 border border-white/10 text-xs text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-50 shadow-xl">Live Status</span>
+          </button>
+        </div>
       </header>
 
       {/* Scrollable Content - Premium Layout */}
@@ -206,9 +279,22 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
 
                   <div className="flex items-end justify-between">
                     <div className="flex items-baseline gap-3">
-                      <p className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white tracking-tighter leading-none group-hover:scale-105 transition-transform duration-300">
-                        2,450
-                      </p>
+                      <div className="relative group/tooltip">
+                        <p className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white tracking-tighter leading-none group-hover:scale-105 transition-transform duration-300 cursor-help">
+                          2,450
+                        </p>
+                        {/* Tooltip */}
+                        <div className="absolute left-0 bottom-full mb-2 w-48 bg-neutral-900/95 backdrop-blur-xl border border-white/20 p-3 rounded-xl shadow-2xl opacity-0 group-hover/tooltip:opacity-100 transition-opacity pointer-events-none z-50 translate-y-2 group-hover/tooltip:translate-y-0 duration-200">
+                          <div className="flex justify-between items-center mb-1.5">
+                            <span className="text-[10px] uppercase text-white/40 font-bold tracking-wider">Normal Range</span>
+                            <span className="text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">2k - 3k</span>
+                          </div>
+                          <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mb-1.5">
+                            <div className="h-full bg-gradient-to-r from-emerald-500 to-amber-500 w-[60%] rounded-full"></div>
+                          </div>
+                          <p className="text-[10px] text-white/50 leading-tight">Current passenger volume is within optimal operational limits.</p>
+                        </div>
+                      </div>
                       <span className="text-lg text-white/30 font-medium mb-2">pax</span>
                     </div>
 
@@ -252,9 +338,24 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
 
                   <div className="flex items-end justify-between">
                     <div className="flex items-baseline gap-3">
-                      <p className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tighter leading-none transition-all duration-500 ${systemStatus === 'nominal' ? 'text-white group-hover:scale-105' : 'text-red-400 scale-110'}`}>
-                        {systemStatus === 'nominal' ? '12m' : '35m'}
-                      </p>
+                      <div className="relative group/tooltip">
+                        <p className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tighter leading-none transition-all duration-500 cursor-help ${systemStatus === 'nominal' ? 'text-white group-hover:scale-105' : 'text-red-400 scale-110'}`}>
+                          {systemStatus === 'nominal' ? '12m' : '35m'}
+                        </p>
+                        {/* Tooltip */}
+                        <div className="absolute left-0 bottom-full mb-2 w-48 bg-neutral-900/95 backdrop-blur-xl border border-white/20 p-3 rounded-xl shadow-2xl opacity-0 group-hover/tooltip:opacity-100 transition-opacity pointer-events-none z-50 translate-y-2 group-hover/tooltip:translate-y-0 duration-200">
+                          <div className="flex justify-between items-center mb-1.5">
+                            <span className="text-[10px] uppercase text-white/40 font-bold tracking-wider">Target</span>
+                            <span className="text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">&lt; 15 min</span>
+                          </div>
+                          <div className="h-1.5 bg-white/10 rounded-full overflow-hidden mb-1.5">
+                            <div className={`h-full transition-all duration-500 rounded-full ${systemStatus === 'nominal' ? 'w-[40%] bg-emerald-500' : 'w-[100%] bg-red-500 animate-pulse'}`}></div>
+                          </div>
+                          <p className="text-[10px] text-white/50 leading-tight">
+                            {systemStatus === 'nominal' ? 'Queue wait times are performing optimally.' : '⚠️ Alert: Wait times exceeding service level agreements.'}
+                          </p>
+                        </div>
+                      </div>
                       {systemStatus === 'alert' && (
                         <AlertTriangle className="text-red-400 animate-pulse mb-2" size={24} />
                       )}
@@ -817,6 +918,70 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
 
       {/* AI Chatbot Modal */}
       <OperatorChatbot isOpen={isChatbotOpen} onClose={() => setIsChatbotOpen(false)} />
+
+      {/* Keyboard Shortcuts Modal */}
+      {isShortcutsOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-neutral-900 border border-white/10 rounded-2xl p-8 max-w-md w-full shadow-2xl relative">
+            <button
+              onClick={() => setIsShortcutsOpen(false)}
+              className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors"
+            >
+              <LogOut size={20} className="rotate-180" />
+            </button>
+
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-3 bg-white/5 rounded-xl border border-white/10">
+                <HelpCircle className="text-white" size={24} />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white">Keyboard Shortcuts</h3>
+                <p className="text-sm text-neutral-400">Power user controls</p>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex items-center justify-between group">
+                <span className="text-neutral-300 group-hover:text-white transition-colors">Toggle Help</span>
+                <kbd className="px-3 py-1.5 bg-neutral-800 border border-white/10 rounded-lg text-white font-mono text-sm group-hover:bg-neutral-700 transition-colors shadow-lg shadow-black/50">?</kbd>
+              </div>
+              <div className="w-full h-px bg-white/5"></div>
+
+              <div className="flex items-center justify-between group">
+                <span className="text-neutral-300 group-hover:text-white transition-colors">Close Modals / Cancel</span>
+                <kbd className="px-3 py-1.5 bg-neutral-800 border border-white/10 rounded-lg text-white font-mono text-sm group-hover:bg-neutral-700 transition-colors shadow-lg shadow-black/50">Esc</kbd>
+              </div>
+              <div className="w-full h-px bg-white/5"></div>
+
+              <div className="flex items-center justify-between group">
+                <span className="text-neutral-300 group-hover:text-white transition-colors">Toggle System Status</span>
+                <div className="flex gap-1">
+                  <kbd className="px-3 py-1.5 bg-neutral-800 border border-white/10 rounded-lg text-white font-mono text-sm group-hover:bg-neutral-700 transition-colors shadow-lg shadow-black/50">Shift</kbd>
+                  <span className="text-white/30 self-center">+</span>
+                  <kbd className="px-3 py-1.5 bg-neutral-800 border border-white/10 rounded-lg text-white font-mono text-sm group-hover:bg-neutral-700 transition-colors shadow-lg shadow-black/50">Space</kbd>
+                </div>
+              </div>
+              <div className="w-full h-px bg-white/5"></div>
+
+              <div className="flex items-center justify-between group">
+                <span className="text-neutral-300 group-hover:text-white transition-colors">Broadcast Announcement</span>
+                <div className="flex gap-1">
+                  <kbd className="px-3 py-1.5 bg-neutral-800 border border-white/10 rounded-lg text-white font-mono text-sm group-hover:bg-neutral-700 transition-colors shadow-lg shadow-black/50">Shift</kbd>
+                  <span className="text-white/30 self-center">+</span>
+                  <kbd className="px-3 py-1.5 bg-neutral-800 border border-white/10 rounded-lg text-white font-mono text-sm group-hover:bg-neutral-700 transition-colors shadow-lg shadow-black/50">B</kbd>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-start gap-3">
+              <Activity className="text-amber-500 shrink-0 mt-0.5" size={16} />
+              <p className="text-xs text-amber-200/80 leading-relaxed">
+                Shortcuts are disabled when typing in the chatbot or search fields to prevent accidental triggers.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </OperatorLayout>
   );
 };
