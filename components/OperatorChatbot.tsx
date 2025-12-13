@@ -19,7 +19,7 @@ const OperatorChatbot: React.FC<OperatorChatbotProps> = ({ isOpen, onClose }) =>
         {
             id: 1,
             type: 'ai',
-            text: "Hello! I'm AURA's AI Assistant for AOCC operations. Ask me about gate congestion, staff deployment, or facility management. How can I help you optimize operations?",
+            text: "Hello! I'm AURA's AI Assistant for AOCC operations. I can interpret complex data to help you make decisions.\n\nTry asking:\n• \"Does this lounge need more chairs?\"\n• \"Which gates will be congested soon?\"\n• \"Where should I deploy staff?\"",
             timestamp: new Date()
         }
     ]);
@@ -49,8 +49,8 @@ const OperatorChatbot: React.FC<OperatorChatbotProps> = ({ isOpen, onClose }) =>
         }
 
         // Lounge queries
-        if (query.includes('lounge') && (query.includes('chair') || query.includes('seat') || query.includes('capacity'))) {
-            return "**PAGSS Lounge Capacity Analysis:**\n\nCurrent Status:\n• Occupancy: 78% (47/60 seats)\n• Trend: ↑ Increasing\n\nForecast (Next 30 min):\n• Expected Occupancy: 92% (55/60 seats)\n• Peak Time: 3:45-4:15 PM\n\n**Recommendation:** Add 12 temporary seats in Zone B (near windows). Priority Pass holders from PR123 and CEB456 will arrive between 3:30-3:45 PM.\n\n**Alternative:** Direct overflow to Restaurant Area C (currently 45% occupied, 15 seats available).";
+        if (query.includes('lounge') || (query.includes('need') && query.includes('chair'))) {
+            return "**PAGSS Lounge Capacity Analysis:**\n\nCurrent Status:\n• Occupancy: 78% (47/60 seats)\n• Trend: ↑ Increasing\n\nForecast (Next 30 min):\n• Expected Occupancy: 92% (55/60 seats)\n• Peak Time: 3:45-4:15 PM\n\n**Recommendation:** Yes, the lounge needs more capacity. Add 12 temporary seats in Zone B (near windows). Priority Pass holders from PR123 and CEB456 will arrive between 3:30-3:45 PM.\n\n**Alternative:** Direct overflow to Restaurant Area C (currently 45% occupied, 15 seats available).";
         }
 
         // Security/baggage queries

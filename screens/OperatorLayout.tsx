@@ -24,14 +24,14 @@ const OperatorLayout: React.FC<OperatorLayoutProps> = ({ children, currentScreen
         const isActive = currentScreen === screen;
 
         // Operator Theme (Dark) Only
-        return `flex flex-col md:flex-row md:gap-5 items-center justify-center ${isCollapsed ? 'md:justify-center md:p-3 md:w-12 md:h-12 md:mx-auto md:rounded-xl' : 'md:justify-start md:p-4 w-full md:rounded-lg'} h-full md:h-auto transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2 focus:ring-offset-neutral-950 ${isActive
-            ? 'text-white bg-gradient-to-r from-red-600/20 to-rose-600/20 md:border md:border-red-500/30 shadow-sm'
+        return `flex flex-col md:flex-row md:gap-5 items-center justify-center ${isCollapsed ? 'md:justify-center md:p-3 md:w-12 md:h-12 md:mx-auto md:rounded-xl' : 'md:justify-start md:p-4 w-full md:rounded-lg'} h-full md:h-auto transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:ring-offset-2 focus:ring-offset-neutral-950 ${isActive
+            ? 'text-white bg-gradient-to-r from-yellow-500/20 to-amber-600/20 md:border md:border-yellow-500/30 shadow-sm'
             : 'text-neutral-400 hover:text-white md:hover:bg-neutral-800'
             }`;
     };
 
     return (
-        <div className="min-h-[100dvh] font-sans flex overflow-hidden relative bg-neutral-950 text-white selection:bg-red-500 selection:text-white">
+        <div className="min-h-[100dvh] font-sans flex overflow-hidden relative bg-neutral-950 text-white selection:bg-yellow-500 selection:text-white">
             <ConfirmationModal
                 isOpen={showLogoutConfirm}
                 title="Log Out"
@@ -46,10 +46,10 @@ const OperatorLayout: React.FC<OperatorLayoutProps> = ({ children, currentScreen
                 variant="dark"
             />
 
-            {/* Ambient Blobs - Operator Theme (Red/Orange) */}
+            {/* Ambient Blobs - Operator Theme (Gold/Yellow) */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-                <div className="blob w-[350px] h-[350px] md:w-[400px] md:h-[400px] top-[-75px] left-[-75px] md:top-[-100px] md:left-[-100px] animate-pulse-slow blob-red" />
-                <div className="blob w-[350px] h-[350px] md:w-[400px] md:h-[400px] bottom-[-75px] right-[-75px] md:bottom-[-100px] md:right-[-100px] blob-orange" />
+                <div className="blob w-[350px] h-[350px] md:w-[400px] md:h-[400px] top-[-75px] left-[-75px] md:top-[-100px] md:left-[-100px] animate-pulse-slow bg-gradient-to-br from-yellow-500/8 via-amber-500/8 to-orange-400/8 rounded-full blur-3xl" />
+                <div className="blob w-[350px] h-[350px] md:w-[400px] md:h-[400px] bottom-[-75px] right-[-75px] md:bottom-[-100px] md:right-[-100px] bg-gradient-to-br from-amber-600/8 via-yellow-500/8 to-orange-500/8 rounded-full blur-3xl" />
             </div>
 
             {/* PREMIUM SIDEBAR - Command Center Navigation */}
@@ -58,7 +58,7 @@ const OperatorLayout: React.FC<OperatorLayoutProps> = ({ children, currentScreen
                 {/* Collapse Toggle Button - Enhanced */}
                 <button
                     onClick={() => setIsCollapsed(!isCollapsed)}
-                    className={`mb-6 flex items-center rounded-xl p-3 transition-all duration-200 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:ring-offset-2 focus:ring-offset-neutral-950 group ${isCollapsed ? 'justify-center' : 'justify-start'} border border-white/5 hover:border-white/20`}
+                    className={`mb-6 flex items-center rounded-xl p-3 transition-all duration-200 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:ring-offset-2 focus:ring-offset-neutral-950 group ${isCollapsed ? 'justify-center' : 'justify-start'} border border-white/5 hover:border-white/20`}
                     title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
                     aria-label={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
                 >
@@ -78,10 +78,10 @@ const OperatorLayout: React.FC<OperatorLayoutProps> = ({ children, currentScreen
                 <div className={`mb-8 flex items-center gap-3 transition-all duration-300 ${isCollapsed ? 'justify-center px-0' : 'px-2'}`}>
                     <div className="relative group/logo">
                         {/* Glow effect behind logo */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl blur-md opacity-50 group-hover/logo:opacity-75 transition-opacity"></div>
+                        <div className="absolute inset-0 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-xl blur-md opacity-50 group-hover/logo:opacity-75 transition-opacity"></div>
 
                         {/* Logo container */}
-                        <div className="relative w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-2xl transition-all duration-300 bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 group-hover/logo:scale-110">
+                        <div className="relative w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-2xl transition-all duration-300 bg-gradient-to-br from-yellow-500 via-amber-500 to-amber-600 group-hover/logo:scale-110">
                             <Sparkles size={20} className="text-white drop-shadow-lg" />
                         </div>
                     </div>
@@ -97,8 +97,8 @@ const OperatorLayout: React.FC<OperatorLayoutProps> = ({ children, currentScreen
                     {/* Section Label */}
                     <div className={`flex items-center gap-2 mb-2 transition-all duration-300 ${isCollapsed ? 'justify-center' : ''}`}>
                         <div className={`h-px bg-gradient-to-r from-transparent via-white/20 to-transparent flex-1 ${isCollapsed ? 'hidden' : ''}`}></div>
-                        <p className={`text-[10px] font-bold text-white/40 uppercase tracking-[0.15em] whitespace-nowrap transition-all duration-300 ${isCollapsed ? 'rotate-90 text-[8px]' : ''}`}>
-                            {isCollapsed ? 'Menu' : 'Control Center'}
+                        <p className={`text-[10px] font-bold text-white/40 uppercase tracking-[0.15em] whitespace-nowrap transition-all duration-300 ${isCollapsed ? 'rotate-90 text-[10px] my-4' : ''}`}>
+                            {isCollapsed ? 'AOCC' : 'Control Center'}
                         </p>
                         <div className={`h-px bg-gradient-to-r from-transparent via-white/20 to-transparent flex-1 ${isCollapsed ? 'hidden' : ''}`}></div>
                     </div>
@@ -119,7 +119,7 @@ const OperatorLayout: React.FC<OperatorLayoutProps> = ({ children, currentScreen
                 {/* Enhanced Logout Button */}
                 <button
                     onClick={() => setShowLogoutConfirm(true)}
-                    className={`flex items-center gap-3 p-3 rounded-xl transition-all duration-200 mt-4 border w-full focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2 focus:ring-offset-neutral-950 group ${isCollapsed ? 'justify-center' : ''} border-white/10 hover:bg-red-500/10 text-white/60 hover:text-red-400 hover:border-red-500/40 shadow-lg hover:shadow-red-500/20`}
+                    className={`flex items-center gap-3 p-3 rounded-xl transition-all duration-200 mt-4 border w-full focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:ring-offset-2 focus:ring-offset-neutral-950 group ${isCollapsed ? 'justify-center' : ''} border-white/10 hover:bg-amber-500/10 text-white/60 hover:text-amber-400 hover:border-amber-500/40 shadow-lg hover:shadow-amber-500/20`}
                     title={isCollapsed ? 'Logout' : undefined}
                     aria-label="Logout from application"
                 >
@@ -139,12 +139,12 @@ const OperatorLayout: React.FC<OperatorLayoutProps> = ({ children, currentScreen
                     {navItems.map((item) => (
                         <button key={item.id} onClick={() => onNavigate(item.target as any)} className="flex flex-col items-center justify-center w-full h-full transition-colors text-neutral-400 hover:text-white">
                             <div className="relative">
-                                <item.icon size={24} className={currentScreen === item.target ? "text-red-500" : ""} />
+                                <item.icon size={24} className={currentScreen === item.target ? "text-amber-500" : ""} />
                             </div>
-                            <span className={`text-[10px] mt-1 font-medium ${currentScreen === item.target ? "text-red-500" : ""}`}>{item.label}</span>
+                            <span className={`text-[10px] mt-1 font-medium ${currentScreen === item.target ? "text-amber-500" : ""}`}>{item.label}</span>
                         </button>
                     ))}
-                    <button onClick={() => setShowLogoutConfirm(true)} className="flex flex-col items-center justify-center w-full h-full text-slate-500 hover:text-red-400">
+                    <button onClick={() => setShowLogoutConfirm(true)} className="flex flex-col items-center justify-center w-full h-full text-slate-500 hover:text-amber-400">
                         <LogOut size={24} />
                         <span className="text-[10px] mt-1 font-medium">Logout</span>
                     </button>
