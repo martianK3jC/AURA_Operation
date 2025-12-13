@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
-import { Shield, Lock, Activity, Globe, Zap } from 'lucide-react';
+import { Lock, Activity, Globe, Zap } from 'lucide-react';
+import auraLogo from '../img/aura_logo.png';
 import { ScreenId } from '../types';
 
 interface OperatorLandingScreenProps {
@@ -55,8 +56,8 @@ const OperatorLandingScreen: React.FC<OperatorLandingScreenProps> = ({ onNavigat
 
                     <div className="space-y-6">
                         <div className="text-center space-y-2">
-                            <div className="w-12 h-12 bg-gradient-to-tr from-orange-500 to-amber-600 rounded-xl mx-auto flex items-center justify-center shadow-lg shadow-orange-500/20 mb-4">
-                                <Shield className="w-6 h-6 text-white" />
+                            <div className="w-16 h-16 rounded-2xl mx-auto flex items-center justify-center mb-4 overflow-hidden shadow-2xl">
+                                <img src={auraLogo} alt="AURA Logo" className="w-full h-full object-cover scale-[1.3]" />
                             </div>
                             <h2 className="text-xl font-semibold text-white">Operator Access</h2>
                             <p className="text-sm text-slate-400">Secure entry for authorized personnel only</p>

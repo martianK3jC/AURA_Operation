@@ -6,9 +6,10 @@ import GlassCard from '../components/GlassCard';
 import Loader from '../components/Loader';
 import OperatorChatbot from '../components/OperatorChatbot.tsx';
 import { useToast } from '../contexts/ToastContext';
-import { LogOut, AlertTriangle, Users, Eye, CheckCircle, Clock, ShieldAlert, Sparkles, Bot, Megaphone, FileText, Radio, HelpCircle, Activity } from 'lucide-react';
+import { LogOut, AlertTriangle, Users, Eye, CheckCircle, Clock, ShieldAlert, Bot, Megaphone, FileText, Radio, HelpCircle, Activity } from 'lucide-react';
 import ConfirmationModal from '../components/ConfirmationModal';
 import OperatorLayout from './OperatorLayout.tsx';
+import auraLogo from '../img/aura_logo.png';
 
 interface Props {
   onNavigate: (screen: ScreenId) => void;
@@ -127,7 +128,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
             <div className="absolute top-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-b from-black/90 to-transparent flex flex-col md:flex-row justify-between items-start md:items-center gap-4 z-20">
               <div>
                 <h2 className="text-white font-bold text-lg md:text-3xl flex items-center gap-2 md:gap-3">
-                  <span className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-red-600 animate-pulse shadow-[0_0_10px_rgba(220,38,38,0.5)]"></span>
+                  <span className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-aura-red animate-pulse shadow-[0_0_10px_rgba(220,38,38,0.5)]"></span>
                   <span className="drop-shadow-md text-sm sm:text-lg md:text-3xl max-w-[200px] md:max-w-none leading-tight">{expandedCam === 1 ? 'CAM 04: Check-in Area' : 'CAM 08: Security Checkpoint'}</span>
                 </h2>
                 <p className="text-slate-300 text-xs md:text-base font-mono mt-1 md:mt-2 bg-black/40 inline-block px-2 py-1 rounded border border-white/10">
@@ -146,8 +147,8 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
             </div>
 
             {/* AI Bounding Box Simulation */}
-            <div className={`absolute top-1/2 left-1/2 w-[35%] h-[40%] md:w-48 md:h-72 border md:border-2 -translate-x-1/2 -translate-y-1/2 transition-colors duration-500 z-10 ${expandedCam === 1 && systemStatus === 'alert' ? 'border-red-500/80 shadow-[0_0_30px_rgba(239,68,68,0.3)]' : 'border-emerald-500/60 shadow-[0_0_20px_rgba(16,185,129,0.2)]'}`}>
-              <div className={`absolute -top-6 md:-top-8 left-0 text-white text-xs md:text-xs font-mono font-bold px-1.5 py-0.5 md:px-2 md:py-1 rounded backdrop-blur-md ${expandedCam === 1 && systemStatus === 'alert' ? 'bg-red-600/80' : 'bg-emerald-600/80'}`}>
+            <div className={`absolute top-1/2 left-1/2 w-[35%] h-[40%] md:w-48 md:h-72 border md:border-2 -translate-x-1/2 -translate-y-1/2 transition-colors duration-500 z-10 ${expandedCam === 1 && systemStatus === 'alert' ? 'border-aura-red/80 shadow-[0_0_30px_rgba(239,68,68,0.3)]' : 'border-emerald-500/60 shadow-[0_0_20px_rgba(16,185,129,0.2)]'}`}>
+              <div className={`absolute -top-6 md:-top-8 left-0 text-white text-xs md:text-xs font-mono font-bold px-1.5 py-0.5 md:px-2 md:py-1 rounded backdrop-blur-md ${expandedCam === 1 && systemStatus === 'alert' ? 'bg-aura-red/80' : 'bg-emerald-600/80'}`}>
                 {expandedCam === 1 && systemStatus === 'alert' ? 'CROWD DENSITY: CRITICAL' : 'SUBJECT: 98%'}
               </div>
               {/* Corners */}
@@ -167,9 +168,8 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
         <div className="flex-1">
           {/* Main Title with Premium Gradient */}
           <h1 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-black tracking-tight mb-2 md:mb-3 flex items-center gap-2 md:gap-3 group">
-            <div className="relative">
-              <Sparkles size={28} className="text-orange-400 group-hover:text-orange-300 transition-colors" />
-              <div className="absolute inset-0 blur-md bg-orange-500/30 group-hover:bg-orange-500/50 transition-all"></div>
+            <div className="relative w-8 h-8 rounded-lg overflow-hidden">
+              <img src={auraLogo} alt="AOCC Logo" className="w-full h-full object-cover scale-[1.3]" />
             </div>
             <span className="text-gradient-orange animate-in fade-in slide-in-from-left-5 duration-700">
               AOCC Command Center
@@ -202,12 +202,12 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
             {/* Pulsing Status Indicator */}
             <div className="relative flex items-center">
               {systemStatus === 'alert' && (
-                <span className="absolute w-3 h-3 rounded-full bg-red-500 animate-ping opacity-75"></span>
+                <span className="absolute w-3 h-3 rounded-full bg-aura-red animate-ping opacity-75"></span>
               )}
-              <span className={`relative w-2.5 h-2.5 rounded-full ${systemStatus === 'nominal' ? 'bg-emerald-400 shadow-emerald-400/50' : 'bg-red-500 shadow-red-500/50'} shadow-lg`}></span>
+              <span className={`relative w-2.5 h-2.5 rounded-full ${systemStatus === 'nominal' ? 'bg-emerald-400 shadow-emerald-400/50' : 'bg-aura-red shadow-aura-red/50'} shadow-lg`}></span>
             </div>
 
-            <span className={`font-bold uppercase text-xs tracking-wider transition-colors ${systemStatus === 'nominal' ? 'text-emerald-400' : 'text-red-400'}`}>
+            <span className={`font-bold uppercase text-xs tracking-wider transition-colors ${systemStatus === 'nominal' ? 'text-emerald-400' : 'text-aura-red'}`}>
               {systemStatus === 'nominal' ? 'All Systems Nominal' : '⚠ Active Incidents'}
             </span>
           </div>
@@ -314,23 +314,23 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
             </div>
 
             {/* Average Wait Time Card - Dynamic Status */}
-            <div className={`group relative rounded-3xl p-[1px] transition-all duration-500 z-10 hover:z-20 ${systemStatus === 'nominal' ? 'bg-gradient-to-br from-emerald-500/20 via-transparent to-transparent hover:from-emerald-500/30' : 'bg-gradient-to-br from-red-500/30 via-red-500/10 to-transparent'}`}>
+            <div className={`group relative rounded-3xl p-[1px] transition-all duration-500 z-10 hover:z-20 ${systemStatus === 'nominal' ? 'bg-gradient-to-br from-emerald-500/20 via-transparent to-transparent hover:from-emerald-500/30' : 'bg-gradient-to-br from-aura-red/30 via-aura-red/10 to-transparent'}`}>
               <GlassCard
                 variant="dark"
-                className={`p-5 md:p-6 lg:p-8 rounded-3xl h-full relative transition-all duration-500 ${systemStatus === 'nominal' ? '' : 'border-red-500/40 shadow-2xl shadow-red-500/20'}`}
+                className={`p-5 md:p-6 lg:p-8 rounded-3xl h-full relative transition-all duration-500 ${systemStatus === 'nominal' ? '' : 'border-aura-red/40 shadow-2xl shadow-aura-red/20'}`}
               >
                 {/* Alert Pulse Effect */}
                 {systemStatus === 'alert' && (
-                  <div className="absolute inset-0 bg-red-500/5 animate-pulse"></div>
+                  <div className="absolute inset-0 bg-aura-red/5 animate-pulse"></div>
                 )}
 
                 {/* Gradient Overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-br transition-opacity duration-500 ${systemStatus === 'nominal' ? 'from-emerald-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100' : 'from-red-500/10 via-transparent to-transparent opacity-100'}`}></div>
+                <div className={`absolute inset-0 bg-gradient-to-br transition-opacity duration-500 ${systemStatus === 'nominal' ? 'from-emerald-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100' : 'from-aura-red/10 via-transparent to-transparent opacity-100'}`}></div>
 
                 {/* Content */}
                 <div className="relative z-10">
                   <div className="flex items-center gap-2 mb-4">
-                    <div className={`w-2 h-2 rounded-full ${systemStatus === 'nominal' ? 'bg-emerald-400' : 'bg-red-500 animate-pulse'}`}></div>
+                    <div className={`w-2 h-2 rounded-full ${systemStatus === 'nominal' ? 'bg-emerald-400' : 'bg-aura-red animate-pulse'}`}></div>
                     <p className={`text-xs font-bold uppercase tracking-[0.2em] transition-colors ${systemStatus === 'nominal' ? 'text-white/50 group-hover:text-white/70' : 'text-red-300/70'}`}>
                       Avg Wait Time
                     </p>
@@ -339,7 +339,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                   <div className="flex items-end justify-between">
                     <div className="flex items-baseline gap-3">
                       <div className="relative group/tooltip">
-                        <p className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tighter leading-none transition-all duration-500 cursor-help ${systemStatus === 'nominal' ? 'text-white group-hover:scale-105' : 'text-red-400 scale-110'}`}>
+                        <p className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tighter leading-none transition-all duration-500 cursor-help ${systemStatus === 'nominal' ? 'text-white group-hover:scale-105' : 'text-aura-red scale-110'}`}>
                           {systemStatus === 'nominal' ? '12m' : '35m'}
                         </p>
                         {/* Tooltip */}
@@ -349,7 +349,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                             <span className="text-xs text-emerald-400 font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">&lt; 15 min</span>
                           </div>
                           <div className="h-1.5 bg-white/10 rounded-full overflow-hidden mb-1.5">
-                            <div className={`h-full transition-all duration-500 rounded-full ${systemStatus === 'nominal' ? 'w-[40%] bg-emerald-500' : 'w-[100%] bg-red-500 animate-pulse'}`}></div>
+                            <div className={`h-full transition-all duration-500 rounded-full ${systemStatus === 'nominal' ? 'w-[40%] bg-emerald-500' : 'w-[100%] bg-aura-red animate-pulse'}`}></div>
                           </div>
                           <p className="text-xs text-white/50 leading-tight">
                             {systemStatus === 'nominal' ? 'Queue wait times are performing optimally.' : '⚠️ Alert: Wait times exceeding service level agreements.'}
@@ -357,18 +357,18 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                         </div>
                       </div>
                       {systemStatus === 'alert' && (
-                        <AlertTriangle className="text-red-400 animate-pulse mb-2" size={24} />
+                        <AlertTriangle className="text-aura-red animate-pulse mb-2" size={24} />
                       )}
                     </div>
 
-                    <div className={`px-3 py-2 rounded-xl border font-medium text-xs transition-all ${systemStatus === 'nominal' ? 'text-white/60 bg-white/5 border-white/10' : 'text-red-100 bg-red-500/20 border-red-500/40 shadow-lg shadow-red-500/20'}`}>
+                    <div className={`px-3 py-2 rounded-xl border font-medium text-xs transition-all ${systemStatus === 'nominal' ? 'text-white/60 bg-white/5 border-white/10' : 'text-red-100 bg-aura-red/20 border-aura-red/40 shadow-lg shadow-aura-red/20'}`}>
                       Security Check A
                     </div>
                   </div>
                 </div>
 
                 {/* Decorative Corner Accent */}
-                <div className={`absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl transition-all duration-500 ${systemStatus === 'nominal' ? 'bg-emerald-500/5 group-hover:bg-emerald-500/10' : 'bg-red-500/15'}`}></div>
+                <div className={`absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl transition-all duration-500 ${systemStatus === 'nominal' ? 'bg-emerald-500/5 group-hover:bg-emerald-500/10' : 'bg-aura-red/15'}`}></div>
               </GlassCard>
             </div>
           </div>
@@ -463,19 +463,19 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                 {/* Main hotspot (Security area) */}
                 <div className={`absolute top-10 md:top-12 right-10 md:right-12 w-24 h-24 sm:w-28 sm:h-28 md:w-40 md:h-40 rounded-full transition-all duration-1000 ${systemStatus === 'nominal' ? 'opacity-40' : 'opacity-100'}`}>
                   {/* Multi-layer glow effect */}
-                  <div className={`absolute inset-0 rounded-full blur-3xl animate-pulse ${systemStatus === 'nominal' ? 'bg-gradient-to-br from-emerald-500/60 to-green-400/40' : 'bg-gradient-to-br from-red-500/80 to-orange-600/60'}`}></div>
+                  <div className={`absolute inset-0 rounded-full blur-3xl animate-pulse ${systemStatus === 'nominal' ? 'bg-gradient-to-br from-emerald-500/60 to-green-400/40' : 'bg-gradient-to-br from-aura-red/80 to-orange-600/60'}`}></div>
                   <div className={`absolute inset-2 rounded-full blur-2xl ${systemStatus === 'nominal' ? 'bg-emerald-400/40' : 'bg-red-400/50'}`}></div>
 
                   {/* Dashed Alert Rings */}
                   {systemStatus === 'alert' && (
                     <>
-                      <div className="absolute inset-0 border-4 border-red-500/50 rounded-full border-dashed animate-spin-slow"></div>
+                      <div className="absolute inset-0 border-4 border-aura-red/50 rounded-full border-dashed animate-spin-slow"></div>
                       <div className="absolute inset-3 border-2 border-orange-400/40 rounded-full border-dashed animate-spin-slow opacity-60" style={{ animationDirection: 'reverse', animationDuration: '12s' }}></div>
                     </>
                   )}
 
                   {/* Center pulse */}
-                  <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full ${systemStatus === 'nominal' ? 'bg-emerald-400' : 'bg-red-500'} animate-ping`}></div>
+                  <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full ${systemStatus === 'nominal' ? 'bg-emerald-400' : 'bg-aura-red'} animate-ping`}></div>
                 </div>
 
                 {/* Secondary hotspot (Check-in area) */}
@@ -492,7 +492,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                 {/* Enhanced Labels with Better Styling */}
                 {systemStatus === 'alert' && (
                   <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20">
-                    <div className="flex items-center gap-2 text-xs md:text-xs font-bold text-red-100 bg-gradient-to-r from-red-900/95 to-red-800/90 px-3 py-2 rounded-lg border border-red-500/60 animate-bounce shadow-xl shadow-red-900/50 backdrop-blur-md">
+                    <div className="flex items-center gap-2 text-xs md:text-xs font-bold text-red-100 bg-gradient-to-r from-red-900/95 to-red-800/90 px-3 py-2 rounded-lg border border-aura-red/60 animate-bounce shadow-xl shadow-red-900/50 backdrop-blur-md">
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="shrink-0">
                         <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
                         <path d="M12 9v4" />
@@ -505,7 +505,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
 
                 {/* Status indicator in bottom right */}
                 <div className="absolute bottom-4 right-4 flex items-center gap-2 text-xs font-mono text-white/50 bg-black/60 px-3 py-1.5 rounded-lg border border-white/10 backdrop-blur-md">
-                  <div className={`w-2 h-2 rounded-full ${systemStatus === 'nominal' ? 'bg-emerald-400' : 'bg-red-500'} animate-pulse`}></div>
+                  <div className={`w-2 h-2 rounded-full ${systemStatus === 'nominal' ? 'bg-emerald-400' : 'bg-aura-red'} animate-pulse`}></div>
                   <span className="hidden md:inline">{systemStatus === 'nominal' ? 'NORMAL OPS' : 'ALERT MODE'}</span>
                 </div>
 
@@ -520,7 +520,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                     <span>Medium</span>
                   </div>
                   <div className="flex items-center gap-2 text-white/40 bg-black/40 px-2 py-1 rounded border border-white/10 backdrop-blur-sm">
-                    <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                    <div className="w-2 h-2 rounded-full bg-aura-red"></div>
                     <span>High Density</span>
                   </div>
                 </div>
@@ -558,26 +558,26 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
               <div className="space-y-3">
                 {/* Critical System Alert */}
                 {systemStatus === 'alert' && !alerts.find(a => a.id === 99) && (
-                  <GlassCard variant="dark" className="p-5 rounded-2xl border-2 border-red-500/40 bg-gradient-to-br from-red-950/40 to-red-900/20 relative overflow-hidden group hover:border-red-500/60 transition-all duration-300">
+                  <GlassCard variant="dark" className="p-5 rounded-2xl border-2 border-aura-red/40 bg-gradient-to-br from-red-950/40 to-red-900/20 relative overflow-hidden group hover:border-aura-red/60 transition-all duration-300">
                     {/* Alert pulse background */}
-                    <div className="absolute inset-0 bg-red-500/5 animate-pulse"></div>
+                    <div className="absolute inset-0 bg-aura-red/5 animate-pulse"></div>
 
                     {/* Severity indicator stripe */}
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-red-500 to-red-700"></div>
+                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-aura-red to-red-700"></div>
 
                     <div className="relative z-10">
                       <div className="flex justify-between items-start mb-3">
                         <div className="flex items-center gap-3">
                           <div className="relative">
-                            <div className="absolute inset-0 bg-red-500 rounded-full blur-md opacity-50 animate-pulse"></div>
-                            <div className="relative bg-red-500/20 p-2 rounded-full border-2 border-red-500/50">
-                              <ShieldAlert size={18} className="text-red-400" />
+                            <div className="absolute inset-0 bg-aura-red rounded-full blur-md opacity-50 animate-pulse"></div>
+                            <div className="relative bg-aura-red/20 p-2 rounded-full border-2 border-aura-red/50">
+                              <ShieldAlert size={18} className="text-aura-red" />
                             </div>
                           </div>
                           <div>
                             <div className="flex items-center gap-2 mb-1">
                               <span className="font-bold text-base text-red-200">System Alert</span>
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-600/30 text-red-200 border border-red-500/40 uppercase tracking-wider">Critical</span>
+                              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-aura-red/30 text-red-200 border border-aura-red/40 uppercase tracking-wider">Critical</span>
                             </div>
                             <span className="text-xs text-red-300/60 font-mono">Just now • High Priority</span>
                           </div>
@@ -602,7 +602,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                             }
                           });
                         }}
-                        className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white text-xs py-3 rounded-xl transition-all shadow-xl shadow-red-900/30 font-bold uppercase tracking-wider flex items-center justify-center gap-2 group/btn"
+                        className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-aura-red hover:to-red-600 text-white text-xs py-3 rounded-xl transition-all shadow-xl shadow-red-900/30 font-bold uppercase tracking-wider flex items-center justify-center gap-2 group/btn"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover/btn:rotate-90 transition-transform">
                           <circle cx="12" cy="12" r="10" />
@@ -640,12 +640,12 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                     className={`p-4 rounded-xl border-l-4 transition-all duration-300 group relative overflow-hidden ${alert.status === 'resolved'
                       ? 'border-emerald-500/60 opacity-60 bg-emerald-950/20 hover:opacity-80'
                       : alert.type === 'critical'
-                        ? 'border-red-500/60 bg-gradient-to-br from-red-950/30 to-transparent hover:border-red-500/80'
+                        ? 'border-aura-red/60 bg-gradient-to-br from-red-950/30 to-transparent hover:border-aura-red/80'
                         : 'border-amber-500/60 bg-gradient-to-br from-amber-950/20 to-transparent hover:border-amber-500/80'
                       }`}
                   >
                     {/* Subtle glow on hover */}
-                    <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${alert.status === 'resolved' ? 'bg-emerald-500/5' : alert.type === 'critical' ? 'bg-red-500/5' : 'bg-amber-500/5'
+                    <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${alert.status === 'resolved' ? 'bg-emerald-500/5' : alert.type === 'critical' ? 'bg-aura-red/5' : 'bg-amber-500/5'
                       }`}></div>
 
                     <div className="relative z-10">
@@ -656,8 +656,8 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                               <CheckCircle size={16} className="text-emerald-400" />
                             </div>
                           ) : (
-                            <div className={`p-1.5 rounded-lg border ${alert.type === 'critical' ? 'bg-red-500/20 border-red-500/30' : 'bg-amber-500/20 border-amber-500/30'}`}>
-                              <AlertTriangle size={16} className={alert.type === 'critical' ? 'text-red-400' : 'text-amber-400'} />
+                            <div className={`p-1.5 rounded-lg border ${alert.type === 'critical' ? 'bg-aura-red/20 border-aura-red/30' : 'bg-amber-500/20 border-amber-500/30'}`}>
+                              <AlertTriangle size={16} className={alert.type === 'critical' ? 'text-aura-red' : 'text-amber-400'} />
                             </div>
                           )}
                           <div>
@@ -667,7 +667,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                               </span>
                               {alert.status !== 'resolved' && (
                                 <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider ${alert.type === 'critical'
-                                  ? 'bg-red-600/30 text-red-200 border border-red-500/40'
+                                  ? 'bg-aura-red/30 text-red-200 border border-aura-red/40'
                                   : 'bg-amber-600/30 text-amber-200 border border-amber-500/40'
                                   }`}>
                                   {alert.type}
@@ -753,13 +753,13 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                     <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_3px] pointer-events-none opacity-30"></div>
                   </div>
                   <div className="absolute top-2 left-2 bg-black/60 px-1.5 py-0.5 rounded text-[8px] font-mono text-white flex items-center gap-1 z-10">
-                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span> REC
+                    <span className="w-1.5 h-1.5 rounded-full bg-aura-red animate-pulse"></span> REC
                   </div>
                   <div className="absolute bottom-2 left-2 text-xs font-bold text-white shadow-black drop-shadow-md z-10">CAM 04: Check-in</div>
-                  <div className={`absolute top-2 right-2 text-xs font-mono px-1 rounded border z-10 ${systemStatus === 'nominal' ? 'text-yellow-400 bg-yellow-950/80 border-yellow-500/30' : 'text-red-400 bg-red-950/80 border-red-500/30'}`}>
+                  <div className={`absolute top-2 right-2 text-xs font-mono px-1 rounded border z-10 ${systemStatus === 'nominal' ? 'text-yellow-400 bg-yellow-950/80 border-yellow-500/30' : 'text-aura-red bg-red-950/80 border-aura-red/30'}`}>
                     {systemStatus === 'nominal' ? 'DENSITY: MED' : 'DENSITY: HIGH'}
                   </div>
-                  <div className={`absolute top-1/2 left-1/2 w-8 h-12 border -translate-x-1/2 -translate-y-1/2 transition-colors z-10 ${systemStatus === 'nominal' ? 'border-yellow-500/50' : 'border-red-500/80'}`}></div>
+                  <div className={`absolute top-1/2 left-1/2 w-8 h-12 border -translate-x-1/2 -translate-y-1/2 transition-colors z-10 ${systemStatus === 'nominal' ? 'border-yellow-500/50' : 'border-aura-red/80'}`}></div>
 
                   {/* Overlay Hint */}
                   <div className="absolute inset-0 bg-amber-500/0 group-hover:bg-amber-500/10 transition-colors flex items-center justify-center pointer-events-none z-20">
@@ -778,7 +778,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                     <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_3px] pointer-events-none opacity-30"></div>
                   </div>
                   <div className="absolute top-2 left-2 bg-black/60 px-1.5 py-0.5 rounded text-[8px] font-mono text-white flex items-center gap-1 z-10">
-                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span> REC
+                    <span className="w-1.5 h-1.5 rounded-full bg-aura-red animate-pulse"></span> REC
                   </div>
                   <div className="absolute bottom-2 left-2 text-xs font-bold text-white shadow-black drop-shadow-md z-10">CAM 08: Security</div>
                   <div className="absolute top-2 right-2 text-xs font-mono text-orange-400 bg-orange-950/80 px-1 rounded border border-orange-500/30 z-10">

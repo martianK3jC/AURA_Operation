@@ -1,7 +1,8 @@
 
 import * as React from 'react';
 import { useState } from 'react';
-import { LayoutDashboard, LogOut, Sparkles } from 'lucide-react';
+import { LayoutDashboard, LogOut } from 'lucide-react';
+import auraLogo from '../img/aura_logo.png';
 import { ScreenId } from '../types';
 import ConfirmationModal from '../components/ConfirmationModal';
 
@@ -77,14 +78,12 @@ const OperatorLayout: React.FC<OperatorLayoutProps> = ({ children, currentScreen
                 {/* Premium Logo Area with Glow Effect */}
                 <div className={`mb-8 flex items-center gap-3 transition-all duration-300 ${isCollapsed ? 'justify-center px-0' : 'px-2'}`}>
                     <div className="relative group/logo">
-                        {/* Glow effect behind logo */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-xl blur-md opacity-50 group-hover/logo:opacity-75 transition-opacity"></div>
-
                         {/* Logo container */}
-                        <div className="relative w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-2xl transition-all duration-300 bg-gradient-to-br from-yellow-500 via-amber-500 to-amber-600 group-hover/logo:scale-110">
-                            <Sparkles size={20} className="text-white drop-shadow-lg" />
+                        <div className="relative w-10 h-10 rounded-lg flex items-center justify-center shrink-0 transition-all duration-300 group-hover/logo:scale-110 overflow-hidden">
+                            <img src={auraLogo} alt="AURA Logo" className="w-full h-full object-cover scale-[1.3]" />
                         </div>
                     </div>
+
 
                     <div className={`overflow-hidden transition-all duration-300 ${isCollapsed ? 'w-0 opacity-0' : 'w-auto opacity-100'}`}>
                         <h1 className="text-xl font-black tracking-tight whitespace-nowrap text-white">AURA</h1>

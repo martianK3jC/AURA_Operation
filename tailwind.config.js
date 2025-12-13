@@ -16,6 +16,11 @@ export default {
                 'fade-in': 'fadeIn 0.7s ease-out forwards',
                 'slide-in-from-bottom': 'slideInFromBottom 0.7s ease-out forwards',
             },
+            colors: {
+                aura: {
+                    red: '#C42021', // Matches official logo red
+                }
+            },
             keyframes: {
                 slideUp: {
                     '0%': { transform: 'translateY(20px)', opacity: '0' },
