@@ -1,11 +1,10 @@
-
 import * as React from 'react';
-import { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useState, ReactNode } from 'react';
 
 type ToastType = 'success' | 'error' | 'warning' | 'info';
 
 interface Toast {
-    id: string;
+    id: number;
     type: ToastType;
     message: string;
 }
@@ -16,38 +15,52 @@ interface ToastContextType {
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
-export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [toasts, setToasts] = useState<Toast[]>([]);
+export const useToast = () => {
+    const context = useContext(ToastContext);
+    if (!context) {
+        throw new Error('useToast must be used within ToastProvider');
+    }
+    return context;
+};
 
-    const showToast = useCallback((type: ToastType, message: string) => {
-        const id = Math.random().toString(36).substring(7);
+interface ToastProviderProps {
+    children: ReactNode;
+}
+
+export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
+    const [toasts, setToasts] = useState<Toast[]>([]);
+    const [nextId, setNextId] = useState(1);
+
+    const showToast = (type: ToastType, message: string) => {
+        const id = nextId;
+        setNextId(id + 1);
         setToasts(prev => [...prev, { id, type, message }]);
 
-        // Auto dismiss
+        // Auto-remove toast after 3 seconds
         setTimeout(() => {
-            setToasts(prev => prev.filter(t => t.id !== id));
+            setToasts(prev => prev.filter(toast => toast.id !== id));
         }, 3000);
-
-        console.log(`[Toast system]: ${type} - ${message}`);
-    }, []);
+    };
 
     return (
         <ToastContext.Provider value={{ showToast }}>
             {children}
-            {/* Simple Toast Container Render */}
-            <div className="fixed bottom-4 right-4 z-[100] flex flex-col gap-2 pointer-events-none">
+
+            {/* Toast Container */}
+            <div className="fixed top-4 right-4 z-[9999] space-y-2 pointer-events-none">
                 {toasts.map(toast => (
                     <div
                         key={toast.id}
                         className={`
-                    pointer-events-auto min-w-[300px] p-4 rounded-lg shadow-xl text-white font-medium text-sm animate-in slide-in-from-right-full duration-300
-                    ${toast.type === 'success' ? 'bg-emerald-600' : ''}
-                    ${toast.type === 'error' ? 'bg-red-600' : ''}
-                    ${toast.type === 'warning' ? 'bg-orange-500' : ''}
-                    ${toast.type === 'info' ? 'bg-blue-600' : ''}
-                `}
+              pointer-events-auto px-6 py-3 rounded-lg shadow-2xl backdrop-blur-xl
+              border animate-in slide-in-from-right-5 fade-in duration-300
+              ${toast.type === 'success' ? 'bg-emerald-500/90 border-emerald-400 text-white' : ''}
+              ${toast.type === 'error' ? 'bg-red-500/90 border-red-400 text-white' : ''}
+              ${toast.type === 'warning' ? 'bg-amber-500/90 border-amber-400 text-white' : ''}
+              ${toast.type === 'info' ? 'bg-blue-500/90 border-blue-400 text-white' : ''}
+            `}
                     >
-                        {toast.message}
+                        <p className="text-sm font-semibold">{toast.message}</p>
                     </div>
                 ))}
             </div>
@@ -55,10 +68,4 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     );
 };
 
-export const useToast = () => {
-    const context = useContext(ToastContext);
-    if (!context) {
-        throw new Error('useToast must be used within a ToastProvider');
-    }
-    return context;
-};
+export default ToastContext;

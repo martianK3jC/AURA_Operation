@@ -190,16 +190,16 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
 
             {/* Total Passengers Card */}
-            <div className="group relative overflow-hidden rounded-3xl p-[1px] bg-gradient-to-br from-orange-500/20 via-transparent to-transparent hover:from-orange-500/30 transition-all duration-500">
-              <GlassCard variant="dark" className="p-6 md:p-8 rounded-3xl h-full relative overflow-hidden card-glow-orange">
+            <div className="group relative overflow-hidden rounded-3xl p-[1px] bg-gradient-to-br from-yellow-500/20 via-transparent to-transparent hover:from-yellow-500/30 transition-all duration-500">
+              <GlassCard variant="dark" className="p-6 md:p-8 rounded-3xl h-full relative overflow-hidden">
                 {/* Subtle Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                 {/* Content */}
                 <div className="relative z-10">
                   <div className="flex items-center gap-2 mb-4">
-                    <div className="w-2 h-2 rounded-full bg-orange-400 animate-pulse"></div>
-                    <p className="text-xs font-bold text-orange-400/70 uppercase tracking-[0.2em] group-hover:text-orange-400 transition-colors">
+                    <div className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></div>
+                    <p className="text-xs font-bold text-amber-400/70 uppercase tracking-[0.2em] group-hover:text-amber-400 transition-colors">
                       Total Pax (1hr)
                     </p>
                   </div>
@@ -223,7 +223,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                 </div>
 
                 {/* Decorative Corner Accent */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/5 rounded-full blur-3xl group-hover:bg-orange-500/10 transition-colors"></div>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-full blur-3xl group-hover:bg-amber-500/10 transition-colors"></div>
               </GlassCard>
             </div>
 
@@ -231,7 +231,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
             <div className={`group relative overflow-hidden rounded-3xl p-[1px] transition-all duration-500 ${systemStatus === 'nominal' ? 'bg-gradient-to-br from-emerald-500/20 via-transparent to-transparent hover:from-emerald-500/30' : 'bg-gradient-to-br from-red-500/30 via-red-500/10 to-transparent'}`}>
               <GlassCard
                 variant="dark"
-                className={`p-6 md:p-8 rounded-3xl h-full relative overflow-hidden transition-all duration-500 ${systemStatus === 'nominal' ? 'card-glow-orange' : 'border-red-500/40 shadow-2xl shadow-red-500/20'}`}
+                className={`p-6 md:p-8 rounded-3xl h-full relative overflow-hidden transition-all duration-500 ${systemStatus === 'nominal' ? '' : 'border-red-500/40 shadow-2xl shadow-red-500/20'}`}
               >
                 {/* Alert Pulse Effect */}
                 {systemStatus === 'alert' && (
@@ -275,20 +275,20 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
 
           {/* ENHANCED SECTION: PREDICTIVE HEATMAP - Premium God View */}
           <section className="group">
-            <GlassCard variant="dark" className="rounded-2xl md:rounded-3xl border border-white/10 overflow-hidden relative shadow-2xl hover:shadow-orange-500/10 transition-all duration-500">
+            <GlassCard variant="dark" className="rounded-2xl md:rounded-3xl border border-white/10 overflow-hidden relative shadow-2xl hover:shadow-amber-500/10 transition-all duration-500">
               {/* Premium Header */}
               <div className="p-5 md:p-6 border-b border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-gradient-to-r from-neutral-900/95 via-neutral-900/90 to-neutral-900/95 backdrop-blur-xl">
                 <div className="flex items-center gap-4">
                   {/* Animated Live Indicator */}
                   <div className="relative flex h-5 w-5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-5 w-5 bg-gradient-to-br from-orange-400 to-red-500 shadow-lg shadow-orange-500/50"></span>
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-5 w-5 bg-gradient-to-br from-amber-400 to-yellow-500 shadow-lg shadow-amber-500/50"></span>
                   </div>
 
                   <div>
                     <h2 className="text-xl md:text-2xl font-bold text-white flex items-center gap-2">
                       Terminal Heatmap
-                      <span className="text-xs font-mono text-orange-400 bg-orange-500/10 px-2 py-1 rounded border border-orange-500/30">LIVE</span>
+                      <span className="text-xs font-mono text-amber-400 bg-amber-500/10 px-2 py-1 rounded border border-amber-500/30">LIVE</span>
                     </h2>
                     <p className="text-xs text-white/50 mt-0.5 font-medium">Real-time crowd density monitoring</p>
                   </div>
@@ -444,7 +444,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                               }
                             });
                           }}
-                          className="flex-1 bg-orange-600 hover:bg-orange-500 text-white text-xs py-2 rounded-lg transition-colors shadow-lg shadow-orange-900/20 font-medium"
+                          className="flex-1 bg-amber-600 hover:bg-amber-500 text-white text-xs py-2 rounded-lg transition-colors shadow-lg shadow-amber-900/20 font-medium"
                         >
                           Deploy Staff
                         </button>
@@ -463,7 +463,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
 
                 {/* CAM 04 */}
                 <div
-                  className="relative rounded-xl overflow-hidden aspect-video bg-black border border-white/10 group cursor-pointer hover:border-orange-500/50 hover:shadow-lg hover:shadow-orange-500/10 transition-all active:scale-[0.98] min-w-[280px] md:min-w-0 snap-center"
+                  className="relative rounded-xl overflow-hidden aspect-video bg-black border border-white/10 group cursor-pointer hover:border-amber-500/50 hover:shadow-lg hover:shadow-amber-500/10 transition-all active:scale-[0.98] min-w-[280px] md:min-w-0 snap-center"
                   onClick={() => setExpandedCam(1)}
                 >
                   <div className="absolute inset-0 flex items-center justify-center">
@@ -481,14 +481,14 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                   <div className={`absolute top-1/2 left-1/2 w-8 h-12 border -translate-x-1/2 -translate-y-1/2 transition-colors z-10 ${systemStatus === 'nominal' ? 'border-yellow-500/50' : 'border-red-500/80'}`}></div>
 
                   {/* Overlay Hint */}
-                  <div className="absolute inset-0 bg-orange-500/0 group-hover:bg-orange-500/10 transition-colors flex items-center justify-center pointer-events-none z-20">
+                  <div className="absolute inset-0 bg-amber-500/0 group-hover:bg-amber-500/10 transition-colors flex items-center justify-center pointer-events-none z-20">
                     <Eye size={24} className="text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-lg" />
                   </div>
                 </div>
 
                 {/* CAM 08 */}
                 <div
-                  className="relative rounded-xl overflow-hidden aspect-video bg-black border border-white/10 group cursor-pointer hover:border-orange-500/50 hover:shadow-lg hover:shadow-orange-500/10 transition-all active:scale-[0.98] min-w-[280px] md:min-w-0 snap-center"
+                  className="relative rounded-xl overflow-hidden aspect-video bg-black border border-white/10 group cursor-pointer hover:border-amber-500/50 hover:shadow-lg hover:shadow-amber-500/10 transition-all active:scale-[0.98] min-w-[280px] md:min-w-0 snap-center"
                   onClick={() => setExpandedCam(2)}
                 >
                   <div className="absolute inset-0 flex items-center justify-center">
@@ -503,7 +503,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                   <div className="absolute top-2 right-2 text-[10px] font-mono text-orange-400 bg-orange-950/80 px-1 rounded border border-orange-500/30 z-10">
                     FLOW: SMOOTH
                   </div>
-                  <div className="absolute inset-0 bg-orange-500/0 group-hover:bg-orange-500/10 transition-colors flex items-center justify-center pointer-events-none z-20">
+                  <div className="absolute inset-0 bg-amber-500/0 group-hover:bg-amber-500/10 transition-colors flex items-center justify-center pointer-events-none z-20">
                     <Eye size={24} className="text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-lg" />
                   </div>
                 </div>
@@ -608,14 +608,14 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
       {/* PREMIUM FLOATING AI ASSISTANT BUTTON */}
       <button
         onClick={() => setIsChatbotOpen(true)}
-        className="fixed bottom-24 md:bottom-8 right-6 md:right-8 w-16 h-16 md:w-[72px] md:h-[72px] rounded-full bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300 z-[60] group border-2 border-white/20 hover:border-white/40 shadow-2xl"
+        className="fixed bottom-24 md:bottom-8 right-6 md:right-8 w-16 h-16 md:w-[72px] md:h-[72px] rounded-full bg-gradient-to-br from-yellow-600 via-amber-600 to-amber-700 flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300 z-[60] group border-2 border-white/20 hover:border-white/40 shadow-2xl"
         style={{
-          boxShadow: '0 0 40px rgba(234, 88, 12, 0.4), 0 10px 30px rgba(0, 0, 0, 0.3)'
+          boxShadow: '0 0 40px rgba(245, 158, 11, 0.4), 0 10px 30px rgba(0, 0, 0, 0.3)'
         }}
         aria-label="Open AI Assistant"
       >
         {/* Rotating gradient glow */}
-        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-orange-400 to-red-500 blur-xl opacity-60 group-hover:opacity-80 transition-opacity animate-pulse-slow"></div>
+        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-400 to-yellow-500 blur-xl opacity-60 group-hover:opacity-80 transition-opacity animate-pulse-slow"></div>
 
         {/* Icon */}
         <Bot size={28} className="text-white relative z-10 drop-shadow-lg group-hover:rotate-12 transition-transform" />
@@ -626,7 +626,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
         </span>
 
         {/* Ping animation ring */}
-        <div className="absolute inset-0 rounded-full bg-orange-500 animate-ping opacity-20"></div>
+        <div className="absolute inset-0 rounded-full bg-amber-500 animate-ping opacity-20"></div>
       </button>
 
       {/* AI Chatbot Modal */}
