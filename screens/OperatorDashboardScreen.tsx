@@ -491,23 +491,17 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
 
                 {/* Enhanced Labels with Better Styling */}
                 {systemStatus === 'alert' && (
-                  <div className="absolute top-40 md:top-48 right-8 md:right-12 max-w-[140px] md:max-w-none">
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20">
                     <div className="flex items-center gap-2 text-xs md:text-xs font-bold text-red-100 bg-gradient-to-r from-red-900/95 to-red-800/90 px-3 py-2 rounded-lg border border-red-500/60 animate-bounce shadow-xl shadow-red-900/50 backdrop-blur-md">
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="shrink-0">
                         <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
                         <path d="M12 9v4" />
                         <path d="M12 17h.01" />
                       </svg>
-                      <span>Congestion Alert</span>
+                      <span>Congestion Alert: Security A</span>
                     </div>
                   </div>
                 )}
-
-                <div className="absolute top-40 md:top-48 left-8 md:left-12">
-                  <div className="text-xs md:text-xs font-bold text-amber-200/90 bg-gradient-to-r from-amber-950/90 to-neutral-900/80 px-3 py-1.5 rounded-lg border border-amber-700/40 shadow-lg backdrop-blur-md hover:border-amber-600/60 transition-colors">
-                    Check-in Area B
-                  </div>
-                </div>
 
                 {/* Status indicator in bottom right */}
                 <div className="absolute bottom-4 right-4 flex items-center gap-2 text-xs font-mono text-white/50 bg-black/60 px-3 py-1.5 rounded-lg border border-white/10 backdrop-blur-md">
