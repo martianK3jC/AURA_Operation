@@ -502,7 +502,7 @@ const OperatorDashboardScreen: React.FC<Props> = ({ onNavigate }) => {
                             confirmText: 'INITIATE PROTOCOL',
                             isDangerous: true,
                             onConfirm: () => {
-                              window.alert('Protocol Initiated. Security teams dispatched.');
+                              showToast('success', '🚨 Protocol Initiated • Security teams have been dispatched to Security Checkpoint B');
                               closeConfirm();
                             }
                           });
