@@ -15,6 +15,7 @@ export default {
                 'spin-slow': 'spin 8s linear infinite',
                 'fade-in': 'fadeIn 0.7s ease-out forwards',
                 'slide-in-from-bottom': 'slideInFromBottom 0.7s ease-out forwards',
+                'gradient-xy': 'gradient-xy 15s ease infinite',
             },
             colors: {
                 aura: {
@@ -29,6 +30,20 @@ export default {
                 fadeIn: {
                     '0%': { opacity: '0' },
                     '100%': { opacity: '1' },
+                },
+                fadeOut: {
+                    '0%': { opacity: '1' },
+                    '100%': { opacity: '0' },
+                },
+                'gradient-xy': {
+                    '0%, 100%': {
+                        'background-size': '400% 400%',
+                        'background-position': 'left center'
+                    },
+                    '50%': {
+                        'background-size': '200% 200%',
+                        'background-position': 'right center'
+                    }
                 },
                 slideInFromBottom: {
                     '0%': { transform: 'translateY(30px)', opacity: '0' },
