@@ -52,7 +52,7 @@ const OperatorChatbot: React.FC<OperatorChatbotProps> = ({ isOpen, onClose }) =>
 
         // Staff deployment queries
         if (query.includes('staff') || query.includes('deploy') || query.includes('personnel')) {
-            return "**Staff Deployment Recommendation (Next Hour):**\n\nBased on predictive analysis of flight manifests and current queue lengths:\n\n• **Immigration:** Deploy 2 additional officers to Counters 4-6 by 3:15 PM\n  - Peak expected: 3:15-4:00 PM (240 arriving passengers)\n  - Current wait: 8 min → Projected: 18 min without action\n\n• **Security Checkpoint A:** Reduce by 1 officer at 3:30 PM\n  - Low volume period begins 3:30 PM\n  - Redeploy to Immigration\n\n• **Check-in Area B:** Maintain current staffing\n  - Steady moderate flow predicted\n\nThis reallocation will reduce Immigration wait time from 18 min to 9 min.";
+            return "**Staff Deployment Recommendation (Next Hour):**\n\nBased on predictive analysis of flight manifests and current queue lengths:\n\n• **Security Checkpoint:** Deploy 3 additional officers to Lanes 3-5 by 3:15 PM\n  - Peak expected: 3:15-4:00 PM (Passenger Surge)\n  - Current wait: 18 min → Projected: 45 min without action\n\n• **Immigration:** Reduce by 2 officers at 3:30 PM\n  - Low volume period begins 3:30 PM\n  - Redeploy to Security Checkpoint\n\n• **Check-in Area B:** Maintain current staffing\n  - Steady moderate flow predicted\n\nThis reallocation will reduce Security wait time from 45 min to 15 min.";
         }
 
         // Lounge queries
@@ -196,7 +196,7 @@ const OperatorChatbot: React.FC<OperatorChatbotProps> = ({ isOpen, onClose }) =>
 
                 {/* Input Area */}
                 <div className="bg-neutral-900/95 border-t border-neutral-800 p-4 space-y-3 shrink-0 backdrop-blur-xl">
-                    
+
                     {/* Quick Suggestion Chips */}
                     <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
                         {SUGGESTIONS.map((suggestion, idx) => (

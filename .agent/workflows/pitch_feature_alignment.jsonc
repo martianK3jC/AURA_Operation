@@ -1,0 +1,684 @@
+{
+    // ============================================================================
+    // AURA PITCH SCRIPT - FEATURE ALIGNMENT DOCUMENT
+    // ============================================================================
+    // Purpose: Map pitch script narrative to required app features
+    // Pitch Duration: 3 minutes
+    // Two Personas: David (AOCC Manager) + Anna (Traveler)
+    // ============================================================================
+    "pitch_overview": {
+        "duration": "3:00",
+        "key_message": "Same AI brain, two users — smarter operations for David, calmer travel for Anna",
+        "personas": {
+            "david": {
+                "role": "AOCC Manager (Airport Operations Control Center)",
+                "app_view": "AURA Operations Dashboard (what we're building)",
+                "goal": "Anticipate and coordinate responses before problems occur",
+                "key_moment": "Predicts surge 30 minutes ahead, deploys staff proactively"
+            },
+            "anna": {
+                "role": "First-time traveler to Cebu",
+                "app_view": "AURA Passenger App (future/concept)",
+                "goal": "Smooth, stress-free airport experience",
+                "key_moment": "Sees short wait time because David already handled the situation"
+            }
+        },
+        "ai_technology": {
+            "vertex_ai_vision": "Analyzes live CCTV feeds for passenger movement, crowd density, space usage",
+            "gemini": "Turns camera + flight data into clear, human-readable actions (not raw numbers)"
+        }
+    },
+    // ============================================================================
+    // SCRIPT BREAKDOWN WITH REQUIRED FEATURES
+    // ============================================================================
+    "script_sections": {
+        "slide_6_demo": {
+            "timestamp": "1:25–2:10",
+            "narrative": "Prototype showcase and AI role demonstration",
+            "critical_importance": "THIS IS THE CORE DEMO - Must work flawlessly!",
+            "david_scenario": {
+                "description": "AOCC Manager using AURA Operations Dashboard",
+                "script_quote": "Vertex AI Vision analyzes live CCTV feeds — understanding passenger movement, crowd density, and space usage in real time. The system combines that with flight schedules, and Gemini's AI models predict a surge near security 30 minutes ahead. AURA recommends opening two more lanes and deploying staff.",
+                "required_features": [
+                    {
+                        "feature": "Live CCTV Feed Display",
+                        "module": "Surveillance Module",
+                        "requirement": "Show multiple camera feeds with AI analysis overlays",
+                        "demo_action": "Display security zone cameras with crowd density visualization",
+                        "visual_cues": [
+                            "Camera feeds showing security checkpoint area",
+                            "AI bounding boxes around people/crowds (optional but impressive)",
+                            "Density heatmap overlay on camera feed",
+                            "Timestamp showing 'live' feed"
+                        ]
+                    },
+                    {
+                        "feature": "Real-Time Crowd Density Analysis",
+                        "module": "Population Module + Heatmap Module",
+                        "requirement": "Show current crowd density at security checkpoint",
+                        "demo_action": "Display security zone at 65% capacity, trending upward",
+                        "visual_cues": [
+                            "KPI card: 'Security Zone 2 - 65% capacity (↑ trending)'",
+                            "Heatmap showing concentration at security",
+                            "Color-coded zones (yellow = warning level)"
+                        ]
+                    },
+                    {
+                        "feature": "Predictive Surge Alert (30 min ahead)",
+                        "module": "Alerts & Recommendations System",
+                        "requirement": "AI predicts surge based on flight schedule + current trends",
+                        "demo_action": "Alert appears: 'Predicted surge at Security Zone 2 in 30 minutes'",
+                        "visual_cues": [
+                            "Alert notification with bell icon badge",
+                            "Alert panel shows: 'Warning: Predicted crowd surge'",
+                            "Details: 'Flight CX882 + 3 others arriving 14:30, expect 200+ passengers'",
+                            "Confidence score: 85%"
+                        ]
+                    },
+                    {
+                        "feature": "AI Staff Deployment Recommendation",
+                        "module": "Staff Allocation Module + AI Recommendations",
+                        "requirement": "Gemini generates actionable recommendation",
+                        "demo_action": "Recommendation card appears with specific action",
+                        "visual_cues": [
+                            "Floating recommendation card (amber/gold theme)",
+                            "Icon: UserCog or AlertTriangle",
+                            "Title: 'Deploy Additional Staff to Security Zone 2'",
+                            "Description: 'Open 2 more security lanes and assign 3 officers to handle predicted surge in 30 minutes'",
+                            "Confidence: 85%",
+                            "Actions: [Accept] [Dismiss] [View Details]"
+                        ],
+                        "script_quote": "AURA recommends opening two more lanes and deploying staff"
+                    },
+                    {
+                        "feature": "Staff Assignment Action",
+                        "module": "Staff Allocation Module",
+                        "requirement": "David can quickly assign staff to security zone",
+                        "demo_action": "Click 'Accept' on recommendation → staff auto-assigned",
+                        "visual_cues": [
+                            "Staff cards update: 3 officers now assigned to 'Security Zone 2'",
+                            "Coverage map shows increased staff presence at security",
+                            "Toast notification: 'Staff deployed to Security Zone 2'",
+                            "Alert status changes to 'Handled'"
+                        ],
+                        "script_quote": "David radios his team and reassigns officers before the crowd even arrives"
+                    },
+                    {
+                        "feature": "Flight Schedule Integration",
+                        "module": "Executive Overview or new Flight Info widget",
+                        "requirement": "Show upcoming flights that trigger the prediction",
+                        "demo_action": "Display flight schedule showing arrivals at 14:30",
+                        "visual_cues": [
+                            "Flight info widget: 'Incoming Flights (next 30 min): 4 flights, ~200 pax'",
+                            "List: CX882, PR123, 5J456, Z2789",
+                            "Highlight flights contributing to surge"
+                        ]
+                    },
+                    {
+                        "feature": "Human-Readable AI Insights",
+                        "module": "All modules - AI Assistant integration",
+                        "requirement": "Gemini translates data into clear actions",
+                        "demo_action": "Show before/after: raw data vs. AI recommendation",
+                        "visual_cues": [
+                            "Before: 'Zone 2: 65%, +12% trend, 4 flights ETA 14:30, 187 pax'",
+                            "After: 'Security will be crowded in 30 min. Deploy 3 more officers now.'",
+                            "Emphasize clarity and actionability"
+                        ],
+                        "script_quote": "Gemini turns camera data and flight data into clear, human-readable actions instead of raw numbers"
+                    }
+                ]
+            },
+            "anna_scenario": {
+                "description": "Traveler using AURA Passenger App (concept/future)",
+                "script_quote": "Because David already handled the situation, Anna's AURA app shows a short wait time instead of a long line. AURA updates her route and queue levels in real time.",
+                "note": "This is NOT the main app we're building, but we should show the concept",
+                "required_features": [
+                    {
+                        "feature": "Passenger App Concept Screen",
+                        "module": "Mockup or slide (not fully functional)",
+                        "requirement": "Show what Anna sees on her phone",
+                        "demo_action": "Display mobile mockup of passenger app",
+                        "visual_cues": [
+                            "Mobile phone mockup showing AURA passenger app",
+                            "Security checkpoint: 'Wait time: 5 minutes' (green, short)",
+                            "Route guidance: 'Recommended path to Gate A12'",
+                            "Queue level indicator: 'Low congestion' (green)",
+                            "Suggestion: 'You have time - explore dining options nearby'",
+                            "Map showing her location and route"
+                        ],
+                        "implementation": "Can be a static mockup/image or simple HTML page"
+                    },
+                    {
+                        "feature": "Real-Time Updates for Passengers",
+                        "module": "Passenger App (concept)",
+                        "requirement": "Show that app updates dynamically",
+                        "demo_action": "Emphasize 'real-time' aspect",
+                        "visual_cues": [
+                            "Timestamp showing 'Updated just now'",
+                            "Animated transition from 'Calculating...' to 'Wait time: 5 min'",
+                            "Live indicator (pulsing dot)"
+                        ]
+                    }
+                ],
+                "connection_to_david": {
+                    "key_point": "Anna's smooth experience is BECAUSE of David's proactive action",
+                    "visual_transition": "Split screen or side-by-side showing:",
+                    "left_side": "David's dashboard: 'Staff deployed ✓'",
+                    "right_side": "Anna's app: 'Short wait time ✓'",
+                    "narration": "Same AI brain, two users — smarter operations for David, calmer travel for Anna"
+                }
+            }
+        },
+        "slide_7_impact": {
+            "timestamp": "2:10–2:30",
+            "narrative": "Value proposition for all stakeholders",
+            "required_features": [
+                {
+                    "feature": "Impact Dashboard or Metrics Summary",
+                    "module": "Executive Overview",
+                    "requirement": "Show measurable outcomes",
+                    "demo_action": "Display KPIs showing improvements",
+                    "visual_cues": [
+                        "KPI: 'Avg Response Time: 8 min → 3 min (↓ 62%)'",
+                        "KPI: 'Congestion Events: 12 → 4 (↓ 67%)'",
+                        "KPI: 'Passenger Satisfaction: 72% → 89% (↑ 17%)'",
+                        "KPI: 'Staff Utilization: 68% → 85% (↑ 17%)'"
+                    ],
+                    "stakeholders": {
+                        "mcia": "Faster decisions, better infrastructure use",
+                        "travelers": "Less stress, better first impression",
+                        "cebu_tourism": "Happier visitors",
+                        "airport_businesses": "Calmer passengers who shop more"
+                    }
+                }
+            ]
+        },
+        "slide_8_pilot": {
+            "timestamp": "2:30–2:55",
+            "narrative": "Implementation roadmap",
+            "required_features": [
+                {
+                    "feature": "Pilot Zone Selector",
+                    "module": "Settings or Admin panel (optional)",
+                    "requirement": "Show ability to start with one area",
+                    "demo_action": "Highlight 'Security Zone 2' as pilot area",
+                    "visual_cues": [
+                        "Map showing MCIA with Security Zone 2 highlighted",
+                        "Label: 'Pilot Area - Phase 1'",
+                        "Other zones grayed out with 'Coming Soon'"
+                    ]
+                },
+                {
+                    "feature": "Performance Tracking Metrics",
+                    "module": "Analytics/Reports section",
+                    "requirement": "Track pilot success signals",
+                    "demo_action": "Show dashboard of pilot metrics",
+                    "visual_cues": [
+                        "Metrics: Reduced congestion time, faster staff response, smoother flow",
+                        "Before/after comparison charts",
+                        "Trend lines showing improvement over time"
+                    ]
+                }
+            ]
+        }
+    },
+    // ============================================================================
+    // PRIORITY FEATURES FOR DEMO
+    // ============================================================================
+    "demo_priority_features": {
+        "description": "Features that MUST work perfectly during the 45-second demo (1:25-2:10)",
+        "critical_path": [
+            {
+                "step": 1,
+                "action": "Show live CCTV feeds of security zone",
+                "module": "Surveillance Module",
+                "duration": "5 seconds",
+                "narration": "Vertex AI Vision analyzes live CCTV feeds"
+            },
+            {
+                "step": 2,
+                "action": "Display crowd density analysis",
+                "module": "Population Module / Heatmap",
+                "duration": "5 seconds",
+                "narration": "Understanding passenger movement, crowd density, and space usage"
+            },
+            {
+                "step": 3,
+                "action": "Show flight schedule integration",
+                "module": "Flight Info Widget",
+                "duration": "5 seconds",
+                "narration": "Combines that with flight schedules"
+            },
+            {
+                "step": 4,
+                "action": "Trigger predictive alert",
+                "module": "Alerts System",
+                "duration": "5 seconds",
+                "narration": "Gemini predicts a surge near security 30 minutes ahead",
+                "visual": "Alert notification appears with bell icon animation"
+            },
+            {
+                "step": 5,
+                "action": "Show AI recommendation card",
+                "module": "AI Recommendations",
+                "duration": "5 seconds",
+                "narration": "AURA recommends opening two more lanes and deploying staff",
+                "visual": "Recommendation card slides in from bottom-right"
+            },
+            {
+                "step": 6,
+                "action": "Accept recommendation → staff assigned",
+                "module": "Staff Allocation",
+                "duration": "5 seconds",
+                "narration": "David radios his team and reassigns officers",
+                "visual": "Click Accept → staff cards update → toast notification"
+            },
+            {
+                "step": 7,
+                "action": "Show before/after data transformation",
+                "module": "AI Insights Panel",
+                "duration": "5 seconds",
+                "narration": "Gemini turns data into clear, human-readable actions",
+                "visual": "Split view: raw data vs. AI recommendation"
+            },
+            {
+                "step": 8,
+                "action": "Switch to Anna's passenger app mockup",
+                "module": "Passenger App Mockup",
+                "duration": "5 seconds",
+                "narration": "Anna's AURA app shows a short wait time",
+                "visual": "Mobile mockup showing 'Wait time: 5 min'"
+            },
+            {
+                "step": 9,
+                "action": "Show real-time route update",
+                "module": "Passenger App Mockup",
+                "duration": "5 seconds",
+                "narration": "AURA updates her route and queue levels in real time",
+                "visual": "Map with route, queue indicators updating"
+            },
+            {
+                "step": 10,
+                "action": "Show Anna exploring terminal",
+                "module": "Passenger App Mockup",
+                "duration": "5 seconds",
+                "narration": "Anna decides to find a place to eat and explores stress-free",
+                "visual": "App showing dining options, relaxed UI"
+            }
+        ],
+        "total_demo_duration": "50 seconds (with buffer)",
+        "rehearsal_notes": [
+            "Practice transitions between modules",
+            "Ensure all animations are smooth",
+            "Have backup plan if live demo fails (video recording)",
+            "Test on presentation laptop/screen",
+            "Check that all visual cues are visible from audience distance"
+        ]
+    },
+    // ============================================================================
+    // FEATURE IMPLEMENTATION PRIORITIES
+    // ============================================================================
+    "implementation_priorities": {
+        "description": "What to build first to support the pitch demo",
+        "tier_1_must_have": {
+            "priority": "CRITICAL - Required for demo",
+            "features": [
+                {
+                    "feature": "Surveillance Module with camera grid",
+                    "reason": "First thing shown in demo",
+                    "requirements": [
+                        "At least 4 camera feeds showing security area",
+                        "Mock video or static images with overlays",
+                        "AI detection boxes (optional but impressive)",
+                        "Density visualization overlay"
+                    ]
+                },
+                {
+                    "feature": "Population Module with security zone KPI",
+                    "reason": "Shows crowd density analysis",
+                    "requirements": [
+                        "KPI card for Security Zone 2 showing 65% capacity",
+                        "Trending indicator (upward arrow)",
+                        "Color-coded status (yellow = warning)"
+                    ]
+                },
+                {
+                    "feature": "Heatmap Module showing security congestion",
+                    "reason": "Visual representation of crowd density",
+                    "requirements": [
+                        "Floor plan with heatmap overlay",
+                        "Security zone highlighted with yellow/orange heat",
+                        "Real-time indicator"
+                    ]
+                },
+                {
+                    "feature": "Predictive Alert System",
+                    "reason": "Core AI prediction capability",
+                    "requirements": [
+                        "Alert bell icon with badge in header",
+                        "Alert notification: 'Predicted surge in 30 min'",
+                        "Alert panel with details",
+                        "Confidence score display"
+                    ]
+                },
+                {
+                    "feature": "AI Recommendation Cards",
+                    "reason": "Shows Gemini's actionable insights",
+                    "requirements": [
+                        "Floating recommendation card (bottom-right)",
+                        "Clear, human-readable recommendation text",
+                        "Accept/Dismiss actions",
+                        "Confidence score",
+                        "Smooth entrance animation"
+                    ]
+                },
+                {
+                    "feature": "Staff Allocation with quick assignment",
+                    "reason": "Shows David taking action",
+                    "requirements": [
+                        "Staff roster showing available officers",
+                        "One-click assignment from recommendation",
+                        "Visual feedback (staff cards update)",
+                        "Toast notification confirming assignment"
+                    ]
+                },
+                {
+                    "feature": "Flight Schedule Widget",
+                    "reason": "Shows data integration",
+                    "requirements": [
+                        "Display upcoming flights (next 30 min)",
+                        "Show flight numbers and passenger counts",
+                        "Highlight flights contributing to surge"
+                    ]
+                },
+                {
+                    "feature": "Passenger App Mockup",
+                    "reason": "Shows Anna's experience",
+                    "requirements": [
+                        "Mobile phone mockup (can be static image or simple HTML)",
+                        "Wait time display: '5 minutes'",
+                        "Route guidance map",
+                        "Queue level indicator",
+                        "Dining suggestions"
+                    ]
+                }
+            ]
+        },
+        "tier_2_nice_to_have": {
+            "priority": "Enhances demo but not critical",
+            "features": [
+                {
+                    "feature": "Before/After Data Transformation Panel",
+                    "reason": "Illustrates Gemini's value clearly",
+                    "requirements": [
+                        "Split view showing raw data vs. AI insight",
+                        "Emphasizes clarity and actionability"
+                    ]
+                },
+                {
+                    "feature": "Impact Metrics Dashboard",
+                    "reason": "Supports Slide 7 value proposition",
+                    "requirements": [
+                        "KPIs showing improvements",
+                        "Before/after comparisons"
+                    ]
+                },
+                {
+                    "feature": "Pilot Zone Visualization",
+                    "reason": "Supports Slide 8 implementation plan",
+                    "requirements": [
+                        "Map showing pilot area highlighted",
+                        "Performance tracking metrics"
+                    ]
+                }
+            ]
+        },
+        "tier_3_future": {
+            "priority": "Post-pitch enhancements",
+            "features": [
+                "Full passenger app (not just mockup)",
+                "Real-time WebSocket integration",
+                "Advanced AI analytics",
+                "Multi-language support",
+                "Mobile operator app"
+            ]
+        }
+    },
+    // ============================================================================
+    // DEMO FLOW SCRIPT
+    // ============================================================================
+    "demo_flow": {
+        "description": "Exact sequence of clicks and screens for the demo",
+        "preparation": [
+            "Open AURA Operations Dashboard in browser",
+            "Navigate to Surveillance Module (or have it as default view)",
+            "Ensure mock data is loaded and realistic",
+            "Test all transitions beforehand",
+            "Have backup video recording ready"
+        ],
+        "demo_sequence": [
+            {
+                "timestamp": "1:25",
+                "screen": "Surveillance Module",
+                "action": "Show camera feeds of security zone",
+                "narration": "Vertex AI Vision analyzes live CCTV feeds",
+                "click": "None (already visible)"
+            },
+            {
+                "timestamp": "1:30",
+                "screen": "Surveillance Module (same)",
+                "action": "Point to density overlay on cameras",
+                "narration": "Understanding passenger movement, crowd density, and space usage",
+                "click": "None (visual emphasis)"
+            },
+            {
+                "timestamp": "1:35",
+                "screen": "Population Module OR Flight Widget",
+                "action": "Click 'Population' in sidebar OR show flight widget",
+                "narration": "The system combines that with flight schedules",
+                "click": "Sidebar: Population (or scroll to flight widget)"
+            },
+            {
+                "timestamp": "1:40",
+                "screen": "Alert Notification",
+                "action": "Alert appears (pre-scripted or triggered)",
+                "narration": "Gemini predicts a surge near security 30 minutes ahead",
+                "click": "Click alert bell icon to open alert panel",
+                "visual": "Bell icon badge animates, alert panel slides in"
+            },
+            {
+                "timestamp": "1:45",
+                "screen": "AI Recommendation Card",
+                "action": "Recommendation card appears",
+                "narration": "AURA recommends opening two more lanes and deploying staff",
+                "click": "None (card auto-appears or click 'View Recommendation')",
+                "visual": "Card slides in from bottom-right"
+            },
+            {
+                "timestamp": "1:50",
+                "screen": "Staff Allocation Module",
+                "action": "Click 'Accept' on recommendation",
+                "narration": "David radios his team and reassigns officers",
+                "click": "Click 'Accept' button on recommendation card",
+                "visual": "Navigate to Staff Allocation, staff cards update, toast appears"
+            },
+            {
+                "timestamp": "1:55",
+                "screen": "AI Insights Panel (optional)",
+                "action": "Show before/after data transformation",
+                "narration": "Gemini turns data into clear, human-readable actions",
+                "click": "Click 'AI Insights' or show modal",
+                "visual": "Split view: raw data vs. recommendation"
+            },
+            {
+                "timestamp": "2:00",
+                "screen": "Passenger App Mockup",
+                "action": "Switch to mobile mockup (new tab or modal)",
+                "narration": "Anna's AURA app shows a short wait time",
+                "click": "Click 'Passenger View' button OR switch browser tab",
+                "visual": "Mobile mockup showing wait time: 5 min"
+            },
+            {
+                "timestamp": "2:05",
+                "screen": "Passenger App - Route Update",
+                "action": "Show route and queue levels",
+                "narration": "AURA updates her route and queue levels in real time",
+                "click": "None (scroll or animate update)",
+                "visual": "Map updates, queue indicator changes"
+            },
+            {
+                "timestamp": "2:10",
+                "screen": "Passenger App - Dining Options",
+                "action": "Show dining suggestions",
+                "narration": "Anna explores the terminal stress-free",
+                "click": "None (show final state)",
+                "visual": "Relaxed UI with dining options"
+            }
+        ],
+        "transition_back": "Return to AURA Operations Dashboard for Slides 7-9"
+    },
+    // ============================================================================
+    // VISUAL DESIGN REQUIREMENTS
+    // ============================================================================
+    "visual_design": {
+        "description": "Design elements that support the narrative",
+        "color_coding": {
+            "david_view": "Gold/Amber theme (existing AURA Operations)",
+            "anna_view": "Softer, passenger-friendly colors (blues, greens)",
+            "alerts": "Red (critical), Yellow (warning), Blue (info)",
+            "recommendations": "Amber/Gold (matches AI assistant)"
+        },
+        "typography": {
+            "david_view": "Professional, data-focused",
+            "anna_view": "Friendly, approachable",
+            "recommendations": "Clear, action-oriented"
+        },
+        "animations": {
+            "alert_appearance": "Slide-in from top with pulse",
+            "recommendation_appearance": "Slide-in from bottom-right",
+            "staff_assignment": "Smooth transition with checkmark animation",
+            "data_update": "Fade transition, not jarring"
+        },
+        "branding": {
+            "logo": "AURA logo visible in header",
+            "tagline": "Predictive Operations Engine (optional)",
+            "powered_by": "Subtle 'Powered by Gemini' or 'Vertex AI' badge"
+        }
+    },
+    // ============================================================================
+    // TECHNICAL REQUIREMENTS FOR DEMO
+    // ============================================================================
+    "technical_requirements": {
+        "demo_mode": {
+            "description": "Special mode for pitch presentation",
+            "features": [
+                "Pre-scripted sequence of events (not random)",
+                "Timing control (trigger events at specific moments)",
+                "Pause/resume capability",
+                "Reset to beginning",
+                "No unexpected errors or loading delays"
+            ],
+            "implementation": "Create 'Demo Mode' toggle in settings"
+        },
+        "mock_data": {
+            "description": "Realistic but controlled data for demo",
+            "requirements": [
+                "Security Zone 2 at 65% capacity (not random)",
+                "4 specific flights arriving at 14:30",
+                "3 available security officers ready to assign",
+                "Predictable alert timing (30 min ahead)",
+                "Consistent recommendation text"
+            ],
+            "file": "data/demoData.ts (separate from regular mockData.ts)"
+        },
+        "performance": {
+            "description": "Ensure smooth demo on presentation hardware",
+            "requirements": [
+                "No lag or stuttering",
+                "Fast transitions (< 300ms)",
+                "Smooth animations (60fps)",
+                "Preload all assets",
+                "Test on presentation laptop"
+            ]
+        },
+        "backup_plan": {
+            "description": "Fallback if live demo fails",
+            "options": [
+                "Pre-recorded video of demo",
+                "Static screenshots with manual narration",
+                "Offline version of app (no internet required)"
+            ]
+        }
+    },
+    // ============================================================================
+    // ALIGNMENT CHECKLIST
+    // ============================================================================
+    "alignment_checklist": {
+        "description": "Verify app matches pitch script",
+        "david_features": [
+            "☐ Live CCTV feeds visible",
+            "☐ Crowd density analysis displayed",
+            "☐ Flight schedule integration shown",
+            "☐ Predictive alert appears (30 min ahead)",
+            "☐ AI recommendation is clear and actionable",
+            "☐ Staff assignment works with one click",
+            "☐ Gemini's role is evident (human-readable insights)"
+        ],
+        "anna_features": [
+            "☐ Passenger app mockup created",
+            "☐ Wait time displayed (5 minutes)",
+            "☐ Route guidance shown",
+            "☐ Queue levels indicated",
+            "☐ Dining suggestions visible",
+            "☐ Real-time update emphasized"
+        ],
+        "narrative_alignment": [
+            "☐ 'Same AI brain, two users' is visually clear",
+            "☐ Connection between David's action and Anna's experience is obvious",
+            "☐ Vertex AI Vision role is mentioned and visible",
+            "☐ Gemini's role is mentioned and visible",
+            "☐ 30-minute prediction timeframe is accurate",
+            "☐ 'Two more lanes and deploying staff' matches recommendation",
+            "☐ All stakeholder benefits can be demonstrated (Slide 7)",
+            "☐ Pilot approach is visualized (Slide 8)"
+        ],
+        "technical_readiness": [
+            "☐ Demo mode implemented and tested",
+            "☐ All transitions rehearsed",
+            "☐ Timing matches script (45 seconds for demo)",
+            "☐ Backup plan prepared",
+            "☐ Tested on presentation hardware",
+            "☐ No errors or bugs during demo sequence",
+            "☐ All visual cues are clear from audience distance"
+        ]
+    },
+    // ============================================================================
+    // NEXT STEPS
+    // ============================================================================
+    "next_steps": [
+        "1. Review this alignment document with team",
+        "2. Prioritize Tier 1 features for immediate implementation",
+        "3. Create demo mode with pre-scripted sequence",
+        "4. Build passenger app mockup (static or simple HTML)",
+        "5. Generate realistic mock data for demo scenario",
+        "6. Implement all critical path features (10 steps)",
+        "7. Test demo flow multiple times",
+        "8. Record backup video of demo",
+        "9. Rehearse narration with demo clicks",
+        "10. Final dress rehearsal on presentation setup"
+    ],
+    // ============================================================================
+    // NOTES
+    // ============================================================================
+    "notes": [
+        "The pitch is excellent - clear narrative, strong emotional connection, good pacing",
+        "The 45-second demo (1:25-2:10) is the CRITICAL moment - must be flawless",
+        "Anna's passenger app can be a simple mockup - focus on David's dashboard",
+        "Emphasize 'Same AI brain, two users' - this is your unique value proposition",
+        "Make sure Vertex AI Vision and Gemini roles are visually clear (logos, labels)",
+        "The 30-minute prediction is impressive - make sure it's prominently displayed",
+        "Practice transitions between modules to maintain flow",
+        "Consider having a 'Demo Mode' button that auto-plays the sequence",
+        "Test on actual presentation screen to ensure visibility from audience"
+    ]
+}
