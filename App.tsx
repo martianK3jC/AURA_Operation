@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import OperatorLandingScreen from './screens/OperatorLandingScreen';
-import OperatorDashboardScreen from './screens/OperatorDashboardScreen';
+import NewOperatorDashboard from './screens/NewOperatorDashboard';
 import { ToastProvider } from './contexts/ToastContext';
 import { ScreenId } from './types';
 
@@ -13,7 +13,7 @@ const App = () => {
             case 'operator-landing':
                 return <OperatorLandingScreen onNavigate={setCurrentScreen} />;
             case 'operator-dashboard':
-                return <OperatorDashboardScreen onNavigate={setCurrentScreen} />;
+                return <NewOperatorDashboard onNavigate={setCurrentScreen} />;
             default:
                 return (
                     <div className="flex flex-col items-center justify-center h-screen bg-[#0A0A0A] text-white font-sans">

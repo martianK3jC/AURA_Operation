@@ -1,6 +1,6 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import { X, Radio, Users } from 'lucide-react';
+import { X, Users } from 'lucide-react';
 
 interface CCTVModalProps {
     camId: number | null;
@@ -33,13 +33,14 @@ const CCTVModal: React.FC<CCTVModalProps> = ({ camId, onClose, systemStatus }) =
                         <X size={24} />
                     </button>
 
+
                     {/* Simulated Feed Content */}
                     <div className="relative w-full h-full opacity-50">
                         <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px] pointer-events-none z-10 opacity-50"></div>
                         <Users size={120} className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-colors duration-500 ${systemStatus === 'alert' ? 'text-red-900/20' : 'text-neutral-700'}`} />
 
-                        {/* HUD Overlay */}
-                        <div className="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-black/80 to-transparent z-10">
+                        {/* HUD Overlay - Bottom Left */}
+                        <div className="absolute bottom-0 left-0 p-8 bg-gradient-to-t from-black/80 to-transparent z-10">
                             <div className={`flex gap-8 text-xs font-mono transition-colors ${systemStatus === 'alert' ? 'text-white/60' : 'text-emerald-500/80'}`}>
                                 <div>
                                     <span className="text-white/40 block text-[10px]">COORDINATES</span>
@@ -55,59 +56,74 @@ const CCTVModal: React.FC<CCTVModalProps> = ({ camId, onClose, systemStatus }) =
                                 </div>
                             </div>
                         </div>
+
+                        {/* Vertex AI Vision Analysis - Bottom Right */}
+                        <div className="absolute bottom-8 right-8 z-20 bg-blue-900/95 backdrop-blur-md border border-blue-500/40 rounded-lg p-4 shadow-2xl max-w-xs">
+                            <div className="flex items-start gap-3">
+                                <div className="bg-blue-500 p-1.5 rounded-md shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                                        <circle cx="12" cy="13" r="4" />
+                                    </svg>
+                                </div>
+                                <div className="flex-1">
+                                    <h4 className="text-xs font-bold text-blue-200 mb-2 flex items-center gap-1">
+                                        Vertex AI Vision
+                                    </h4>
+                                    <div className="space-y-2">
+                                        <div className="flex items-center justify-between gap-3">
+                                            <span className="text-[10px] text-blue-100/70">Crowd Density</span>
+                                            <span className="text-sm font-black text-amber-400">65%</span>
+                                        </div>
+                                        <div className="flex items-center justify-between gap-3">
+                                            <span className="text-[10px] text-blue-100/70">Trend</span>
+                                            <span className="text-sm font-black text-red-400">+12%</span>
+                                        </div>
+                                        <div className="pt-1 border-t border-blue-400/20">
+                                            <p className="text-[9px] text-blue-100/60 leading-tight">
+                                                Analyzing movement & space usage
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 {/* Sidebar Analysis */}
                 <div className="w-full md:w-80 bg-neutral-950 border-l border-white/10 p-6 flex flex-col gap-6">
                     <h3 className="text-lg font-bold text-white uppercase tracking-wider border-b border-white/10 pb-4">
-                        Live Analysis
+                        Security Zone 2
                     </h3>
 
-                    <div className="space-y-4">
-                        <div>
-                            <p className="text-xs text-white/40 uppercase tracking-widest mb-1">Density</p>
-                            <div className="flex items-center gap-2">
-                                <div className="w-full h-2 bg-neutral-800 rounded-full overflow-hidden">
-                                    <div className={`h-full rounded-full transition-all duration-500 ${systemStatus === 'alert' ? 'bg-red-800 w-[95%]' : 'bg-amber-500 w-[65%]'}`}></div>
-                                </div>
-                                <span className={`font-mono text-sm ${systemStatus === 'alert' ? 'text-red-400 font-bold' : 'text-amber-500'}`}>
-                                    {systemStatus === 'alert' ? '95% CRITICAL' : '65%'}
-                                </span>
+                    <div className="space-y-6">
+                        <div className="bg-neutral-900/50 p-4 rounded-xl border border-white/5">
+                            <p className="text-sm text-white/80 leading-relaxed font-mono">
+                                Passenger movement, crowd density, and space usage at <span className="text-amber-500 font-bold">Security Zone 2</span>.
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="bg-neutral-900/50 p-3 rounded-xl border border-white/5">
+                                <p className="text-[10px] text-white/40 uppercase tracking-widest mb-1">Current Density</p>
+                                <p className="text-2xl font-black text-amber-500">65%</p>
+                            </div>
+                            <div className="bg-neutral-900/50 p-3 rounded-xl border border-white/5">
+                                <p className="text-[10px] text-white/40 uppercase tracking-widest mb-1">Trend</p>
+                                <p className="text-2xl font-black text-red-400">+12%</p>
                             </div>
                         </div>
 
                         <div>
-                            <p className="text-xs text-white/40 uppercase tracking-widest mb-1">Movement Velocity</p>
-                            <div className="flex items-center gap-2">
-                                <div className="w-full h-2 bg-neutral-800 rounded-full overflow-hidden">
-                                    <div className={`h-full rounded-full transition-all duration-500 ${systemStatus === 'alert' ? 'bg-red-800 w-[10%]' : 'bg-emerald-500 w-[30%]'}`}></div>
-                                </div>
-                                <span className={`font-mono text-sm ${systemStatus === 'alert' ? 'text-red-500 font-bold' : 'text-emerald-500'}`}>
-                                    {systemStatus === 'alert' ? 'STAGNANT' : 'NORMAL'}
-                                </span>
+                            <p className="text-xs text-white/40 uppercase tracking-widest mb-2">Space Usage</p>
+                            <div className="w-full h-2 bg-neutral-800 rounded-full overflow-hidden">
+                                <div className="h-full bg-gradient-to-r from-emerald-500 via-amber-500 to-red-500 w-[65%]"></div>
                             </div>
                         </div>
                     </div>
 
-                    <div className={`rounded-xl p-4 border flex-1 ${systemStatus === 'alert' ? 'bg-neutral-900 border-white/5' : 'bg-neutral-900 border-white/5'}`}>
-                        <div className={`flex items-center gap-2 mb-3 ${systemStatus === 'alert' ? 'text-white/60' : 'text-white/60'}`}>
-                            <Radio size={14} className={systemStatus === 'alert' ? 'text-white/60' : 'animate-pulse text-red-500'} />
-                            <span className="text-xs font-bold uppercase">System Log</span>
-                        </div>
-                        <div className="space-y-2 font-mono text-[10px] text-white/30">
-                            <p><span className="text-emerald-500">10:42:01</span> &gt; Object tracking initiated</p>
-                            <p><span className="text-emerald-500">10:42:05</span> &gt; ID_492 verified (Staff)</p>
-                            <p><span className="text-emerald-500">10:42:12</span> &gt; Scan complete</p>
-                            <p><span className="text-amber-500">10:42:45</span> &gt; Minor congestion detected</p>
-                            {systemStatus === 'alert' && (
-                                <>
-                                    <p className=""><span className="text-red-500">10:43:10</span> &gt; ⚠️ CROWD DENSITY CRITICAL</p>
-                                    <p className=""><span className="text-red-500">10:43:12</span> &gt; ALERT SENT TO HQ</p>
-                                </>
-                            )}
-                        </div>
-                    </div>
+                    <div className="flex-1"></div>
 
                     <button
                         onClick={() => console.log('Dispatch team')}

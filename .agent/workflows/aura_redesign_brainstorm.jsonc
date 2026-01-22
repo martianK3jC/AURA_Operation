@@ -1,0 +1,869 @@
+{
+    // ============================================================================
+    // AURA OPERATIONS APP - REDESIGN BRAINSTORM & IMPLEMENTATION PLAN
+    // ============================================================================
+    // Purpose: Strategic planning document for implementing a full-screen sidebar
+    //          navigation system with integrated operational modules
+    // Status: Planning Phase - No Coding Yet
+    // ============================================================================
+    "project_overview": {
+        "app_name": "AURA Operations",
+        "current_state": {
+            "architecture": "React + TypeScript + Vite",
+            "styling": "TailwindCSS with custom gold/amber theme",
+            "screens": [
+                "OperatorLandingScreen (Login)",
+                "OperatorDashboardScreen (Main Dashboard)"
+            ],
+            "existing_components": [
+                "PredictiveHeatmapVisualization",
+                "OperatorChatbot (AI Assistant)",
+                "Dashboard sections (Executive Overview, Tactical Map, Alerts Response)",
+                "CCTVModal"
+            ],
+            "current_navigation": "Screen-based switching (no persistent sidebar)"
+        },
+        "redesign_goal": "Transform into a single-screen application with persistent sidebar navigation, integrating all operational modules into one cohesive interface",
+        "pitch_alignment": {
+            "demo_duration": "45 seconds (1:25-2:10 in pitch)",
+            "key_scenario": "David predicts Security Zone 2 surge 30 min ahead, deploys staff proactively",
+            "critical_features": [
+                "Live CCTV with AI analysis overlays",
+                "Predictive alerts (30 min ahead)",
+                "AI recommendations (Gemini-powered)",
+                "One-click staff deployment",
+                "Flight schedule integration",
+                "Demo mode for presentation"
+            ],
+            "success_metric": "Flawless demo showing 'Same AI brain, two users'"
+        }
+    },
+    // ============================================================================
+    // CORE REDESIGN REQUIREMENTS
+    // ============================================================================
+    "core_requirements": {
+        "1_sidebar_navigation": {
+            "description": "Full-height persistent sidebar for primary navigation",
+            "design_principles": [
+                "Single section to fit the whole screen (full-height)",
+                "Always visible and accessible",
+                "Clear visual hierarchy with active state indicators",
+                "Collapsible on mobile/tablet for space optimization",
+                "Icons + labels for better UX",
+                "Smooth transitions between sections"
+            ],
+            "navigation_items": [
+                {
+                    "id": "population",
+                    "label": "Population",
+                    "icon": "Users",
+                    "description": "Real-time population tracking and density monitoring"
+                },
+                {
+                    "id": "heatmap",
+                    "label": "Heatmap",
+                    "icon": "Map",
+                    "description": "Spatial analysis and movement patterns"
+                },
+                {
+                    "id": "surveillance",
+                    "label": "Live Surveillance",
+                    "icon": "Video",
+                    "description": "CCTV feeds and real-time monitoring"
+                },
+                {
+                    "id": "staff-allocation",
+                    "label": "Staff Allocation",
+                    "icon": "UserCog",
+                    "description": "Resource management and workload distribution"
+                },
+                {
+                    "id": "overview",
+                    "label": "Executive Overview",
+                    "icon": "LayoutDashboard",
+                    "description": "High-level KPIs and system status",
+                    "note": "Could be default/home view"
+                },
+                {
+                    "id": "flights",
+                    "label": "Flight Schedule",
+                    "icon": "Plane",
+                    "description": "Incoming/outgoing flights and passenger forecasts",
+                    "note": "CRITICAL for pitch demo - shows data integration"
+                }
+            ],
+            "technical_approach": {
+                "layout": "CSS Grid or Flexbox with fixed sidebar + dynamic content area",
+                "state_management": "useState for active section tracking",
+                "responsive_behavior": "Collapsible sidebar on screens < 768px with hamburger menu",
+                "accessibility": "Keyboard navigation (Tab, Arrow keys), ARIA labels"
+            }
+        },
+        "2_population_module": {
+            "description": "Real-time population density and occupancy tracking",
+            "key_features": [
+                "Current occupancy count (total people in facility)",
+                "Zone-based population breakdown (e.g., Check-in, Security, Gates, Retail)",
+                "Capacity utilization percentage per zone",
+                "Historical trends (hourly/daily patterns)",
+                "Predictive forecasting for peak times",
+                "Threshold alerts (overcrowding warnings)"
+            ],
+            "visualizations": [
+                {
+                    "type": "KPI Cards",
+                    "data": "Total occupancy, capacity %, change from average"
+                },
+                {
+                    "type": "Bar Chart",
+                    "data": "Population by zone (horizontal bars with color-coded capacity levels)"
+                },
+                {
+                    "type": "Line Graph",
+                    "data": "Population trends over time (last 24h, 7d, 30d)"
+                },
+                {
+                    "type": "Zone Grid",
+                    "data": "Visual grid showing each zone with occupancy status (green/yellow/red)"
+                }
+            ],
+            "data_sources": {
+                "real_time": "Simulated WebSocket or polling for demo",
+                "historical": "Mock data with realistic patterns",
+                "integration_potential": "Camera-based people counting, WiFi tracking, access control systems"
+            },
+            "ui_considerations": [
+                "Auto-refresh every 5-10 seconds",
+                "Drill-down capability (click zone to see details)",
+                "Export data functionality",
+                "Time range selector"
+            ]
+        },
+        "3_heatmap_module": {
+            "description": "Spatial visualization of movement patterns and activity hotspots",
+            "key_features": [
+                "Movement heatmap overlay on facility floor plan",
+                "Dwell time analysis (how long people stay in areas)",
+                "Traffic flow patterns (entry/exit routes)",
+                "Congestion hotspots identification",
+                "Historical comparison (compare different time periods)",
+                "Real-time vs. historical toggle"
+            ],
+            "visualizations": [
+                {
+                    "type": "Interactive Floor Plan",
+                    "description": "SVG or Canvas-based map with color-coded heat intensity",
+                    "color_scheme": "Cool (blue/green) to Hot (yellow/orange/red) gradient"
+                },
+                {
+                    "type": "Density Legend",
+                    "description": "Color scale showing low to high activity levels"
+                },
+                {
+                    "type": "Time Slider",
+                    "description": "Scrub through historical heatmap data"
+                }
+            ],
+            "technical_implementation": {
+                "existing_component": "PredictiveHeatmapVisualization.tsx (already exists!)",
+                "enhancement_needed": [
+                    "Integrate with sidebar navigation",
+                    "Add time-based playback controls",
+                    "Improve interactivity (click zones for details)",
+                    "Add export/screenshot functionality"
+                ],
+                "performance": "Use Canvas for rendering large datasets, optimize re-renders"
+            },
+            "use_cases": [
+                "Identify bottlenecks in passenger flow",
+                "Optimize facility layout based on movement patterns",
+                "Plan staff deployment to high-traffic areas",
+                "Detect unusual activity patterns"
+            ]
+        },
+        "4_surveillance_module": {
+            "description": "Live CCTV monitoring and incident detection",
+            "key_features": [
+                "Multi-camera grid view (4, 9, or 16 cameras)",
+                "Single camera full-screen mode",
+                "Camera selection by zone/location",
+                "Incident markers on timeline",
+                "Recording playback controls",
+                "AI-detected events highlighting (unattended baggage, crowd formation)",
+                "Quick access to recent alerts with camera links"
+            ],
+            "visualizations": [
+                {
+                    "type": "Camera Grid",
+                    "description": "Responsive grid of live camera feeds",
+                    "interaction": "Click to expand, double-click for full-screen"
+                },
+                {
+                    "type": "Camera List",
+                    "description": "Sidebar with all cameras, filterable by zone/status"
+                },
+                {
+                    "type": "Timeline Scrubber",
+                    "description": "For playback mode with incident markers"
+                }
+            ],
+            "technical_implementation": {
+                "existing_component": "CCTVModal.tsx (already exists!)",
+                "enhancement_needed": [
+                    "Convert modal to full-page view within sidebar navigation",
+                    "Add grid layout options (2x2, 3x3, 4x4)",
+                    "Implement camera grouping by zone",
+                    "Add PTZ controls (Pan-Tilt-Zoom) for supported cameras",
+                    "Integrate with alert system (click alert → jump to camera)"
+                ],
+                "video_source": "Mock video feeds or static images with overlays for demo"
+            },
+            "integration_points": [
+                "Link to alerts (click alert → show relevant camera)",
+                "Link to heatmap (overlay camera positions on floor plan)",
+                "Link to staff allocation (dispatch staff to camera location)"
+            ],
+            "pitch_demo_requirements": {
+                "scenario": "Show Security Zone 2 cameras during predicted surge",
+                "visual_elements": [
+                    "AI bounding boxes around people/crowds (optional but impressive)",
+                    "Density heatmap overlay on camera feed",
+                    "Live timestamp indicator",
+                    "Camera showing 65% capacity trending upward"
+                ],
+                "demo_cameras": "At least 4 feeds showing security checkpoint area"
+            }
+        },
+        "5_staff_allocation_module": {
+            "description": "Resource management and workload optimization",
+            "key_features": [
+                "Staff roster and current assignments",
+                "Workload distribution visualization",
+                "Real-time staff location tracking (if available)",
+                "Shift scheduling and coverage gaps",
+                "Performance metrics (response time, tasks completed)",
+                "Dynamic reallocation based on heatmap/population data",
+                "Staff availability status (on-duty, break, off-duty)"
+            ],
+            "visualizations": [
+                {
+                    "type": "Staff Cards",
+                    "description": "Grid of staff members with photo, name, role, current assignment, status"
+                },
+                {
+                    "type": "Workload Bar Chart",
+                    "description": "Horizontal bars showing task load per staff member"
+                },
+                {
+                    "type": "Coverage Map",
+                    "description": "Floor plan showing staff positions and coverage zones"
+                },
+                {
+                    "type": "Shift Timeline",
+                    "description": "Gantt-style chart showing shift coverage over 24h"
+                },
+                {
+                    "type": "Allocation Heatmap",
+                    "description": "Overlay on floor plan showing staffed vs. understaffed areas"
+                }
+            ],
+            "ai_recommendations": {
+                "description": "AI-driven suggestions for optimal staff deployment",
+                "triggers": [
+                    "High population density detected → suggest additional staff",
+                    "Low activity period → suggest staff reduction/break rotation",
+                    "Incident alert → suggest nearest available staff for dispatch",
+                    "Predicted peak time → suggest proactive staffing increase"
+                ],
+                "display": "Recommendation cards with 'Accept' or 'Dismiss' actions"
+            },
+            "technical_implementation": {
+                "data_structure": {
+                    "staff_member": {
+                        "id": "string",
+                        "name": "string",
+                        "role": "string (Security, Customer Service, Maintenance, etc.)",
+                        "status": "on-duty | break | off-duty",
+                        "current_assignment": "string (zone or task)",
+                        "shift_start": "timestamp",
+                        "shift_end": "timestamp",
+                        "location": "{ x, y } coordinates or zone ID",
+                        "tasks_completed": "number",
+                        "avg_response_time": "number (minutes)"
+                    }
+                },
+                "actions": [
+                    "Assign staff to zone/task",
+                    "Request backup",
+                    "Send notification to staff member",
+                    "View staff details/history"
+                ]
+            }
+        },
+        "6_flight_schedule_module": {
+            "description": "Flight schedule integration for predictive analytics",
+            "priority": "CRITICAL for pitch demo",
+            "key_features": [
+                "Upcoming arrivals/departures (next 30-60 min)",
+                "Passenger count per flight",
+                "Gate assignments",
+                "Predicted passenger flow based on flight schedule",
+                "Integration with population and alert systems"
+            ],
+            "visualizations": [
+                {
+                    "type": "Flight List",
+                    "description": "Table or cards showing upcoming flights"
+                },
+                {
+                    "type": "Timeline",
+                    "description": "Visual timeline of arrivals/departures"
+                },
+                {
+                    "type": "Passenger Forecast",
+                    "description": "Chart showing predicted passenger influx"
+                }
+            ],
+            "technical_implementation": {
+                "data_structure": {
+                    "flight": {
+                        "id": "string (e.g., CX882)",
+                        "type": "arrival | departure",
+                        "scheduled_time": "timestamp",
+                        "gate": "string",
+                        "passenger_count": "number",
+                        "origin_destination": "string",
+                        "status": "on-time | delayed | boarding | landed"
+                    }
+                },
+                "demo_scenario": {
+                    "flights": [
+                        "CX882 - 200 pax arriving 14:30",
+                        "PR123 - 180 pax arriving 14:35",
+                        "5J456 - 150 pax arriving 14:40",
+                        "Z2789 - 120 pax arriving 14:45"
+                    ],
+                    "total_predicted": "650 passengers in 30 min window",
+                    "trigger": "Generates surge prediction for Security Zone 2"
+                }
+            },
+            "pitch_integration": {
+                "narration": "The system combines that with flight schedules",
+                "visual_cue": "Show flight widget with 4 incoming flights",
+                "timing": "5 seconds in demo (step 3)"
+            }
+        },
+        "7_demo_mode": {
+            "description": "Special presentation mode for pitch demo",
+            "priority": "CRITICAL - ensures flawless demo",
+            "key_features": [
+                "Pre-scripted sequence of events",
+                "Controlled timing (not random)",
+                "Pause/resume capability",
+                "Reset to beginning",
+                "No unexpected errors or loading delays",
+                "Predictable data (Security Zone 2 at 65%, 4 specific flights, etc.)"
+            ],
+            "technical_implementation": {
+                "toggle": "Demo Mode switch in settings or URL parameter (?demo=true)",
+                "data_source": "demoData.ts (separate from mockData.ts)",
+                "event_sequence": [
+                    "1. Show surveillance feeds (auto-load)",
+                    "2. Display population at 65% (pre-set)",
+                    "3. Show flight schedule (4 flights)",
+                    "4. Trigger alert (on command or timer)",
+                    "5. Show recommendation card (auto-appear)",
+                    "6. Accept recommendation (one-click)",
+                    "7. Update staff allocation (instant)",
+                    "8. Show before/after data (toggle)",
+                    "9. Switch to passenger app mockup",
+                    "10. Show final state (Anna's view)"
+                ],
+                "controls": {
+                    "keyboard_shortcuts": "Space = next step, R = reset, P = pause",
+                    "visual_indicator": "Small 'DEMO MODE' badge in corner",
+                    "auto_advance": "Optional timer to auto-advance steps"
+                }
+            }
+        }
+    },
+    // ============================================================================
+    // CRITICAL QUESTION: WHERE TO PUT RECOMMENDATIONS/ALERTS?
+    // ============================================================================
+    "alerts_and_recommendations_placement": {
+        "research_findings": {
+            "best_practices": [
+                "Top-left or top-right corner for critical alerts (EOC standard)",
+                "Color-coded severity (red=critical, orange=warning, yellow=info)",
+                "Dedicated alert section/widget for grouping",
+                "Persistent notification bell/icon in header with count badge",
+                "Toast notifications for real-time events (auto-dismiss)",
+                "Modal for critical alerts requiring immediate action"
+            ],
+            "avoid": [
+                "Burying alerts in scrollable content",
+                "Alert fatigue from too many notifications",
+                "Inconsistent placement across different views"
+            ]
+        },
+        "recommended_approach": {
+            "strategy": "Multi-layered alert system with context-aware placement",
+            "layer_1_global_header": {
+                "location": "Top-right of screen (always visible)",
+                "components": [
+                    "System status indicator (Nominal/Alert with color)",
+                    "Alert bell icon with count badge",
+                    "Click to open alert dropdown/panel"
+                ],
+                "behavior": "Persistent across all sidebar sections"
+            },
+            "layer_2_alert_panel": {
+                "location": "Slide-out panel from right side OR dedicated sidebar section",
+                "trigger": "Click alert bell icon OR navigate to 'Alerts' in sidebar",
+                "content": [
+                    "List of all active alerts (grouped by severity)",
+                    "Each alert shows: type, location, message, time, actions",
+                    "Filter by severity, location, or status",
+                    "Resolve/acknowledge buttons"
+                ],
+                "design": "Glass-morphism panel with backdrop blur, max-height with scroll"
+            },
+            "layer_3_contextual_alerts": {
+                "description": "Show relevant alerts within each module",
+                "examples": [
+                    "Population module → Show overcrowding alerts for specific zones",
+                    "Heatmap module → Highlight congestion hotspots with alert markers",
+                    "Surveillance module → Show camera-specific incident alerts",
+                    "Staff Allocation → Show understaffing warnings"
+                ],
+                "design": "Inline alert cards within module content, less prominent than global alerts"
+            },
+            "layer_4_ai_recommendations": {
+                "location": "Bottom-right corner OR dedicated 'Recommendations' tab in alert panel",
+                "trigger": "AI analyzes data and generates suggestions",
+                "content": [
+                    "Recommendation cards with icon, title, description, confidence score",
+                    "Actions: 'Accept', 'Dismiss', 'View Details'",
+                    "Auto-dismiss after 30s if not interacted with (move to history)"
+                ],
+                "design": "Distinct from alerts (use amber/gold theme to match AI assistant)",
+                "examples": [
+                    "'Deploy 2 additional staff to Security Zone 2 (85% confidence)'",
+                    "'Predicted peak in 30 minutes - consider opening Gate B12'",
+                    "'Unusual activity detected in Retail Area - review Camera 08'"
+                ]
+            },
+            "layer_5_toast_notifications": {
+                "location": "Top-center or bottom-right (existing ToastContext)",
+                "trigger": "Real-time events (new alert, task completed, system update)",
+                "behavior": "Auto-dismiss after 3-5 seconds, non-blocking",
+                "use_cases": [
+                    "Alert resolved",
+                    "Staff assignment updated",
+                    "System status changed",
+                    "New recommendation available"
+                ]
+            }
+        },
+        "final_recommendation": {
+            "primary_alerts": "Top-right header with bell icon + slide-out panel",
+            "ai_recommendations": "Bottom-right floating cards (similar to chatbot button placement)",
+            "contextual_info": "Inline within each module",
+            "real_time_events": "Toast notifications (already implemented)",
+            "rationale": [
+                "Separates critical alerts (safety/security) from AI suggestions (optimization)",
+                "Maintains clean interface without overwhelming users",
+                "Follows EOC dashboard best practices",
+                "Leverages existing ToastContext infrastructure",
+                "Provides flexibility for users to focus on specific alert types"
+            ]
+        }
+    },
+    // ============================================================================
+    // SYSTEM DESIGN & ARCHITECTURE
+    // ============================================================================
+    "system_design": {
+        "information_architecture": {
+            "layout_structure": "Sidebar + Main Content Area",
+            "sidebar": {
+                "width": "280px (desktop), 240px (tablet), full-width overlay (mobile)",
+                "position": "Fixed left",
+                "sections": [
+                    "Logo/Branding (top)",
+                    "Navigation items (middle)",
+                    "User profile + logout (bottom)"
+                ]
+            },
+            "main_content": {
+                "width": "calc(100vw - 280px) on desktop",
+                "behavior": "Dynamic content based on active sidebar section",
+                "header": "Fixed top bar with breadcrumb, time, system status, alerts",
+                "content": "Scrollable area with module-specific content",
+                "footer": "Optional sticky footer for global actions"
+            }
+        },
+        "navigation_flow": {
+            "default_view": "Executive Overview (existing dashboard content)",
+            "section_switching": "Click sidebar item → fade out old content → fade in new content",
+            "deep_linking": "Support URL routing for direct access (e.g., /population, /heatmap)",
+            "breadcrumb": "Show current section in header for context"
+        },
+        "responsive_design": {
+            "desktop": ">= 1024px - Full sidebar + content side-by-side",
+            "tablet": "768px - 1023px - Narrower sidebar, collapsible option",
+            "mobile": "< 768px - Hamburger menu, overlay sidebar, full-width content",
+            "considerations": [
+                "Touch-friendly tap targets (min 44x44px)",
+                "Simplified visualizations on mobile (fewer data points)",
+                "Priority content first on small screens"
+            ]
+        },
+        "performance_optimization": {
+            "lazy_loading": "Load module components only when navigated to",
+            "data_fetching": "Fetch data on-demand, cache results",
+            "virtualization": "Use react-window for large lists (staff roster, camera grid)",
+            "debouncing": "Debounce real-time updates to avoid excessive re-renders",
+            "code_splitting": "Split modules into separate chunks for faster initial load"
+        },
+        "accessibility": {
+            "keyboard_navigation": "Tab through sidebar items, Enter to select, Esc to close modals",
+            "screen_reader": "ARIA labels for all interactive elements, semantic HTML",
+            "color_contrast": "WCAG AA compliance (4.5:1 for text, 3:1 for UI components)",
+            "focus_indicators": "Clear focus rings for keyboard users",
+            "reduced_motion": "Respect prefers-reduced-motion media query"
+        }
+    },
+    // ============================================================================
+    // DESIGN SYSTEM INTEGRATION
+    // ============================================================================
+    "design_system": {
+        "color_palette": {
+            "primary": "Amber/Gold (#F59E0B, #D97706, #B45309) - existing theme",
+            "background": "#050505, #0A0A0A, #1A1A1A - dark gradients",
+            "text": "#FFFFFF, #E5E5E5, #A3A3A3 - white to gray scale",
+            "status_colors": {
+                "critical": "#EF4444 (red)",
+                "warning": "#F59E0B (amber)",
+                "info": "#3B82F6 (blue)",
+                "success": "#10B981 (green)",
+                "nominal": "#10B981 (green)"
+            },
+            "heatmap_gradient": "Blue (#3B82F6) → Green (#10B981) → Yellow (#FBBF24) → Orange (#F59E0B) → Red (#EF4444)"
+        },
+        "typography": {
+            "font_family": "Inter, system-ui, sans-serif (existing)",
+            "scale": {
+                "h1": "2.5rem / 40px - Page titles",
+                "h2": "2rem / 32px - Section headers",
+                "h3": "1.5rem / 24px - Subsection headers",
+                "body": "1rem / 16px - Default text",
+                "small": "0.875rem / 14px - Labels, captions"
+            },
+            "weight": {
+                "bold": "700 - Headers, emphasis",
+                "semibold": "600 - Subheaders, buttons",
+                "regular": "400 - Body text"
+            }
+        },
+        "components": {
+            "glass_card": "backdrop-blur-xl bg-white/5 border border-white/10 (existing GlassCard.tsx)",
+            "buttons": {
+                "primary": "bg-amber-600 hover:bg-amber-500 text-white",
+                "secondary": "bg-white/10 hover:bg-white/20 text-white",
+                "danger": "bg-red-600 hover:bg-red-500 text-white"
+            },
+            "inputs": "bg-white/5 border border-white/10 focus:border-amber-500",
+            "badges": "Rounded-full with status color background",
+            "tooltips": "Dark background with white text, subtle shadow"
+        },
+        "spacing": {
+            "unit": "4px base (Tailwind default)",
+            "container_padding": "p-6 (24px) on desktop, p-4 (16px) on mobile",
+            "section_gap": "gap-6 (24px) between major sections",
+            "card_gap": "gap-4 (16px) between cards"
+        },
+        "animations": {
+            "transitions": "transition-all duration-300 ease-in-out (default)",
+            "hover_scale": "hover:scale-105 for interactive elements",
+            "fade_in": "Opacity 0 → 1 over 300ms",
+            "slide_in": "Transform translateX(-100%) → 0 over 300ms for sidebar"
+        }
+    },
+    // ============================================================================
+    // IMPLEMENTATION PHASES
+    // ============================================================================
+    "implementation_phases": {
+        "phase_1_foundation": {
+            "description": "Set up sidebar navigation and routing infrastructure",
+            "tasks": [
+                "Create Sidebar component with navigation items",
+                "Implement section state management (active section tracking)",
+                "Set up content area with dynamic rendering based on active section",
+                "Add responsive behavior (collapsible sidebar on mobile)",
+                "Migrate existing dashboard content to 'Executive Overview' section",
+                "Test navigation flow and transitions"
+            ],
+            "estimated_effort": "Medium (2-3 hours)"
+        },
+        "phase_2_population_module": {
+            "description": "Build population tracking and density monitoring",
+            "tasks": [
+                "Create PopulationModule component",
+                "Design KPI cards for total occupancy and capacity",
+                "Implement zone-based population breakdown visualization",
+                "Add historical trend line chart",
+                "Create mock data generator for realistic population patterns",
+                "Integrate threshold alerts for overcrowding",
+                "Add time range selector and auto-refresh"
+            ],
+            "estimated_effort": "Medium-High (3-4 hours)"
+        },
+        "phase_3_heatmap_integration": {
+            "description": "Integrate existing heatmap component into sidebar navigation",
+            "tasks": [
+                "Refactor PredictiveHeatmapVisualization.tsx for sidebar integration",
+                "Add time-based playback controls",
+                "Implement zone click-through for detailed analytics",
+                "Add real-time vs. historical toggle",
+                "Enhance interactivity and performance",
+                "Create export/screenshot functionality"
+            ],
+            "estimated_effort": "Low-Medium (2 hours) - component already exists"
+        },
+        "phase_4_surveillance_module": {
+            "description": "Build live surveillance monitoring interface",
+            "tasks": [
+                "Create SurveillanceModule component",
+                "Implement camera grid layout (4, 9, 16 views)",
+                "Refactor CCTVModal for inline display",
+                "Add camera selection and filtering by zone",
+                "Implement single camera full-screen mode",
+                "Integrate with alert system (click alert → show camera)",
+                "Add mock video feeds or static images with overlays"
+            ],
+            "estimated_effort": "Medium-High (3-4 hours)"
+        },
+        "phase_5_staff_allocation_module": {
+            "description": "Build resource management and workload optimization",
+            "tasks": [
+                "Create StaffAllocationModule component",
+                "Design staff card grid with status indicators",
+                "Implement workload distribution visualization",
+                "Add coverage map overlay on floor plan",
+                "Create shift timeline Gantt chart",
+                "Build AI recommendation system for staff deployment",
+                "Implement staff assignment and notification actions",
+                "Create mock staff data with realistic patterns"
+            ],
+            "estimated_effort": "High (4-5 hours)"
+        },
+        "phase_6_alerts_and_recommendations": {
+            "description": "Implement multi-layered alert and recommendation system",
+            "tasks": [
+                "Add alert bell icon to header with count badge",
+                "Create slide-out alert panel component",
+                "Implement alert filtering and grouping by severity",
+                "Build AI recommendation cards with accept/dismiss actions",
+                "Integrate contextual alerts within each module",
+                "Enhance existing ToastContext for real-time events",
+                "Add alert history and audit log",
+                "Test alert flow across all modules"
+            ],
+            "estimated_effort": "Medium-High (3-4 hours)"
+        },
+        "phase_7_polish_and_optimization": {
+            "description": "Final refinements, testing, and performance optimization",
+            "tasks": [
+                "Conduct full UX review and fix inconsistencies",
+                "Optimize performance (lazy loading, code splitting)",
+                "Add loading states and error handling",
+                "Implement accessibility features (keyboard nav, ARIA labels)",
+                "Test responsive design on multiple devices",
+                "Add animations and micro-interactions",
+                "Create user documentation or onboarding tooltips",
+                "Final bug fixes and edge case handling"
+            ],
+            "estimated_effort": "Medium (2-3 hours)"
+        }
+    },
+    // ============================================================================
+    // TECHNICAL CONSIDERATIONS
+    // ============================================================================
+    "technical_considerations": {
+        "state_management": {
+            "current": "useState hooks in components",
+            "recommendation": "Continue with useState for simplicity, consider Context API if state becomes complex",
+            "future": "Could migrate to Zustand or Redux if app scales significantly"
+        },
+        "routing": {
+            "current": "Screen-based switching with state",
+            "recommendation": "Add React Router for URL-based navigation (/population, /heatmap, etc.)",
+            "benefits": "Deep linking, browser back/forward support, shareable URLs"
+        },
+        "data_management": {
+            "current": "Mock data in components",
+            "recommendation": "Centralize mock data in separate files (e.g., /data/mockData.ts)",
+            "future": "Replace with real API calls when backend is available",
+            "structure": {
+                "population": "Array of zone objects with occupancy data",
+                "heatmap": "2D array or coordinate-based density data",
+                "cameras": "Array of camera objects with feed URLs",
+                "staff": "Array of staff member objects with assignments",
+                "alerts": "Array of alert objects with severity and status"
+            }
+        },
+        "real_time_updates": {
+            "demo_approach": "setInterval with random data fluctuations",
+            "production_approach": "WebSocket connection to backend for live data",
+            "update_frequency": {
+                "population": "Every 5-10 seconds",
+                "heatmap": "Every 10-15 seconds (more computationally expensive)",
+                "alerts": "Immediate (push notifications)",
+                "staff_location": "Every 30-60 seconds"
+            }
+        },
+        "testing_strategy": {
+            "unit_tests": "Test individual components with Jest + React Testing Library",
+            "integration_tests": "Test navigation flow and data flow between components",
+            "e2e_tests": "Playwright or Cypress for full user journey testing",
+            "accessibility_tests": "axe-core for automated a11y checks"
+        },
+        "deployment": {
+            "build": "npm run build (Vite production build)",
+            "hosting": "Vercel, Netlify, or AWS S3 + CloudFront",
+            "environment_variables": "Use .env for API endpoints, feature flags",
+            "ci_cd": "GitHub Actions for automated testing and deployment"
+        }
+    },
+    // ============================================================================
+    // OPEN QUESTIONS & DECISIONS NEEDED
+    // ============================================================================
+    "open_questions": [
+        {
+            "question": "Should the sidebar be collapsible on desktop, or always visible?",
+            "options": [
+                "Always visible (more space for content, cleaner UX)",
+                "Collapsible with toggle button (maximizes content area when needed)"
+            ],
+            "recommendation": "Always visible on desktop (>= 1024px), collapsible on tablet/mobile"
+        },
+        {
+            "question": "Should we use URL routing (React Router) or keep state-based navigation?",
+            "options": [
+                "URL routing (better UX, shareable links, browser history)",
+                "State-based (simpler, no additional dependency)"
+            ],
+            "recommendation": "Add React Router for better UX and scalability"
+        },
+        {
+            "question": "Where should the AI chatbot button be positioned with the new layout?",
+            "options": [
+                "Keep bottom-right (current position)",
+                "Move to sidebar footer",
+                "Add to header as icon button"
+            ],
+            "recommendation": "Keep bottom-right for consistency, ensure it doesn't overlap with recommendation cards"
+        },
+        {
+            "question": "Should alerts and recommendations be in the same panel or separate?",
+            "options": [
+                "Combined panel with tabs (Alerts / Recommendations)",
+                "Separate panels (Alerts in header, Recommendations as floating cards)"
+            ],
+            "recommendation": "Separate - alerts are critical/reactive, recommendations are proactive/suggestive"
+        },
+        {
+            "question": "How much mock data should we generate for the demo?",
+            "options": [
+                "Minimal (just enough to show functionality)",
+                "Realistic (full day of data with patterns and edge cases)"
+            ],
+            "recommendation": "Realistic data to demonstrate system capabilities and impress stakeholders"
+        },
+        {
+            "question": "Should we add user roles/permissions (e.g., Operator vs. Manager views)?",
+            "options": [
+                "Single role for now (simplicity)",
+                "Multiple roles with different access levels"
+            ],
+            "recommendation": "Single role for MVP, design with extensibility in mind for future roles"
+        }
+    ],
+    // ============================================================================
+    // REFERENCE LINKS & INSPIRATION
+    // ============================================================================
+    "references": {
+        "design_inspiration": [
+            "Emergency Operations Center dashboards (EOC)",
+            "Airport operations control rooms",
+            "Smart city monitoring platforms",
+            "Security surveillance systems (Genetec, Milestone)",
+            "Workforce management tools (Kronos, Deputy)"
+        ],
+        "ui_patterns": [
+            "Sidebar navigation: Notion, Slack, Discord",
+            "Heatmaps: Google Analytics, Hotjar",
+            "Multi-camera views: Surveillance systems, Zoom gallery view",
+            "Alert systems: PagerDuty, Datadog",
+            "Staff allocation: Asana, Monday.com resource views"
+        ],
+        "technical_references": [
+            "React Router documentation",
+            "TailwindCSS responsive design patterns",
+            "Canvas API for heatmap rendering",
+            "WebSocket for real-time data (future)",
+            "Accessibility guidelines (WCAG 2.1)"
+        ]
+    },
+    // ============================================================================
+    // SUCCESS METRICS
+    // ============================================================================
+    "success_metrics": {
+        "user_experience": [
+            "Navigation between sections < 1 second",
+            "All critical information visible without scrolling (on desktop)",
+            "Alerts are noticed within 5 seconds of appearing",
+            "Users can complete common tasks (check population, view camera, assign staff) in < 30 seconds"
+        ],
+        "technical_performance": [
+            "Initial page load < 2 seconds",
+            "Section switching < 500ms",
+            "Smooth 60fps animations",
+            "No layout shifts or jank",
+            "Lighthouse score > 90 (Performance, Accessibility)"
+        ],
+        "business_value": [
+            "Demonstrates AURA's capabilities to stakeholders",
+            "Provides clear ROI story (efficiency gains, incident response time)",
+            "Scalable architecture for future enhancements",
+            "Positive user feedback from operators"
+        ]
+    },
+    // ============================================================================
+    // NEXT STEPS
+    // ============================================================================
+    "next_steps": [
+        "1. Review this brainstorm document with team/stakeholders",
+        "2. Get approval on design direction and alert placement strategy",
+        "3. Create detailed wireframes/mockups for each module (optional but recommended)",
+        "4. Set up project structure and install dependencies (React Router if approved)",
+        "5. Begin Phase 1: Foundation (sidebar navigation)",
+        "6. Iterate through phases 2-7, testing after each phase",
+        "7. Conduct user testing with operators (if possible)",
+        "8. Deploy demo version for stakeholder review",
+        "9. Gather feedback and iterate",
+        "10. Plan for production integration with real data sources"
+    ],
+    // ============================================================================
+    // NOTES
+    // ============================================================================
+    "notes": [
+        "This is a planning document - NO CODING has been done yet",
+        "All recommendations are based on UX research and best practices for operational dashboards",
+        "The design prioritizes clarity, speed, and actionability for operators under stress",
+        "Existing components (PredictiveHeatmapVisualization, CCTVModal, OperatorChatbot) will be reused and enhanced",
+        "The gold/amber theme will be maintained for brand consistency",
+        "Accessibility and responsive design are first-class concerns, not afterthoughts",
+        "This document should be treated as a living document - update as decisions are made"
+    ]
+}

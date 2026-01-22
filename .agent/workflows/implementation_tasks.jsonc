@@ -1,0 +1,1614 @@
+{
+    // ============================================================================
+    // AURA OPERATIONS - DETAILED IMPLEMENTATION TASK BREAKDOWN
+    // ============================================================================
+    // Purpose: Step-by-step tasks for implementing the AURA Operations redesign
+    // Based on: aura_redesign_brainstorm.jsonc
+    // Status: Planning Phase - Ready for Implementation
+    // ============================================================================
+    "overview": {
+        "total_phases": 7,
+        "estimated_total_effort": "19-25 hours",
+        "approach": "Incremental development with testing after each phase",
+        "priority": "Phase 1 (Foundation) must be completed before other phases",
+        "note": "Each phase can be broken into smaller tasks for better tracking"
+    },
+    // ============================================================================
+    // PHASE 0: PRE-IMPLEMENTATION SETUP
+    // ============================================================================
+    "phase_0_setup": {
+        "phase_name": "Pre-Implementation Setup",
+        "estimated_effort": "30 minutes - 1 hour",
+        "description": "Prepare the development environment and project structure",
+        "tasks": [
+            {
+                "task_id": "0.1",
+                "title": "Review and approve brainstorm document",
+                "description": "Review aura_redesign_brainstorm.jsonc with team/stakeholders and get approval on design direction",
+                "type": "planning",
+                "dependencies": [],
+                "deliverable": "Approved design direction and alert placement strategy"
+            },
+            {
+                "task_id": "0.2",
+                "title": "Make architectural decisions",
+                "description": "Decide on open questions: sidebar collapsibility, React Router vs state-based navigation, alert/recommendation separation, etc.",
+                "type": "planning",
+                "dependencies": [
+                    "0.1"
+                ],
+                "deliverable": "Documented decisions for all open questions"
+            },
+            {
+                "task_id": "0.3",
+                "title": "Install dependencies (if needed)",
+                "description": "Install React Router (if approved), recharts or similar for charts, any other needed libraries",
+                "type": "setup",
+                "dependencies": [
+                    "0.2"
+                ],
+                "commands": [
+                    "npm install react-router-dom",
+                    "npm install recharts",
+                    "npm install lucide-react (if not already installed)"
+                ],
+                "deliverable": "Updated package.json with new dependencies"
+            },
+            {
+                "task_id": "0.4",
+                "title": "Create project structure",
+                "description": "Set up folder structure for new modules and components",
+                "type": "setup",
+                "dependencies": [],
+                "structure": {
+                    "components/": {
+                        "sidebar/": [
+                            "Sidebar.tsx",
+                            "SidebarItem.tsx",
+                            "SidebarFooter.tsx"
+                        ],
+                        "modules/": [
+                            "PopulationModule.tsx",
+                            "HeatmapModule.tsx",
+                            "SurveillanceModule.tsx",
+                            "StaffAllocationModule.tsx",
+                            "ExecutiveOverviewModule.tsx"
+                        ],
+                        "alerts/": [
+                            "AlertPanel.tsx",
+                            "AlertBellIcon.tsx",
+                            "RecommendationCard.tsx"
+                        ],
+                        "shared/": [
+                            "KPICard.tsx",
+                            "ZoneCard.tsx",
+                            "StaffCard.tsx"
+                        ]
+                    },
+                    "data/": [
+                        "mockData.ts",
+                        "populationData.ts",
+                        "staffData.ts",
+                        "cameraData.ts"
+                    ],
+                    "hooks/": [
+                        "useRealTimeData.ts",
+                        "useAlerts.ts"
+                    ],
+                    "types/": [
+                        "modules.ts",
+                        "alerts.ts",
+                        "staff.ts"
+                    ]
+                },
+                "deliverable": "Folder structure created (can create files as empty placeholders)"
+            },
+            {
+                "task_id": "0.5",
+                "title": "Update types.ts",
+                "description": "Add new type definitions for modules, sections, and data structures",
+                "type": "setup",
+                "dependencies": [
+                    "0.4"
+                ],
+                "deliverable": "Updated types.ts with SectionId, ModuleData, etc."
+            }
+        ]
+    },
+    // ============================================================================
+    // PHASE 1: FOUNDATION - SIDEBAR NAVIGATION
+    // ============================================================================
+    "phase_1_foundation": {
+        "phase_name": "Foundation - Sidebar Navigation & Routing",
+        "estimated_effort": "2-3 hours",
+        "description": "Build the core navigation infrastructure with sidebar and content area",
+        "priority": "CRITICAL - Must complete before other phases",
+        "tasks": [
+            {
+                "task_id": "1.1",
+                "title": "Create Sidebar component structure",
+                "description": "Build the main Sidebar component with logo, navigation items, and footer",
+                "type": "component",
+                "dependencies": [
+                    "0.4",
+                    "0.5"
+                ],
+                "file": "components/sidebar/Sidebar.tsx",
+                "requirements": [
+                    "Fixed left position, 280px width on desktop",
+                    "Three sections: logo (top), navigation (middle), user profile (bottom)",
+                    "Dark background with glass-morphism styling",
+                    "Smooth transitions for hover states"
+                ],
+                "deliverable": "Sidebar.tsx component with basic structure"
+            },
+            {
+                "task_id": "1.2",
+                "title": "Create SidebarItem component",
+                "description": "Build reusable navigation item component with icon, label, and active state",
+                "type": "component",
+                "dependencies": [
+                    "1.1"
+                ],
+                "file": "components/sidebar/SidebarItem.tsx",
+                "requirements": [
+                    "Icon from lucide-react (Users, Map, Video, UserCog, LayoutDashboard)",
+                    "Label text",
+                    "Active state indicator (amber border/background)",
+                    "Hover effects",
+                    "Click handler to change active section",
+                    "ARIA labels for accessibility"
+                ],
+                "deliverable": "SidebarItem.tsx component"
+            },
+            {
+                "task_id": "1.3",
+                "title": "Implement section state management",
+                "description": "Add state to track active section and handle section switching",
+                "type": "logic",
+                "dependencies": [
+                    "1.2"
+                ],
+                "file": "screens/OperatorDashboardScreen.tsx or new MainLayout.tsx",
+                "requirements": [
+                    "useState for activeSection (type: SectionId)",
+                    "Default to 'overview' section",
+                    "Handler function to update activeSection",
+                    "Pass activeSection and handler to Sidebar"
+                ],
+                "deliverable": "State management for section navigation"
+            },
+            {
+                "task_id": "1.4",
+                "title": "Set up content area with dynamic rendering",
+                "description": "Create main content area that renders different modules based on active section",
+                "type": "component",
+                "dependencies": [
+                    "1.3"
+                ],
+                "file": "screens/OperatorDashboardScreen.tsx or new MainLayout.tsx",
+                "requirements": [
+                    "Content area with calc(100vw - 280px) width on desktop",
+                    "Switch statement or object mapping to render correct module",
+                    "Fade-in/fade-out transitions when switching sections",
+                    "Scrollable content area"
+                ],
+                "deliverable": "Dynamic content rendering based on activeSection"
+            },
+            {
+                "task_id": "1.5",
+                "title": "Add responsive behavior for mobile/tablet",
+                "description": "Implement collapsible sidebar with hamburger menu for smaller screens",
+                "type": "responsive",
+                "dependencies": [
+                    "1.4"
+                ],
+                "requirements": [
+                    "Hamburger menu button (visible on < 768px)",
+                    "Sidebar slides in/out from left on mobile",
+                    "Overlay backdrop when sidebar is open on mobile",
+                    "Close sidebar when clicking outside or selecting a section",
+                    "Narrower sidebar on tablet (240px)"
+                ],
+                "deliverable": "Responsive sidebar behavior"
+            },
+            {
+                "task_id": "1.6",
+                "title": "Migrate existing dashboard to Executive Overview module",
+                "description": "Move current OperatorDashboardScreen content into ExecutiveOverviewModule component",
+                "type": "refactor",
+                "dependencies": [
+                    "1.4"
+                ],
+                "file": "components/modules/ExecutiveOverviewModule.tsx",
+                "requirements": [
+                    "Extract existing dashboard sections (Executive Overview, Tactical Map, Alerts Response)",
+                    "Wrap in new ExecutiveOverviewModule component",
+                    "Ensure all functionality still works (alerts, CCTV modal, etc.)",
+                    "Clean up OperatorDashboardScreen to just handle layout"
+                ],
+                "deliverable": "ExecutiveOverviewModule.tsx with existing dashboard content"
+            },
+            {
+                "task_id": "1.7",
+                "title": "Add keyboard navigation",
+                "description": "Implement keyboard shortcuts for sidebar navigation",
+                "type": "accessibility",
+                "dependencies": [
+                    "1.5"
+                ],
+                "requirements": [
+                    "Tab to navigate through sidebar items",
+                    "Enter to select a section",
+                    "Arrow keys to move up/down sidebar items",
+                    "Esc to close mobile sidebar",
+                    "Focus indicators visible"
+                ],
+                "deliverable": "Keyboard navigation support"
+            },
+            {
+                "task_id": "1.8",
+                "title": "Test navigation flow and transitions",
+                "description": "Comprehensive testing of sidebar navigation",
+                "type": "testing",
+                "dependencies": [
+                    "1.7"
+                ],
+                "test_cases": [
+                    "Click each sidebar item and verify correct module loads",
+                    "Test transitions are smooth (no jank)",
+                    "Test mobile sidebar open/close",
+                    "Test keyboard navigation",
+                    "Test active state indicator updates correctly",
+                    "Test on different screen sizes"
+                ],
+                "deliverable": "Verified working navigation system"
+            },
+            {
+                "task_id": "1.9",
+                "title": "(Optional) Add React Router integration",
+                "description": "If approved, add URL-based routing for deep linking",
+                "type": "enhancement",
+                "dependencies": [
+                    "1.8"
+                ],
+                "conditional": "Only if React Router was approved in Phase 0",
+                "requirements": [
+                    "Set up BrowserRouter in index.tsx",
+                    "Create routes for each section (/overview, /population, /heatmap, etc.)",
+                    "Sync activeSection state with URL",
+                    "Handle browser back/forward buttons",
+                    "Update sidebar to use Link components"
+                ],
+                "deliverable": "URL-based routing (optional)"
+            }
+        ]
+    },
+    // ============================================================================
+    // PHASE 2: POPULATION MODULE
+    // ============================================================================
+    "phase_2_population": {
+        "phase_name": "Population Tracking & Density Monitoring",
+        "estimated_effort": "3-4 hours",
+        "description": "Build real-time population tracking with zone-based analytics",
+        "dependencies": [
+            "phase_1_foundation"
+        ],
+        "tasks": [
+            {
+                "task_id": "2.1",
+                "title": "Create mock population data structure",
+                "description": "Design and generate realistic population data for demo",
+                "type": "data",
+                "dependencies": [],
+                "file": "data/populationData.ts",
+                "requirements": [
+                    "Zone data: Check-in, Security, Gates, Retail, Baggage Claim, etc.",
+                    "Each zone: current occupancy, max capacity, status (normal/warning/critical)",
+                    "Historical data: hourly patterns for last 24h, 7d, 30d",
+                    "Realistic patterns (morning rush, lunch dip, evening peak)",
+                    "Function to generate random fluctuations for real-time simulation"
+                ],
+                "deliverable": "populationData.ts with mock data and generator functions"
+            },
+            {
+                "task_id": "2.2",
+                "title": "Create KPICard shared component",
+                "description": "Build reusable KPI card component for displaying metrics",
+                "type": "component",
+                "dependencies": [],
+                "file": "components/shared/KPICard.tsx",
+                "requirements": [
+                    "Props: title, value, unit, change (percentage), trend (up/down), status color",
+                    "Glass-morphism styling",
+                    "Icon support",
+                    "Responsive sizing",
+                    "Animated value changes"
+                ],
+                "deliverable": "KPICard.tsx component"
+            },
+            {
+                "task_id": "2.3",
+                "title": "Create PopulationModule component structure",
+                "description": "Build main container for population module",
+                "type": "component",
+                "dependencies": [
+                    "2.1",
+                    "2.2"
+                ],
+                "file": "components/modules/PopulationModule.tsx",
+                "requirements": [
+                    "Header with module title and last updated time",
+                    "Grid layout for KPI cards and visualizations",
+                    "Responsive layout (stack on mobile)",
+                    "Loading state",
+                    "Error handling"
+                ],
+                "deliverable": "PopulationModule.tsx skeleton"
+            },
+            {
+                "task_id": "2.4",
+                "title": "Implement KPI cards section",
+                "description": "Display total occupancy, capacity %, and change from average",
+                "type": "feature",
+                "dependencies": [
+                    "2.3"
+                ],
+                "requirements": [
+                    "Total Occupancy KPI (current count)",
+                    "Capacity Utilization KPI (percentage)",
+                    "Change from Average KPI (trend indicator)",
+                    "Real-time updates (simulated)",
+                    "Color-coded based on thresholds (green < 70%, yellow 70-85%, red > 85%)"
+                ],
+                "deliverable": "KPI cards displaying population metrics"
+            },
+            {
+                "task_id": "2.5",
+                "title": "Create ZoneCard component",
+                "description": "Build component to display individual zone status",
+                "type": "component",
+                "dependencies": [
+                    "2.3"
+                ],
+                "file": "components/shared/ZoneCard.tsx",
+                "requirements": [
+                    "Zone name and icon",
+                    "Current occupancy / max capacity",
+                    "Capacity bar (progress bar)",
+                    "Status indicator (color-coded)",
+                    "Click to view details (drill-down)",
+                    "Hover effects"
+                ],
+                "deliverable": "ZoneCard.tsx component"
+            },
+            {
+                "task_id": "2.6",
+                "title": "Implement zone-based population breakdown",
+                "description": "Display grid of zone cards showing occupancy per zone",
+                "type": "feature",
+                "dependencies": [
+                    "2.5"
+                ],
+                "requirements": [
+                    "Grid of ZoneCard components (responsive: 3 cols desktop, 2 tablet, 1 mobile)",
+                    "Sort by occupancy level (critical first)",
+                    "Filter options (all zones, critical only, etc.)",
+                    "Smooth animations when data updates"
+                ],
+                "deliverable": "Zone breakdown visualization"
+            },
+            {
+                "task_id": "2.7",
+                "title": "Add historical trend line chart",
+                "description": "Implement line chart showing population trends over time",
+                "type": "visualization",
+                "dependencies": [
+                    "2.1"
+                ],
+                "library": "recharts or similar",
+                "requirements": [
+                    "Line chart with time on X-axis, occupancy on Y-axis",
+                    "Multiple lines for different zones (optional)",
+                    "Time range selector (24h, 7d, 30d)",
+                    "Tooltip on hover showing exact values",
+                    "Responsive sizing",
+                    "Smooth animations"
+                ],
+                "deliverable": "Historical trend chart"
+            },
+            {
+                "task_id": "2.8",
+                "title": "Implement auto-refresh mechanism",
+                "description": "Add real-time data updates every 5-10 seconds",
+                "type": "logic",
+                "dependencies": [
+                    "2.4",
+                    "2.6",
+                    "2.7"
+                ],
+                "requirements": [
+                    "useEffect with setInterval for periodic updates",
+                    "Call data generator function to simulate new data",
+                    "Update state with new data",
+                    "Cleanup interval on unmount",
+                    "Pause updates when user is interacting (optional)",
+                    "Visual indicator of last update time"
+                ],
+                "deliverable": "Auto-refreshing population data"
+            },
+            {
+                "task_id": "2.9",
+                "title": "Add threshold alerts for overcrowding",
+                "description": "Generate alerts when zones exceed capacity thresholds",
+                "type": "feature",
+                "dependencies": [
+                    "2.8"
+                ],
+                "requirements": [
+                    "Monitor zone occupancy levels",
+                    "Generate warning alert at 70% capacity",
+                    "Generate critical alert at 85% capacity",
+                    "Display inline alerts in population module",
+                    "Integrate with global alert system (Phase 6)",
+                    "Prevent duplicate alerts"
+                ],
+                "deliverable": "Overcrowding alert system"
+            },
+            {
+                "task_id": "2.10",
+                "title": "Add time range selector and export",
+                "description": "Allow users to select time range and export data",
+                "type": "enhancement",
+                "dependencies": [
+                    "2.7"
+                ],
+                "requirements": [
+                    "Dropdown or button group for time range (24h, 7d, 30d)",
+                    "Update chart when time range changes",
+                    "Export button to download data as CSV (optional)",
+                    "Smooth transitions when changing time range"
+                ],
+                "deliverable": "Time range selector and export functionality"
+            },
+            {
+                "task_id": "2.11",
+                "title": "Test population module",
+                "description": "Comprehensive testing of population module",
+                "type": "testing",
+                "dependencies": [
+                    "2.10"
+                ],
+                "test_cases": [
+                    "Verify KPI cards display correct data",
+                    "Test zone cards update in real-time",
+                    "Test chart displays historical data correctly",
+                    "Test time range selector changes chart data",
+                    "Test alerts are generated at correct thresholds",
+                    "Test responsive layout on different screen sizes",
+                    "Test auto-refresh works correctly",
+                    "Test performance with large datasets"
+                ],
+                "deliverable": "Verified working population module"
+            }
+        ]
+    },
+    // ============================================================================
+    // PHASE 3: HEATMAP INTEGRATION
+    // ============================================================================
+    "phase_3_heatmap": {
+        "phase_name": "Heatmap Module Integration",
+        "estimated_effort": "2 hours",
+        "description": "Integrate existing PredictiveHeatmapVisualization into sidebar navigation",
+        "dependencies": [
+            "phase_1_foundation"
+        ],
+        "note": "Easier phase since component already exists",
+        "tasks": [
+            {
+                "task_id": "3.1",
+                "title": "Create HeatmapModule wrapper component",
+                "description": "Wrap existing PredictiveHeatmapVisualization in module container",
+                "type": "component",
+                "dependencies": [],
+                "file": "components/modules/HeatmapModule.tsx",
+                "requirements": [
+                    "Import PredictiveHeatmapVisualization component",
+                    "Add module header with title",
+                    "Add controls section (time slider, toggles)",
+                    "Maintain existing heatmap functionality",
+                    "Responsive container"
+                ],
+                "deliverable": "HeatmapModule.tsx wrapper"
+            },
+            {
+                "task_id": "3.2",
+                "title": "Add time-based playback controls",
+                "description": "Implement controls to scrub through historical heatmap data",
+                "type": "feature",
+                "dependencies": [
+                    "3.1"
+                ],
+                "requirements": [
+                    "Time slider to select specific time period",
+                    "Play/pause button for animated playback",
+                    "Speed control (1x, 2x, 4x)",
+                    "Current time display",
+                    "Update heatmap data based on selected time"
+                ],
+                "deliverable": "Time playback controls"
+            },
+            {
+                "task_id": "3.3",
+                "title": "Add real-time vs historical toggle",
+                "description": "Allow users to switch between live and historical heatmap data",
+                "type": "feature",
+                "dependencies": [
+                    "3.2"
+                ],
+                "requirements": [
+                    "Toggle switch (Real-time / Historical)",
+                    "Show time controls only in historical mode",
+                    "Auto-refresh in real-time mode",
+                    "Smooth transition between modes"
+                ],
+                "deliverable": "Real-time/historical toggle"
+            },
+            {
+                "task_id": "3.4",
+                "title": "Implement zone click-through for details",
+                "description": "Add interactivity to show detailed analytics when clicking zones",
+                "type": "feature",
+                "dependencies": [
+                    "3.1"
+                ],
+                "requirements": [
+                    "Click handler on heatmap zones",
+                    "Modal or side panel showing zone details",
+                    "Display: zone name, current density, dwell time, traffic flow",
+                    "Historical comparison for selected zone",
+                    "Close button to return to full heatmap"
+                ],
+                "deliverable": "Zone drill-down functionality"
+            },
+            {
+                "task_id": "3.5",
+                "title": "Enhance heatmap interactivity",
+                "description": "Improve user interactions with heatmap",
+                "type": "enhancement",
+                "dependencies": [
+                    "3.4"
+                ],
+                "requirements": [
+                    "Hover tooltip showing density value",
+                    "Zoom in/out controls (optional)",
+                    "Pan functionality for large maps (optional)",
+                    "Legend showing color scale",
+                    "Smooth transitions when data updates"
+                ],
+                "deliverable": "Enhanced heatmap interactivity"
+            },
+            {
+                "task_id": "3.6",
+                "title": "Add export/screenshot functionality",
+                "description": "Allow users to export heatmap as image or data",
+                "type": "feature",
+                "dependencies": [
+                    "3.5"
+                ],
+                "requirements": [
+                    "Screenshot button to capture heatmap as PNG",
+                    "Export data button to download as CSV/JSON (optional)",
+                    "Include timestamp and metadata in export",
+                    "Toast notification on successful export"
+                ],
+                "deliverable": "Export functionality"
+            },
+            {
+                "task_id": "3.7",
+                "title": "Optimize heatmap performance",
+                "description": "Ensure smooth rendering with large datasets",
+                "type": "optimization",
+                "dependencies": [
+                    "3.6"
+                ],
+                "requirements": [
+                    "Use Canvas for rendering (if not already)",
+                    "Debounce data updates",
+                    "Lazy load historical data",
+                    "Memoize expensive calculations",
+                    "Test with large datasets (1000+ data points)"
+                ],
+                "deliverable": "Optimized heatmap performance"
+            },
+            {
+                "task_id": "3.8",
+                "title": "Test heatmap module",
+                "description": "Comprehensive testing of heatmap integration",
+                "type": "testing",
+                "dependencies": [
+                    "3.7"
+                ],
+                "test_cases": [
+                    "Verify heatmap renders correctly in sidebar layout",
+                    "Test time playback controls work smoothly",
+                    "Test real-time/historical toggle switches data correctly",
+                    "Test zone click-through shows correct details",
+                    "Test export functionality produces valid output",
+                    "Test performance with large datasets",
+                    "Test responsive behavior on different screen sizes"
+                ],
+                "deliverable": "Verified working heatmap module"
+            }
+        ]
+    },
+    // ============================================================================
+    // PHASE 4: SURVEILLANCE MODULE
+    // ============================================================================
+    "phase_4_surveillance": {
+        "phase_name": "Live Surveillance Module",
+        "estimated_effort": "3-4 hours",
+        "description": "Build multi-camera surveillance interface with grid views",
+        "dependencies": [
+            "phase_1_foundation"
+        ],
+        "tasks": [
+            {
+                "task_id": "4.1",
+                "title": "Create mock camera data",
+                "description": "Generate mock data for camera feeds and zones",
+                "type": "data",
+                "dependencies": [],
+                "file": "data/cameraData.ts",
+                "requirements": [
+                    "Array of camera objects: id, name, zone, status, feed URL (mock)",
+                    "Camera zones matching facility zones",
+                    "Mock video feeds (static images with overlays or placeholder videos)",
+                    "Camera status: online, offline, maintenance",
+                    "Incident markers with timestamps"
+                ],
+                "deliverable": "cameraData.ts with mock camera data"
+            },
+            {
+                "task_id": "4.2",
+                "title": "Create SurveillanceModule component structure",
+                "description": "Build main container for surveillance module",
+                "type": "component",
+                "dependencies": [
+                    "4.1"
+                ],
+                "file": "components/modules/SurveillanceModule.tsx",
+                "requirements": [
+                    "Header with module title and controls",
+                    "Camera grid area (main content)",
+                    "Camera list sidebar (filterable)",
+                    "Grid layout selector (2x2, 3x3, 4x4)",
+                    "Responsive layout"
+                ],
+                "deliverable": "SurveillanceModule.tsx skeleton"
+            },
+            {
+                "task_id": "4.3",
+                "title": "Implement camera grid layout",
+                "description": "Build responsive grid for displaying multiple camera feeds",
+                "type": "feature",
+                "dependencies": [
+                    "4.2"
+                ],
+                "requirements": [
+                    "Grid layout options: 4 (2x2), 9 (3x3), 16 (4x4) cameras",
+                    "Grid selector buttons",
+                    "Responsive grid (adjust on smaller screens)",
+                    "Each grid cell shows camera feed",
+                    "Camera name and status overlay",
+                    "Smooth transitions when changing grid size"
+                ],
+                "deliverable": "Camera grid layout"
+            },
+            {
+                "task_id": "4.4",
+                "title": "Refactor CCTVModal for inline display",
+                "description": "Adapt existing CCTVModal to work as inline component",
+                "type": "refactor",
+                "dependencies": [
+                    "4.3"
+                ],
+                "file": "components/dashboard/CCTVModal.tsx or new CameraFeed.tsx",
+                "requirements": [
+                    "Extract camera feed rendering logic from modal",
+                    "Create CameraFeed component for grid cells",
+                    "Maintain video playback functionality",
+                    "Add click handler to expand camera",
+                    "Keep modal for full-screen view"
+                ],
+                "deliverable": "Refactored camera feed component"
+            },
+            {
+                "task_id": "4.5",
+                "title": "Add camera selection and filtering",
+                "description": "Implement camera list with zone-based filtering",
+                "type": "feature",
+                "dependencies": [
+                    "4.2"
+                ],
+                "requirements": [
+                    "Sidebar list of all cameras",
+                    "Filter by zone dropdown",
+                    "Filter by status (online, offline, all)",
+                    "Search bar for camera name",
+                    "Click camera in list to show in grid",
+                    "Highlight selected cameras"
+                ],
+                "deliverable": "Camera filtering and selection"
+            },
+            {
+                "task_id": "4.6",
+                "title": "Implement single camera full-screen mode",
+                "description": "Allow expanding single camera to full screen",
+                "type": "feature",
+                "dependencies": [
+                    "4.4"
+                ],
+                "requirements": [
+                    "Click camera in grid to expand",
+                    "Full-screen overlay (similar to existing CCTVModal)",
+                    "Playback controls (if video)",
+                    "PTZ controls (Pan-Tilt-Zoom) - mock UI",
+                    "Close button to return to grid",
+                    "Keyboard shortcut (Esc to close)"
+                ],
+                "deliverable": "Full-screen camera view"
+            },
+            {
+                "task_id": "4.7",
+                "title": "Integrate with alert system",
+                "description": "Link alerts to relevant cameras",
+                "type": "integration",
+                "dependencies": [
+                    "4.6"
+                ],
+                "requirements": [
+                    "When alert is clicked, navigate to surveillance module",
+                    "Automatically select and highlight camera related to alert",
+                    "Show alert marker on camera timeline (if playback)",
+                    "Jump to alert timestamp in recording",
+                    "Visual indicator on camera feed when alert is active"
+                ],
+                "deliverable": "Alert-to-camera integration"
+            },
+            {
+                "task_id": "4.8",
+                "title": "Add incident timeline and playback",
+                "description": "Implement timeline scrubber for recorded footage",
+                "type": "feature",
+                "dependencies": [
+                    "4.6"
+                ],
+                "requirements": [
+                    "Timeline scrubber for playback (in full-screen mode)",
+                    "Incident markers on timeline",
+                    "Play/pause controls",
+                    "Speed control (0.5x, 1x, 2x)",
+                    "Jump to incident button",
+                    "Current time display"
+                ],
+                "deliverable": "Incident timeline and playback controls"
+            },
+            {
+                "task_id": "4.9",
+                "title": "Add mock video feeds or static images",
+                "description": "Create visual representation of camera feeds for demo",
+                "type": "assets",
+                "dependencies": [
+                    "4.4"
+                ],
+                "options": [
+                    "Option 1: Static images with camera overlays (easiest)",
+                    "Option 2: Looping video files (more realistic)",
+                    "Option 3: Animated canvas with simulated movement (most impressive)"
+                ],
+                "requirements": [
+                    "Create or source camera feed visuals",
+                    "Add overlays: camera name, timestamp, status indicators",
+                    "Simulate AI detection boxes (for unattended baggage, crowd, etc.)",
+                    "Ensure visuals match facility zones"
+                ],
+                "deliverable": "Mock camera feed visuals"
+            },
+            {
+                "task_id": "4.10",
+                "title": "Test surveillance module",
+                "description": "Comprehensive testing of surveillance module",
+                "type": "testing",
+                "dependencies": [
+                    "4.9"
+                ],
+                "test_cases": [
+                    "Verify camera grid displays correctly in all layouts (2x2, 3x3, 4x4)",
+                    "Test camera filtering by zone and status",
+                    "Test single camera expansion to full-screen",
+                    "Test playback controls work correctly",
+                    "Test alert-to-camera navigation",
+                    "Test responsive behavior on different screen sizes",
+                    "Test performance with 16 simultaneous feeds"
+                ],
+                "deliverable": "Verified working surveillance module"
+            }
+        ]
+    },
+    // ============================================================================
+    // PHASE 5: STAFF ALLOCATION MODULE
+    // ============================================================================
+    "phase_5_staff_allocation": {
+        "phase_name": "Staff Allocation & Resource Management",
+        "estimated_effort": "4-5 hours",
+        "description": "Build comprehensive staff management with AI recommendations",
+        "dependencies": [
+            "phase_1_foundation"
+        ],
+        "note": "Most complex module - allocate sufficient time",
+        "tasks": [
+            {
+                "task_id": "5.1",
+                "title": "Create mock staff data",
+                "description": "Generate realistic staff roster and assignment data",
+                "type": "data",
+                "dependencies": [],
+                "file": "data/staffData.ts",
+                "requirements": [
+                    "Array of staff members: id, name, role, photo, status, assignment, shift times, location",
+                    "Roles: Security, Customer Service, Maintenance, Management, etc.",
+                    "Status: on-duty, break, off-duty",
+                    "Assignments: zone or specific task",
+                    "Performance metrics: tasks completed, avg response time",
+                    "Shift schedule data (24h coverage)",
+                    "Function to generate random updates for simulation"
+                ],
+                "deliverable": "staffData.ts with mock staff data"
+            },
+            {
+                "task_id": "5.2",
+                "title": "Create StaffCard component",
+                "description": "Build component to display individual staff member",
+                "type": "component",
+                "dependencies": [],
+                "file": "components/shared/StaffCard.tsx",
+                "requirements": [
+                    "Staff photo (avatar)",
+                    "Name and role",
+                    "Current status indicator (color-coded badge)",
+                    "Current assignment",
+                    "Quick actions: assign, notify, view details",
+                    "Hover effects",
+                    "Click to view full details"
+                ],
+                "deliverable": "StaffCard.tsx component"
+            },
+            {
+                "task_id": "5.3",
+                "title": "Create StaffAllocationModule component structure",
+                "description": "Build main container for staff allocation module",
+                "type": "component",
+                "dependencies": [
+                    "5.1",
+                    "5.2"
+                ],
+                "file": "components/modules/StaffAllocationModule.tsx",
+                "requirements": [
+                    "Header with module title and summary stats",
+                    "Tab navigation: Roster, Coverage Map, Schedule, Performance",
+                    "Main content area (changes based on active tab)",
+                    "Responsive layout"
+                ],
+                "deliverable": "StaffAllocationModule.tsx skeleton"
+            },
+            {
+                "task_id": "5.4",
+                "title": "Implement staff roster grid (Tab 1)",
+                "description": "Display grid of all staff members with status",
+                "type": "feature",
+                "dependencies": [
+                    "5.3"
+                ],
+                "requirements": [
+                    "Grid of StaffCard components",
+                    "Filter by role, status, zone",
+                    "Search by name",
+                    "Sort by: name, role, status, workload",
+                    "Responsive grid (3 cols desktop, 2 tablet, 1 mobile)",
+                    "Real-time status updates"
+                ],
+                "deliverable": "Staff roster grid"
+            },
+            {
+                "task_id": "5.5",
+                "title": "Implement workload distribution visualization",
+                "description": "Show workload balance across staff members",
+                "type": "visualization",
+                "dependencies": [
+                    "5.4"
+                ],
+                "requirements": [
+                    "Horizontal bar chart showing task load per staff member",
+                    "Color-coded bars (green = balanced, yellow = high, red = overloaded)",
+                    "Sort by workload",
+                    "Click bar to view staff details",
+                    "Identify under-utilized staff",
+                    "Summary stats: avg workload, max workload, balance score"
+                ],
+                "deliverable": "Workload distribution chart"
+            },
+            {
+                "task_id": "5.6",
+                "title": "Create coverage map overlay (Tab 2)",
+                "description": "Show staff positions on facility floor plan",
+                "type": "visualization",
+                "dependencies": [
+                    "5.3"
+                ],
+                "requirements": [
+                    "Floor plan background (reuse from heatmap if available)",
+                    "Staff position markers (color-coded by role)",
+                    "Coverage zones (circles showing coverage radius)",
+                    "Identify understaffed areas (red zones)",
+                    "Click staff marker to view details",
+                    "Toggle layers: staff positions, coverage zones, understaffed areas"
+                ],
+                "deliverable": "Staff coverage map"
+            },
+            {
+                "task_id": "5.7",
+                "title": "Create shift timeline Gantt chart (Tab 3)",
+                "description": "Visualize shift coverage over 24 hours",
+                "type": "visualization",
+                "dependencies": [
+                    "5.3"
+                ],
+                "library": "recharts or custom SVG",
+                "requirements": [
+                    "Gantt-style chart with time on X-axis (24h), staff on Y-axis",
+                    "Bars showing shift times for each staff member",
+                    "Color-coded by role",
+                    "Identify coverage gaps (no staff on duty)",
+                    "Hover to see shift details",
+                    "Filter by role or zone"
+                ],
+                "deliverable": "Shift timeline chart"
+            },
+            {
+                "task_id": "5.8",
+                "title": "Implement staff assignment actions",
+                "description": "Allow operators to assign staff to zones/tasks",
+                "type": "feature",
+                "dependencies": [
+                    "5.4"
+                ],
+                "requirements": [
+                    "Assign button on StaffCard",
+                    "Modal or dropdown to select zone/task",
+                    "Validation (can't assign off-duty staff)",
+                    "Confirmation dialog",
+                    "Update staff assignment in state",
+                    "Toast notification on success",
+                    "Log assignment in history (optional)"
+                ],
+                "deliverable": "Staff assignment functionality"
+            },
+            {
+                "task_id": "5.9",
+                "title": "Build AI recommendation system",
+                "description": "Generate AI-driven staff deployment suggestions",
+                "type": "feature",
+                "dependencies": [
+                    "5.8"
+                ],
+                "requirements": [
+                    "Analyze population data, heatmap, and current staff allocation",
+                    "Generate recommendations based on rules:",
+                    "  - High population density → suggest additional staff",
+                    "  - Low activity → suggest staff reduction/break rotation",
+                    "  - Incident alert → suggest nearest available staff",
+                    "  - Predicted peak → suggest proactive staffing increase",
+                    "Recommendation card component with: icon, title, description, confidence score, actions",
+                    "Actions: Accept (auto-assign), Dismiss, View Details",
+                    "Display recommendations in module or as floating cards (Phase 6)"
+                ],
+                "deliverable": "AI recommendation engine"
+            },
+            {
+                "task_id": "5.10",
+                "title": "Add staff notification system",
+                "description": "Simulate sending notifications to staff members",
+                "type": "feature",
+                "dependencies": [
+                    "5.8"
+                ],
+                "requirements": [
+                    "Notify button on StaffCard",
+                    "Modal to compose message or select template",
+                    "Simulate sending notification (toast confirmation)",
+                    "Log notification in staff history",
+                    "Show notification count on staff card (optional)"
+                ],
+                "deliverable": "Staff notification system"
+            },
+            {
+                "task_id": "5.11",
+                "title": "Implement performance metrics (Tab 4)",
+                "description": "Display staff performance analytics",
+                "type": "feature",
+                "dependencies": [
+                    "5.3"
+                ],
+                "requirements": [
+                    "Table or cards showing: tasks completed, avg response time, incidents handled",
+                    "Sort by performance metrics",
+                    "Filter by time range (today, week, month)",
+                    "Charts: top performers, response time trends",
+                    "Export performance report (optional)"
+                ],
+                "deliverable": "Performance metrics dashboard"
+            },
+            {
+                "task_id": "5.12",
+                "title": "Test staff allocation module",
+                "description": "Comprehensive testing of staff allocation module",
+                "type": "testing",
+                "dependencies": [
+                    "5.11"
+                ],
+                "test_cases": [
+                    "Verify staff roster displays all staff correctly",
+                    "Test filtering and sorting work correctly",
+                    "Test staff assignment updates state and shows confirmation",
+                    "Test workload chart displays correct data",
+                    "Test coverage map shows staff positions accurately",
+                    "Test shift timeline identifies coverage gaps",
+                    "Test AI recommendations are generated correctly",
+                    "Test notification system works",
+                    "Test performance metrics display correct data",
+                    "Test responsive behavior on different screen sizes"
+                ],
+                "deliverable": "Verified working staff allocation module"
+            }
+        ]
+    },
+    // ============================================================================
+    // PHASE 6: ALERTS & RECOMMENDATIONS
+    // ============================================================================
+    "phase_6_alerts": {
+        "phase_name": "Multi-Layered Alert & Recommendation System",
+        "estimated_effort": "3-4 hours",
+        "description": "Implement comprehensive alert management with AI recommendations",
+        "dependencies": [
+            "phase_1_foundation"
+        ],
+        "note": "Integrates with all other modules",
+        "tasks": [
+            {
+                "task_id": "6.1",
+                "title": "Create alert data structure and context",
+                "description": "Set up centralized alert management",
+                "type": "data",
+                "dependencies": [],
+                "file": "contexts/AlertContext.tsx or hooks/useAlerts.ts",
+                "requirements": [
+                    "Alert type: id, type (critical/warning/info), location, message, time, status, source module",
+                    "Context or hook to manage alerts globally",
+                    "Functions: addAlert, resolveAlert, dismissAlert, filterAlerts",
+                    "Alert history (resolved alerts)",
+                    "Alert count by severity"
+                ],
+                "deliverable": "Alert management system"
+            },
+            {
+                "task_id": "6.2",
+                "title": "Add alert bell icon to header",
+                "description": "Create persistent alert indicator in header",
+                "type": "component",
+                "dependencies": [
+                    "6.1"
+                ],
+                "file": "components/dashboard/DashboardHeader.tsx or new AlertBellIcon.tsx",
+                "requirements": [
+                    "Bell icon (lucide-react)",
+                    "Badge showing count of active alerts",
+                    "Color-coded by highest severity (red if critical, yellow if warning, etc.)",
+                    "Pulse animation when new alert arrives",
+                    "Click to open alert panel",
+                    "Positioned in top-right of header"
+                ],
+                "deliverable": "Alert bell icon component"
+            },
+            {
+                "task_id": "6.3",
+                "title": "Create slide-out alert panel",
+                "description": "Build panel to display and manage all alerts",
+                "type": "component",
+                "dependencies": [
+                    "6.2"
+                ],
+                "file": "components/alerts/AlertPanel.tsx",
+                "requirements": [
+                    "Slide in from right side when bell icon clicked",
+                    "Glass-morphism styling with backdrop blur",
+                    "Header: title, close button, filter controls",
+                    "List of alerts (grouped by severity)",
+                    "Each alert: icon, type, location, message, time, actions (resolve, view details)",
+                    "Scroll if many alerts",
+                    "Click outside or Esc to close",
+                    "Smooth slide-in/out animation"
+                ],
+                "deliverable": "AlertPanel.tsx component"
+            },
+            {
+                "task_id": "6.4",
+                "title": "Implement alert filtering and grouping",
+                "description": "Add controls to filter and organize alerts",
+                "type": "feature",
+                "dependencies": [
+                    "6.3"
+                ],
+                "requirements": [
+                    "Filter by severity (all, critical, warning, info)",
+                    "Filter by status (active, resolved, all)",
+                    "Filter by location/zone",
+                    "Group alerts by severity (critical first)",
+                    "Search alerts by message",
+                    "Clear all resolved alerts button"
+                ],
+                "deliverable": "Alert filtering system"
+            },
+            {
+                "task_id": "6.5",
+                "title": "Create RecommendationCard component",
+                "description": "Build component for AI recommendations",
+                "type": "component",
+                "dependencies": [],
+                "file": "components/alerts/RecommendationCard.tsx",
+                "requirements": [
+                    "Card with amber/gold theme (distinct from alerts)",
+                    "Icon, title, description",
+                    "Confidence score (percentage or stars)",
+                    "Actions: Accept, Dismiss, View Details",
+                    "Auto-dismiss after 30s (move to history)",
+                    "Smooth entrance/exit animations"
+                ],
+                "deliverable": "RecommendationCard.tsx component"
+            },
+            {
+                "task_id": "6.6",
+                "title": "Implement floating recommendation cards",
+                "description": "Display AI recommendations as floating cards",
+                "type": "feature",
+                "dependencies": [
+                    "6.5"
+                ],
+                "requirements": [
+                    "Position in bottom-right corner (above chatbot button)",
+                    "Stack multiple recommendations vertically",
+                    "Max 3 visible at once (older ones in queue)",
+                    "Accept action executes recommendation (e.g., assign staff)",
+                    "Dismiss action removes card",
+                    "View Details opens modal with full explanation",
+                    "Auto-dismiss timer with visual countdown"
+                ],
+                "deliverable": "Floating recommendation system"
+            },
+            {
+                "task_id": "6.7",
+                "title": "Integrate contextual alerts in modules",
+                "description": "Show relevant alerts within each module",
+                "type": "integration",
+                "dependencies": [
+                    "6.1"
+                ],
+                "requirements": [
+                    "Population module: show overcrowding alerts for specific zones",
+                    "Heatmap module: highlight congestion hotspots with alert markers",
+                    "Surveillance module: show camera-specific incident alerts",
+                    "Staff Allocation module: show understaffing warnings",
+                    "Inline alert cards (less prominent than global alerts)",
+                    "Click to view full alert details or resolve"
+                ],
+                "deliverable": "Contextual alerts in all modules"
+            },
+            {
+                "task_id": "6.8",
+                "title": "Enhance ToastContext for real-time events",
+                "description": "Improve existing toast notifications",
+                "type": "enhancement",
+                "dependencies": [],
+                "file": "contexts/ToastContext.tsx",
+                "requirements": [
+                    "Ensure toasts work for: alert resolved, staff assigned, system status changed, new recommendation",
+                    "Add toast types if missing (success, warning, error, info)",
+                    "Adjust positioning to not overlap with recommendation cards",
+                    "Add sound effects (optional)",
+                    "Ensure accessibility (screen reader announcements)"
+                ],
+                "deliverable": "Enhanced toast notifications"
+            },
+            {
+                "task_id": "6.9",
+                "title": "Add alert history and audit log",
+                "description": "Track all alerts and actions taken",
+                "type": "feature",
+                "dependencies": [
+                    "6.4"
+                ],
+                "requirements": [
+                    "Tab in alert panel for history",
+                    "List of resolved alerts with resolution time and operator",
+                    "Filter history by date range, severity, location",
+                    "Export history as CSV (optional)",
+                    "Search history"
+                ],
+                "deliverable": "Alert history and audit log"
+            },
+            {
+                "task_id": "6.10",
+                "title": "Test alert flow across all modules",
+                "description": "Comprehensive testing of alert system",
+                "type": "testing",
+                "dependencies": [
+                    "6.9"
+                ],
+                "test_cases": [
+                    "Verify alerts are generated correctly from each module",
+                    "Test alert bell icon updates count correctly",
+                    "Test alert panel opens/closes smoothly",
+                    "Test alert filtering and grouping work correctly",
+                    "Test alert resolution updates status",
+                    "Test recommendations appear and auto-dismiss",
+                    "Test Accept/Dismiss actions on recommendations",
+                    "Test contextual alerts display in correct modules",
+                    "Test toast notifications appear for events",
+                    "Test alert history logs all alerts correctly",
+                    "Test no overlap between chatbot, recommendations, and toasts",
+                    "Test accessibility (keyboard navigation, screen readers)"
+                ],
+                "deliverable": "Verified working alert system"
+            }
+        ]
+    },
+    // ============================================================================
+    // PHASE 7: POLISH & OPTIMIZATION
+    // ============================================================================
+    "phase_7_polish": {
+        "phase_name": "Polish, Optimization & Final Testing",
+        "estimated_effort": "2-3 hours",
+        "description": "Final refinements, performance optimization, and comprehensive testing",
+        "dependencies": [
+            "phase_1_foundation",
+            "phase_2_population",
+            "phase_3_heatmap",
+            "phase_4_surveillance",
+            "phase_5_staff_allocation",
+            "phase_6_alerts"
+        ],
+        "tasks": [
+            {
+                "task_id": "7.1",
+                "title": "Conduct full UX review",
+                "description": "Review entire application for UX consistency and issues",
+                "type": "review",
+                "dependencies": [],
+                "checklist": [
+                    "Consistent spacing and alignment across all modules",
+                    "Consistent color usage (status colors, theme colors)",
+                    "Consistent typography (font sizes, weights)",
+                    "Consistent button styles and interactions",
+                    "Consistent card styles (glass-morphism)",
+                    "Smooth transitions and animations throughout",
+                    "No jarring visual changes",
+                    "Intuitive navigation flow",
+                    "Clear visual hierarchy"
+                ],
+                "deliverable": "UX review report with issues to fix"
+            },
+            {
+                "task_id": "7.2",
+                "title": "Fix UX inconsistencies",
+                "description": "Address issues found in UX review",
+                "type": "bugfix",
+                "dependencies": [
+                    "7.1"
+                ],
+                "deliverable": "Consistent UX across all modules"
+            },
+            {
+                "task_id": "7.3",
+                "title": "Optimize performance - lazy loading",
+                "description": "Implement lazy loading for module components",
+                "type": "optimization",
+                "dependencies": [],
+                "requirements": [
+                    "Use React.lazy() for module components",
+                    "Load modules only when navigated to",
+                    "Show loading spinner while module loads",
+                    "Preload next likely module (optional)",
+                    "Measure initial bundle size reduction"
+                ],
+                "deliverable": "Lazy-loaded modules"
+            },
+            {
+                "task_id": "7.4",
+                "title": "Optimize performance - code splitting",
+                "description": "Split code into smaller chunks for faster initial load",
+                "type": "optimization",
+                "dependencies": [
+                    "7.3"
+                ],
+                "requirements": [
+                    "Configure Vite for optimal code splitting",
+                    "Split vendor libraries into separate chunk",
+                    "Split each module into separate chunk",
+                    "Analyze bundle size with vite-bundle-visualizer",
+                    "Target: initial bundle < 500KB"
+                ],
+                "deliverable": "Optimized bundle splitting"
+            },
+            {
+                "task_id": "7.5",
+                "title": "Add loading states and error handling",
+                "description": "Ensure graceful handling of loading and errors",
+                "type": "enhancement",
+                "dependencies": [],
+                "requirements": [
+                    "Loading spinners for data fetching",
+                    "Skeleton screens for modules (optional)",
+                    "Error boundaries for each module",
+                    "Error messages for failed data loads",
+                    "Retry buttons for failed operations",
+                    "Fallback UI for errors"
+                ],
+                "deliverable": "Comprehensive loading and error handling"
+            },
+            {
+                "task_id": "7.6",
+                "title": "Implement accessibility features",
+                "description": "Ensure app is accessible to all users",
+                "type": "accessibility",
+                "dependencies": [],
+                "requirements": [
+                    "ARIA labels on all interactive elements",
+                    "Semantic HTML (nav, main, section, article, etc.)",
+                    "Keyboard navigation for all features",
+                    "Focus indicators visible and clear",
+                    "Color contrast meets WCAG AA (4.5:1 for text)",
+                    "Screen reader testing",
+                    "Respect prefers-reduced-motion",
+                    "Alt text for images",
+                    "Form labels and error messages"
+                ],
+                "deliverable": "Accessible application"
+            },
+            {
+                "task_id": "7.7",
+                "title": "Test responsive design on multiple devices",
+                "description": "Ensure app works well on all screen sizes",
+                "type": "testing",
+                "dependencies": [],
+                "test_devices": [
+                    "Desktop (1920x1080, 1366x768)",
+                    "Laptop (1440x900)",
+                    "Tablet (768x1024, 1024x768)",
+                    "Mobile (375x667, 414x896, 360x640)"
+                ],
+                "test_cases": [
+                    "Sidebar collapses correctly on mobile",
+                    "All modules are usable on mobile",
+                    "Touch targets are large enough (44x44px)",
+                    "No horizontal scrolling",
+                    "Text is readable on small screens",
+                    "Charts and visualizations scale appropriately"
+                ],
+                "deliverable": "Verified responsive design"
+            },
+            {
+                "task_id": "7.8",
+                "title": "Add animations and micro-interactions",
+                "description": "Enhance user experience with subtle animations",
+                "type": "enhancement",
+                "dependencies": [],
+                "requirements": [
+                    "Hover effects on all interactive elements",
+                    "Smooth transitions when switching modules",
+                    "Fade-in animations for new content",
+                    "Slide-in animations for panels",
+                    "Pulse animations for alerts",
+                    "Loading animations",
+                    "Success animations (checkmarks, etc.)",
+                    "Respect prefers-reduced-motion"
+                ],
+                "deliverable": "Polished animations throughout app"
+            },
+            {
+                "task_id": "7.9",
+                "title": "Create user documentation or onboarding",
+                "description": "Help users understand how to use the app",
+                "type": "documentation",
+                "dependencies": [],
+                "options": [
+                    "Option 1: Onboarding tour (tooltips guiding through features)",
+                    "Option 2: Help section in sidebar",
+                    "Option 3: Video tutorial",
+                    "Option 4: PDF user manual"
+                ],
+                "requirements": [
+                    "Explain each module's purpose",
+                    "Show how to navigate",
+                    "Explain alert system",
+                    "Show how to assign staff",
+                    "Keyboard shortcuts reference"
+                ],
+                "deliverable": "User documentation or onboarding flow"
+            },
+            {
+                "task_id": "7.10",
+                "title": "Final bug fixes and edge case handling",
+                "description": "Address any remaining bugs and edge cases",
+                "type": "bugfix",
+                "dependencies": [
+                    "7.1",
+                    "7.2",
+                    "7.3",
+                    "7.4",
+                    "7.5",
+                    "7.6",
+                    "7.7",
+                    "7.8"
+                ],
+                "test_scenarios": [
+                    "What happens when there are 0 alerts?",
+                    "What happens when there are 100+ alerts?",
+                    "What happens when all staff are off-duty?",
+                    "What happens when all cameras are offline?",
+                    "What happens when population is 0?",
+                    "What happens when data fails to load?",
+                    "What happens when user rapidly switches modules?",
+                    "What happens when user resizes window?",
+                    "What happens when user uses keyboard only?",
+                    "What happens when user has slow internet?"
+                ],
+                "deliverable": "Bug-free, robust application"
+            },
+            {
+                "task_id": "7.11",
+                "title": "Performance testing and optimization",
+                "description": "Measure and optimize app performance",
+                "type": "testing",
+                "dependencies": [
+                    "7.4"
+                ],
+                "metrics": [
+                    "Initial page load time (target: < 2s)",
+                    "Module switching time (target: < 500ms)",
+                    "Animation frame rate (target: 60fps)",
+                    "Memory usage (check for leaks)",
+                    "Bundle size (target: < 500KB initial)",
+                    "Lighthouse score (target: > 90)"
+                ],
+                "tools": [
+                    "Chrome DevTools Performance tab",
+                    "Lighthouse",
+                    "React DevTools Profiler",
+                    "vite-bundle-visualizer"
+                ],
+                "deliverable": "Performance optimization report"
+            },
+            {
+                "task_id": "7.12",
+                "title": "Final comprehensive testing",
+                "description": "End-to-end testing of entire application",
+                "type": "testing",
+                "dependencies": [
+                    "7.11"
+                ],
+                "test_scenarios": [
+                    "Complete user journey: login → navigate all modules → resolve alerts → assign staff → logout",
+                    "Test all features in each module",
+                    "Test all interactions between modules",
+                    "Test error handling and recovery",
+                    "Test on multiple browsers (Chrome, Firefox, Safari, Edge)",
+                    "Test on multiple devices (desktop, tablet, mobile)",
+                    "Test accessibility with screen reader",
+                    "Test keyboard navigation throughout app",
+                    "Performance testing under load (many alerts, many staff, etc.)"
+                ],
+                "deliverable": "Final test report with sign-off"
+            }
+        ]
+    },
+    // ============================================================================
+    // POST-IMPLEMENTATION
+    // ============================================================================
+    "post_implementation": {
+        "phase_name": "Deployment & Stakeholder Review",
+        "description": "Deploy demo and gather feedback",
+        "tasks": [
+            {
+                "task_id": "8.1",
+                "title": "Build production bundle",
+                "description": "Create optimized production build",
+                "command": "npm run build",
+                "deliverable": "Production-ready dist/ folder"
+            },
+            {
+                "task_id": "8.2",
+                "title": "Deploy to hosting platform",
+                "description": "Deploy to Vercel, Netlify, or similar",
+                "deliverable": "Live demo URL"
+            },
+            {
+                "task_id": "8.3",
+                "title": "Prepare demo presentation",
+                "description": "Create presentation or walkthrough for stakeholders",
+                "deliverable": "Demo script or presentation slides"
+            },
+            {
+                "task_id": "8.4",
+                "title": "Conduct stakeholder demo",
+                "description": "Present app to stakeholders and gather feedback",
+                "deliverable": "Feedback notes"
+            },
+            {
+                "task_id": "8.5",
+                "title": "Iterate based on feedback",
+                "description": "Make adjustments based on stakeholder input",
+                "deliverable": "Updated application"
+            },
+            {
+                "task_id": "8.6",
+                "title": "Plan for production integration",
+                "description": "Document requirements for connecting to real backend",
+                "deliverable": "API integration plan"
+            }
+        ]
+    },
+    // ============================================================================
+    // TASK TRACKING TEMPLATE
+    // ============================================================================
+    "task_tracking_template": {
+        "description": "Use this template to track progress on each task",
+        "status_values": [
+            "not_started",
+            "in_progress",
+            "blocked",
+            "testing",
+            "completed"
+        ],
+        "example": {
+            "task_id": "1.1",
+            "status": "completed",
+            "assigned_to": "Developer Name",
+            "started_date": "2026-01-22",
+            "completed_date": "2026-01-22",
+            "notes": "Sidebar component created successfully",
+            "blockers": []
+        }
+    },
+    // ============================================================================
+    // SUMMARY
+    // ============================================================================
+    "summary": {
+        "total_tasks": "80+ tasks across 8 phases",
+        "estimated_timeline": "19-25 hours of development",
+        "recommended_approach": "Complete phases sequentially, test after each phase",
+        "critical_path": "Phase 1 (Foundation) must be completed first",
+        "parallel_work_opportunities": [
+            "Phases 2-5 (modules) can be worked on in parallel after Phase 1",
+            "Phase 6 (alerts) should wait until at least 2-3 modules are done for integration testing"
+        ],
+        "success_criteria": [
+            "All modules functional and integrated",
+            "Smooth navigation between sections",
+            "Responsive design works on all devices",
+            "Alerts and recommendations system working",
+            "Performance targets met (< 2s load, 60fps animations)",
+            "Accessibility standards met (WCAG AA)",
+            "Positive stakeholder feedback"
+        ]
+    }
+}

@@ -10,13 +10,7 @@ const SectionExecutiveOverview: React.FC<SectionExecutiveOverviewProps> = ({ sys
         <section className="min-h-[calc(100vh-100px)] snap-start flex flex-col justify-center p-6 md:p-12 border-b border-white/5 relative bg-neutral-900/20">
             <div className="max-w-7xl mx-auto w-full space-y-12">
 
-                {/* Section Header */}
-                <div className="text-center space-y-4 mb-8">
-                    <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight uppercase">
-                        <span className="text-amber-500">Live</span> Operations Pulse
-                    </h2>
-                    <p className="text-lg text-white/40 font-mono tracking-widest uppercase">Real-time Metrics // Terminal 1</p>
-                </div>
+
 
                 {/* ENHANCED KPI CARDS - MASSIVE Priority Metrics */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16">

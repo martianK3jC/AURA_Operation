@@ -1,0 +1,746 @@
+{
+    // ============================================================================
+    // AURA OPERATIONS - MASTER IMPLEMENTATION PLAN
+    // ============================================================================
+    // Purpose: Unified planning & implementation document
+    // Based on: Pitch script + Operator feedback (David) + Technical requirements
+    // Priority: David's Top 3 → Pitch Demo → Full Features
+    // Status: Ready for Implementation
+    // ============================================================================
+    "executive_summary": {
+        "mission": "Transform AURA from reactive monitoring to proactive operations management",
+        "david_quote": "I want to feel like I'm 30 minutes ahead, not 5 minutes behind",
+        "pitch_promise": "Same AI brain, two users — smarter operations for David, calmer travel for Anna",
+        "demo_duration": "45 seconds (1:25-2:10 in pitch)",
+        "total_effort": "19-25 hours",
+        "success_metric": "David can prevent problems 30 minutes ahead with one-click actions"
+    },
+    // ============================================================================
+    // DAVID'S TOP 3 PRIORITIES (MUST FIX)
+    // ============================================================================
+    "operator_priorities": {
+        "description": "Based on feedback from David (AOCC Manager, 8 years experience)",
+        "priority_1_predictive_alerts": {
+            "rank": "🔥 #1 - CRITICAL",
+            "david_quote": "System only shows NOW, not ABOUT TO happen. This is the BIGGEST ISSUE.",
+            "problem": "Reactive, not proactive - only alerts when problem already exists",
+            "solution": "30-minute ahead predictions based on flight schedule + current trends",
+            "example": {
+                "current": "8:00 AM - Security hits 85% → Alert appears → David reacts → Staff arrive 8:15 → 30 min of passenger frustration",
+                "needed": "7:30 AM → System predicts 8:00 surge → Alert with recommendation → David accepts → Staff ready at 7:50 → Smooth flow"
+            },
+            "implementation": {
+                "module": "Predictive Alert System (Phase 6)",
+                "features": [
+                    "Monitor population trends + flight schedule",
+                    "Predict capacity thresholds 30-60 min ahead",
+                    "Generate proactive alerts with specific timeframe",
+                    "Show confidence score (e.g., 85%)",
+                    "Link to AI recommendations for action"
+                ],
+                "demo_requirement": "Alert: 'Predicted surge at Security Zone 2 in 30 minutes' (based on 4 flights, 650 pax)",
+                "pitch_narration": "Gemini's AI models predict a surge near security 30 minutes ahead"
+            }
+        },
+        "priority_2_ai_recommendations": {
+            "rank": "🔥 #2 - CRITICAL",
+            "david_quote": "Tell me WHAT TO DO, not just what's wrong!",
+            "problem": "Alerts show problems but don't provide actionable solutions",
+            "solution": "Gemini-powered recommendations with specific actions",
+            "example": {
+                "current": "⚠️ Queue density exceeding threshold (85%) - Check-in Row B",
+                "needed": "⚠️ Queue density exceeding threshold (85%) - Check-in Row B\n**RECOMMENDATION**: Deploy 2 customer service officers to Check-in Row B. Officers Maria Santos and John Reyes are available and nearest to the area.\n[Accept] [Dismiss] [View Details]"
+            },
+            "implementation": {
+                "module": "AI Recommendation System (Phase 6)",
+                "features": [
+                    "Analyze alert + available resources",
+                    "Generate specific, actionable recommendation",
+                    "Suggest exact number of staff needed",
+                    "Identify nearest available staff by name",
+                    "One-click [Accept] button",
+                    "Auto-assign staff + send notifications on accept",
+                    "Show confidence score",
+                    "Log action in audit trail"
+                ],
+                "demo_requirement": "Recommendation: 'Deploy 3 officers to Security Zone 2, open 2 more lanes' with [Accept] button",
+                "pitch_narration": "AURA recommends opening two more lanes and deploying staff"
+            }
+        },
+        "priority_3_staff_allocation": {
+            "rank": "🔥 #3 - CRITICAL",
+            "david_quote": "I have no visibility into who's available, where they are, or what they're doing",
+            "problem": "Manual staff coordination via radio, no real-time visibility",
+            "solution": "Real-time staff dashboard with location, status, and workload",
+            "current_workflow": [
+                "Alert appears: 'Incident at Gate A12'",
+                "David radios: 'Who's near Gate A12?'",
+                "Wait for responses",
+                "Manually coordinate who goes where",
+                "Hope didn't pull someone from critical area"
+            ],
+            "needed_workflow": [
+                "Alert appears with recommendation",
+                "Click [Accept]",
+                "System auto-assigns nearest available staff",
+                "Staff receive notifications",
+                "Coverage map updates",
+                "Done in 5 seconds"
+            ],
+            "implementation": {
+                "module": "Staff Allocation Module (Phase 5)",
+                "features": [
+                    "Staff roster with real-time status (on-duty, break, off-duty)",
+                    "Location tracking (zone or coordinates)",
+                    "Current assignment display",
+                    "Workload visualization (tasks completed, response time)",
+                    "Coverage map showing staff positions on floor plan",
+                    "Availability indicator (available, busy, break)",
+                    "One-click assignment from recommendations",
+                    "Automatic notification system",
+                    "Shift schedule with coverage gaps highlighted"
+                ],
+                "demo_requirement": "Show 3 available officers, click [Accept] → staff cards update → toast notification",
+                "pitch_narration": "David radios his team and reassigns officers before the crowd even arrives"
+            }
+        }
+    },
+    // ============================================================================
+    // PITCH DEMO REQUIREMENTS (45 SECONDS)
+    // ============================================================================
+    "pitch_demo": {
+        "description": "Critical 45-second demo sequence (1:25-2:10 in pitch)",
+        "total_duration": "50 seconds (with 5s buffer)",
+        "demo_sequence": [
+            {
+                "step": 1,
+                "duration": "5s",
+                "action": "Show live CCTV feeds of Security Zone 2",
+                "module": "Surveillance Module",
+                "narration": "Vertex AI Vision analyzes live CCTV feeds",
+                "visual": "4 camera feeds showing security checkpoint, AI overlays (optional)"
+            },
+            {
+                "step": 2,
+                "duration": "5s",
+                "action": "Display crowd density analysis",
+                "module": "Population Module + Heatmap",
+                "narration": "Understanding passenger movement, crowd density, and space usage",
+                "visual": "Security Zone 2: 65% capacity, trending upward (yellow)"
+            },
+            {
+                "step": 3,
+                "duration": "5s",
+                "action": "Show flight schedule integration",
+                "module": "Flight Schedule Widget",
+                "narration": "The system combines that with flight schedules",
+                "visual": "4 flights: CX882, PR123, 5J456, Z2789 → 650 pax arriving 14:30-14:45"
+            },
+            {
+                "step": 4,
+                "duration": "5s",
+                "action": "Trigger predictive alert",
+                "module": "Alert System",
+                "narration": "Gemini predicts a surge near security 30 minutes ahead",
+                "visual": "Alert bell animates, notification: 'Predicted surge in 30 min' (85% confidence)"
+            },
+            {
+                "step": 5,
+                "duration": "5s",
+                "action": "Show AI recommendation card",
+                "module": "AI Recommendations",
+                "narration": "AURA recommends opening two more lanes and deploying staff",
+                "visual": "Floating card: 'Deploy 3 officers, open 2 lanes' [Accept] [Dismiss]"
+            },
+            {
+                "step": 6,
+                "duration": "5s",
+                "action": "Accept recommendation → staff assigned",
+                "module": "Staff Allocation",
+                "narration": "David radios his team and reassigns officers",
+                "visual": "Click [Accept] → 3 staff cards update → toast: 'Staff deployed to Security Zone 2'"
+            },
+            {
+                "step": 7,
+                "duration": "5s",
+                "action": "Show before/after data transformation",
+                "module": "AI Insights Panel",
+                "narration": "Gemini turns data into clear, human-readable actions",
+                "visual": "Split view: 'Zone 2: 65%, +12%, 4 flights, 650 pax' → 'Deploy 3 officers now'"
+            },
+            {
+                "step": 8,
+                "duration": "5s",
+                "action": "Switch to passenger app mockup",
+                "module": "Passenger App (Anna's view)",
+                "narration": "Anna's AURA app shows a short wait time",
+                "visual": "Mobile mockup: 'Security Wait Time: 5 minutes' (green)"
+            },
+            {
+                "step": 9,
+                "duration": "5s",
+                "action": "Show real-time route update",
+                "module": "Passenger App",
+                "narration": "AURA updates her route and queue levels in real time",
+                "visual": "Map with route, queue indicator: 'Low congestion'"
+            },
+            {
+                "step": 10,
+                "duration": "5s",
+                "action": "Show Anna exploring terminal",
+                "module": "Passenger App",
+                "narration": "Anna explores the terminal stress-free",
+                "visual": "Dining options, relaxed UI: 'You have time - explore nearby restaurants'"
+            }
+        ],
+        "demo_mode_requirements": {
+            "activation": "URL parameter: ?demo=true OR settings toggle",
+            "data_source": "data/demoData.ts (separate from mockData.ts)",
+            "controlled_data": {
+                "security_zone_2": "65% capacity (fixed, not random)",
+                "flights": [
+                    "CX882 - 200 pax @ 14:30",
+                    "PR123 - 180 pax @ 14:35",
+                    "5J456 - 150 pax @ 14:40",
+                    "Z2789 - 120 pax @ 14:45"
+                ],
+                "available_staff": [
+                    "Officer Maria Santos",
+                    "Officer John Reyes",
+                    "Officer Carlos Tan"
+                ],
+                "alert_text": "Predicted surge at Security Zone 2 in 30 minutes (85% confidence)",
+                "recommendation_text": "Deploy 3 additional officers to Security Zone 2 and open 2 more security lanes"
+            },
+            "controls": {
+                "keyboard": "Space = next step, R = reset, P = pause",
+                "visual_indicator": "Small 'DEMO MODE' badge in top-right corner",
+                "auto_advance": "Optional 5-second timer per step"
+            }
+        }
+    },
+    // ============================================================================
+    // IMPLEMENTATION PHASES (PRIORITIZED BY DAVID'S FEEDBACK)
+    // ============================================================================
+    "implementation_phases": {
+        "overview": {
+            "total_phases": 8,
+            "approach": "David's Top 3 → Pitch Demo → Full Features",
+            "critical_path": "Phase 1 (Foundation) → Phase 6 (Alerts & Recommendations) → Phase 5 (Staff Allocation)"
+        },
+        "phase_0_demo_preparation": {
+            "phase_name": "Demo Mode & Data Preparation",
+            "priority": "🔥 CRITICAL FOR PITCH",
+            "estimated_effort": "1-2 hours",
+            "description": "Create demo mode with controlled data for flawless presentation",
+            "tasks": [
+                {
+                    "id": "0.1",
+                    "title": "Create demoData.ts",
+                    "description": "Controlled, predictable data for pitch demo",
+                    "deliverable": "data/demoData.ts with Security Zone 2 at 65%, 4 specific flights, 3 available officers"
+                },
+                {
+                    "id": "0.2",
+                    "title": "Implement demo mode toggle",
+                    "description": "URL parameter ?demo=true activates demo mode",
+                    "deliverable": "Demo mode switch that loads demoData instead of mockData"
+                },
+                {
+                    "id": "0.3",
+                    "title": "Create demo sequence controller",
+                    "description": "10-step sequence with keyboard controls",
+                    "deliverable": "useDemoMode hook with Space/R/P controls"
+                },
+                {
+                    "id": "0.4",
+                    "title": "Build passenger app mockup",
+                    "description": "Anna's view (can be static HTML or simple React component)",
+                    "deliverable": "Mobile mockup showing wait time, route, dining options"
+                }
+            ]
+        },
+        "phase_1_foundation": {
+            "phase_name": "Sidebar Navigation & Layout",
+            "priority": "CRITICAL - Must complete first",
+            "estimated_effort": "2-3 hours",
+            "description": "Build core navigation infrastructure",
+            "addresses_david_feedback": "Navigation is clunky - need sidebar with quick section switching",
+            "navigation_items": [
+                {
+                    "id": "overview",
+                    "label": "Executive Overview",
+                    "icon": "LayoutDashboard"
+                },
+                {
+                    "id": "population",
+                    "label": "Population",
+                    "icon": "Users"
+                },
+                {
+                    "id": "heatmap",
+                    "label": "Heatmap",
+                    "icon": "Map"
+                },
+                {
+                    "id": "surveillance",
+                    "label": "Live Surveillance",
+                    "icon": "Video"
+                },
+                {
+                    "id": "staff-allocation",
+                    "label": "Staff Allocation",
+                    "icon": "UserCog"
+                },
+                {
+                    "id": "flights",
+                    "label": "Flight Schedule",
+                    "icon": "Plane"
+                }
+            ],
+            "key_tasks": [
+                "Create Sidebar component (280px fixed left)",
+                "Implement section state management",
+                "Dynamic content area rendering",
+                "Responsive behavior (collapsible on mobile)",
+                "Keyboard navigation (Tab, Enter, Arrows, Esc)"
+            ]
+        },
+        "phase_2_flight_schedule": {
+            "phase_name": "Flight Schedule Integration",
+            "priority": "🔥 CRITICAL FOR PITCH & DAVID'S #1",
+            "estimated_effort": "2-3 hours",
+            "description": "Show incoming flights with passenger counts for predictive analytics",
+            "addresses_david_feedback": "No flight schedule integration - have to manually check separate system",
+            "features": [
+                "Upcoming arrivals/departures (next 30-60 min)",
+                "Passenger count per flight",
+                "Gate assignments",
+                "Predicted passenger flow based on schedule",
+                "Integration with population and alert systems"
+            ],
+            "demo_data": {
+                "flights": [
+                    {
+                        "id": "CX882",
+                        "type": "arrival",
+                        "time": "14:30",
+                        "pax": 200,
+                        "gate": "A12",
+                        "origin": "Hong Kong"
+                    },
+                    {
+                        "id": "PR123",
+                        "type": "arrival",
+                        "time": "14:35",
+                        "pax": 180,
+                        "gate": "B05",
+                        "origin": "Manila"
+                    },
+                    {
+                        "id": "5J456",
+                        "type": "arrival",
+                        "time": "14:40",
+                        "pax": 150,
+                        "gate": "A08",
+                        "origin": "Davao"
+                    },
+                    {
+                        "id": "Z2789",
+                        "type": "arrival",
+                        "time": "14:45",
+                        "pax": 120,
+                        "gate": "B12",
+                        "origin": "Clark"
+                    }
+                ],
+                "total_predicted": "650 passengers in 30-minute window",
+                "trigger": "Generates surge prediction for Security Zone 2"
+            },
+            "key_tasks": [
+                "Create FlightScheduleWidget component",
+                "Display flight list with passenger counts",
+                "Calculate predicted passenger influx",
+                "Integrate with predictive alert system",
+                "Highlight flights contributing to surge"
+            ]
+        },
+        "phase_3_predictive_alerts": {
+            "phase_name": "Predictive Alert System (30-min ahead)",
+            "priority": "🔥 DAVID'S #1 PRIORITY",
+            "estimated_effort": "3-4 hours",
+            "description": "Predict problems 30-60 minutes before they happen",
+            "addresses_david_feedback": "REACTIVE, NOT PROACTIVE - biggest issue",
+            "prediction_logic": {
+                "inputs": [
+                    "Current population data (e.g., Security Zone 2 at 65%)",
+                    "Population trend (+12% in last 15 min)",
+                    "Flight schedule (4 flights, 650 pax arriving 14:30-14:45)",
+                    "Historical patterns (typical surge behavior)",
+                    "Current staff allocation (understaffed areas)"
+                ],
+                "calculation": "If (current_capacity + predicted_influx) > threshold AND time_to_surge < 30min → Generate alert",
+                "output": "Alert with timeframe, confidence score, and linked recommendation"
+            },
+            "alert_types": [
+                {
+                    "type": "Predicted Surge",
+                    "trigger": "Flight schedule + current trends indicate capacity will exceed 85% in 30 min",
+                    "example": "⚠️ Predicted surge at Security Zone 2 in 30 minutes (85% confidence)\nIncoming flights: CX882, PR123, 5J456, Z2789 (~650 passengers)\nCurrent capacity: 65% → Predicted: 95%"
+                },
+                {
+                    "type": "Predicted Understaffing",
+                    "trigger": "Staff coverage gaps during predicted peak",
+                    "example": "⚠️ Insufficient staff for predicted peak at Check-in Row B in 45 minutes\nCurrent: 2 officers → Needed: 4 officers"
+                },
+                {
+                    "type": "Predicted Congestion",
+                    "trigger": "Heatmap shows building density + flight arrivals",
+                    "example": "⚠️ Congestion hotspot forming at Baggage Claim Area 1 in 20 minutes"
+                }
+            ],
+            "key_tasks": [
+                "Build prediction engine (analyze population + flights + trends)",
+                "Generate alerts 30-60 min ahead",
+                "Display confidence score (e.g., 85%)",
+                "Link alerts to AI recommendations",
+                "Integrate with flight schedule and population modules",
+                "Add alert bell icon to header with count badge"
+            ]
+        },
+        "phase_4_ai_recommendations": {
+            "phase_name": "AI Recommendation System (Gemini-powered)",
+            "priority": "🔥 DAVID'S #2 PRIORITY",
+            "estimated_effort": "3-4 hours",
+            "description": "Turn alerts into actionable recommendations",
+            "addresses_david_feedback": "Tell me WHAT TO DO, not just what's wrong",
+            "recommendation_engine": {
+                "inputs": [
+                    "Alert details (type, location, severity, timeframe)",
+                    "Available resources (staff roster, equipment, zones)",
+                    "Current allocations (who's assigned where)",
+                    "Historical effectiveness (what worked before)"
+                ],
+                "gemini_prompt_template": "Given: {alert_details}\nAvailable staff: {staff_list}\nCurrent assignments: {assignments}\nGenerate specific, actionable recommendation with:\n1. Exact number of staff needed\n2. Names of nearest available staff\n3. Specific actions (e.g., 'open 2 more lanes')\n4. Confidence score",
+                "output": "Clear, human-readable recommendation with [Accept] [Dismiss] actions"
+            },
+            "recommendation_examples": [
+                {
+                    "alert": "Predicted surge at Security Zone 2 in 30 min",
+                    "recommendation": {
+                        "title": "Deploy Additional Staff to Security Zone 2",
+                        "description": "Deploy 3 additional officers to Security Zone 2 and open 2 more security lanes to handle predicted surge of 650 passengers.",
+                        "suggested_staff": [
+                            "Officer Maria Santos (Zone 1, available)",
+                            "Officer John Reyes (Zone 3, available)",
+                            "Officer Carlos Tan (Break room, available)"
+                        ],
+                        "confidence": "85%",
+                        "actions": [
+                            "Accept",
+                            "Dismiss",
+                            "View Details"
+                        ]
+                    }
+                },
+                {
+                    "alert": "Queue density exceeding threshold (85%) - Check-in Row B",
+                    "recommendation": {
+                        "title": "Deploy Customer Service Officers to Check-in Row B",
+                        "description": "Deploy 2 customer service officers to Check-in Row B to reduce queue density.",
+                        "suggested_staff": [
+                            "CS Officer Anna Lee (Zone 2, available)",
+                            "CS Officer Mark Diaz (Zone 1, available)"
+                        ],
+                        "confidence": "92%",
+                        "actions": [
+                            "Accept",
+                            "Dismiss",
+                            "View Details"
+                        ]
+                    }
+                }
+            ],
+            "key_tasks": [
+                "Create RecommendationCard component (floating, bottom-right)",
+                "Build recommendation generation logic",
+                "Identify nearest available staff",
+                "Implement [Accept] action → auto-assign staff",
+                "Show confidence score",
+                "Auto-dismiss after 30s (move to history)",
+                "Integrate with staff allocation module"
+            ]
+        },
+        "phase_5_staff_allocation": {
+            "phase_name": "Staff Allocation & Resource Management",
+            "priority": "🔥 DAVID'S #3 PRIORITY",
+            "estimated_effort": "4-5 hours",
+            "description": "Real-time staff visibility and one-click assignment",
+            "addresses_david_feedback": "No visibility into who's available, where they are, or what they're doing",
+            "features": [
+                {
+                    "name": "Staff Roster",
+                    "description": "Grid of all staff with real-time status",
+                    "data": "id, name, role, photo, status (on-duty/break/off-duty), current_assignment, location, shift_times"
+                },
+                {
+                    "name": "Coverage Map",
+                    "description": "Floor plan showing staff positions and coverage zones",
+                    "visual": "Staff markers on map, color-coded by role, coverage radius circles"
+                },
+                {
+                    "name": "Workload Visualization",
+                    "description": "Bar chart showing task load per staff member",
+                    "metric": "Tasks completed, avg response time, current assignments"
+                },
+                {
+                    "name": "Shift Timeline",
+                    "description": "Gantt chart showing 24h shift coverage",
+                    "highlight": "Coverage gaps (no staff on duty)"
+                },
+                {
+                    "name": "One-Click Assignment",
+                    "description": "Accept recommendation → auto-assign staff → send notifications",
+                    "workflow": "Click [Accept] → Update staff.current_assignment → Send notification → Update coverage map → Toast confirmation"
+                }
+            ],
+            "demo_data": {
+                "available_staff": [
+                    {
+                        "id": "S001",
+                        "name": "Maria Santos",
+                        "role": "Security Officer",
+                        "status": "on-duty",
+                        "location": "Zone 1",
+                        "available": true
+                    },
+                    {
+                        "id": "S002",
+                        "name": "John Reyes",
+                        "role": "Security Officer",
+                        "status": "on-duty",
+                        "location": "Zone 3",
+                        "available": true
+                    },
+                    {
+                        "id": "S003",
+                        "name": "Carlos Tan",
+                        "role": "Security Officer",
+                        "status": "break",
+                        "location": "Break Room",
+                        "available": true
+                    }
+                ]
+            },
+            "key_tasks": [
+                "Create StaffCard component",
+                "Build staff roster grid with filters",
+                "Implement coverage map overlay",
+                "Create workload bar chart",
+                "Build shift timeline (Gantt)",
+                "Implement one-click assignment from recommendations",
+                "Add notification system (simulated)",
+                "Show real-time status updates"
+            ]
+        },
+        "phase_6_population_module": {
+            "phase_name": "Population Tracking & Density Monitoring",
+            "estimated_effort": "3-4 hours",
+            "description": "Real-time population tracking with zone-based analytics",
+            "features": [
+                "Total occupancy KPI cards",
+                "Zone-based population breakdown (Security, Check-in, Gates, etc.)",
+                "Capacity utilization percentage per zone",
+                "Historical trend line chart",
+                "Threshold alerts (70% warning, 85% critical)",
+                "Auto-refresh every 5-10 seconds"
+            ],
+            "demo_data": {
+                "security_zone_2": {
+                    "current_occupancy": 195,
+                    "max_capacity": 300,
+                    "capacity_percent": 65,
+                    "trend": "+12%",
+                    "status": "warning"
+                }
+            },
+            "key_tasks": [
+                "Create PopulationModule component",
+                "Build KPI cards (total occupancy, capacity %)",
+                "Implement zone breakdown grid",
+                "Add historical trend chart (recharts)",
+                "Generate threshold alerts",
+                "Integrate with predictive alert system"
+            ]
+        },
+        "phase_7_surveillance_module": {
+            "phase_name": "Live Surveillance & CCTV Integration",
+            "estimated_effort": "3-4 hours",
+            "description": "Multi-camera surveillance with AI overlays",
+            "features": [
+                "Camera grid layout (2x2, 3x3, 4x4)",
+                "Camera filtering by zone",
+                "Single camera full-screen mode",
+                "AI detection overlays (optional but impressive)",
+                "Alert-to-camera integration (click alert → show camera)",
+                "Incident timeline playback"
+            ],
+            "demo_requirements": {
+                "cameras": "At least 4 feeds showing Security Zone 2",
+                "overlays": "Density heatmap overlay, AI bounding boxes (optional)",
+                "visual": "Live timestamp, camera status indicator"
+            },
+            "key_tasks": [
+                "Create SurveillanceModule component",
+                "Implement camera grid layout",
+                "Refactor CCTVModal for inline display",
+                "Add camera filtering by zone",
+                "Integrate with alert system",
+                "Add mock video feeds or static images with overlays"
+            ]
+        },
+        "phase_8_heatmap_integration": {
+            "phase_name": "Heatmap Module Integration",
+            "estimated_effort": "2 hours",
+            "description": "Integrate existing PredictiveHeatmapVisualization",
+            "features": [
+                "Wrap existing component in module container",
+                "Add time-based playback controls",
+                "Real-time vs. historical toggle",
+                "Zone click-through for details",
+                "Export/screenshot functionality"
+            ],
+            "key_tasks": [
+                "Create HeatmapModule wrapper",
+                "Add playback controls",
+                "Implement real-time/historical toggle",
+                "Enhance interactivity",
+                "Optimize performance"
+            ]
+        },
+        "phase_9_polish_and_optimization": {
+            "phase_name": "Polish, Testing & Optimization",
+            "estimated_effort": "2-3 hours",
+            "description": "Final refinements and comprehensive testing",
+            "tasks": [
+                "UX review and consistency fixes",
+                "Lazy loading for modules",
+                "Code splitting for performance",
+                "Loading states and error handling",
+                "Accessibility features (ARIA labels, keyboard nav)",
+                "Responsive design testing",
+                "Animations and micro-interactions",
+                "Final bug fixes"
+            ]
+        }
+    },
+    // ============================================================================
+    // TECHNICAL SPECIFICATIONS
+    // ============================================================================
+    "technical_specs": {
+        "architecture": "React + TypeScript + Vite",
+        "styling": "TailwindCSS with custom gold/amber theme",
+        "state_management": "useState hooks (consider Context API if complex)",
+        "routing": "React Router (optional but recommended)",
+        "charts": "recharts or similar library",
+        "icons": "lucide-react",
+        "data_structure": {
+            "flight": {
+                "id": "string (e.g., CX882)",
+                "type": "arrival | departure",
+                "scheduled_time": "timestamp",
+                "gate": "string",
+                "passenger_count": "number",
+                "origin_destination": "string",
+                "status": "on-time | delayed | boarding | landed"
+            },
+            "staff": {
+                "id": "string",
+                "name": "string",
+                "role": "Security | Customer Service | Maintenance | etc.",
+                "status": "on-duty | break | off-duty",
+                "current_assignment": "string (zone or task)",
+                "location": "{ x, y } coordinates or zone ID",
+                "shift_start": "timestamp",
+                "shift_end": "timestamp",
+                "available": "boolean"
+            },
+            "alert": {
+                "id": "number",
+                "type": "critical | warning | info",
+                "category": "predicted_surge | overcrowding | understaffing | incident",
+                "location": "string (zone)",
+                "message": "string",
+                "timeframe": "string (e.g., 'in 30 minutes')",
+                "confidence": "number (0-100)",
+                "status": "active | resolved",
+                "created_at": "timestamp",
+                "linked_recommendation_id": "number (optional)"
+            },
+            "recommendation": {
+                "id": "number",
+                "alert_id": "number",
+                "title": "string",
+                "description": "string",
+                "suggested_staff": "array of staff IDs",
+                "actions": "array of action objects",
+                "confidence": "number (0-100)",
+                "status": "pending | accepted | dismissed",
+                "created_at": "timestamp"
+            }
+        },
+        "performance_targets": {
+            "initial_load": "< 2 seconds",
+            "section_switching": "< 500ms",
+            "animations": "60fps",
+            "bundle_size": "< 500KB initial"
+        }
+    },
+    // ============================================================================
+    // SUCCESS CRITERIA
+    // ============================================================================
+    "success_criteria": {
+        "demo_success": [
+            "All 10 demo steps execute smoothly in 45 seconds",
+            "Predictive alert appears at correct time with 30-min timeframe",
+            "AI recommendation is clear and actionable",
+            "Staff deployment happens with one click",
+            "Flight schedule integration is visible",
+            "Passenger app shows Anna's smooth experience",
+            "'Same AI brain, two users' message is crystal clear"
+        ],
+        "david_satisfaction": [
+            "Can prevent problems 30 minutes ahead (not react after)",
+            "Gets actionable recommendations, not just data",
+            "Can deploy staff with one click",
+            "Has visibility into staff location and availability",
+            "Feels '30 minutes ahead, not 5 minutes behind'",
+            "Spends less time on radio, more time on strategy"
+        ],
+        "technical_success": [
+            "All modules functional and integrated",
+            "Smooth navigation between sections",
+            "Responsive design works on all devices",
+            "Performance targets met",
+            "Accessibility standards met (WCAG AA)",
+            "No critical bugs in demo sequence"
+        ]
+    },
+    // ============================================================================
+    // NEXT STEPS
+    // ============================================================================
+    "next_steps": [
+        "1. Review this master plan with team",
+        "2. Approve final priorities and approach",
+        "3. Begin Phase 0: Demo mode preparation",
+        "4. Build Flight Schedule widget (Phase 2)",
+        "5. Implement Predictive Alerts (Phase 3 - David's #1)",
+        "6. Build AI Recommendations (Phase 4 - David's #2)",
+        "7. Create Staff Allocation dashboard (Phase 5 - David's #3)",
+        "8. Integrate remaining modules (Phases 6-8)",
+        "9. Polish and optimize (Phase 9)",
+        "10. Rehearse demo sequence multiple times",
+        "11. Record backup video",
+        "12. Final dress rehearsal on presentation setup"
+    ]
+}
