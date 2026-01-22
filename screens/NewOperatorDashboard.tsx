@@ -14,7 +14,7 @@ import HeatmapModule from '../components/modules/HeatmapModule';
 import StaffAllocationModule from '../components/modules/StaffAllocationModule';
 import SurveillanceModule from '../components/modules/SurveillanceModule';
 import TacticalMap from '../components/TacticalMap';
-import { AlertTriangle } from 'lucide-react'; // Added import for AlertTriangle
+
 
 // Demo Data
 import {
@@ -47,7 +47,7 @@ const NewOperatorDashboard: React.FC<Props> = ({ onNavigate }) => {
 
     // State
     const [currentTime, setCurrentTime] = useState(new Date());
-    const [systemStatus, setSystemStatus] = useState<'nominal' | 'alert'>('nominal');
+    const [systemStatus] = useState<'nominal' | 'alert'>('alert');
     const [isChatbotOpen, setIsChatbotOpen] = useState(false);
     const [showRecommendation, setShowRecommendation] = useState(false);
     const [currentRecommendation, setCurrentRecommendation] = useState<DemoRecommendation | null>(null);
@@ -109,14 +109,7 @@ const NewOperatorDashboard: React.FC<Props> = ({ onNavigate }) => {
         setCurrentRecommendation(null);
     };
 
-    const toggleSystemStatus = () => {
-        const newStatus = systemStatus === 'nominal' ? 'alert' : 'nominal';
-        setSystemStatus(newStatus);
-        showToast(
-            newStatus === 'alert' ? 'warning' : 'success',
-            `System Status: ${newStatus.toUpperCase()}`
-        );
-    };
+
 
     const renderContent = () => {
         switch (activeSection) {
@@ -196,21 +189,7 @@ const NewOperatorDashboard: React.FC<Props> = ({ onNavigate }) => {
                             </div>
                         )}
 
-                        {/* System Status Toggle */}
-                        <button
-                            onClick={toggleSystemStatus}
-                            className={`px-3 md:px-4 py-2 rounded-lg flex items-center gap-2 transition-all border-2 ${systemStatus === 'nominal'
-                                ? 'bg-emerald-500/20 border-emerald-500/50 hover:bg-emerald-500/30'
-                                : 'bg-red-500/20 border-red-500/50 hover:bg-red-500/30'
-                                }`}
-                            aria-label="Toggle system status"
-                        >
-                            {systemStatus === 'alert' && <AlertTriangle className="w-4 h-4 text-red-400" />}
-                            <span className={`text-xs md:text-sm font-bold uppercase tracking-wider ${systemStatus === 'nominal' ? 'text-emerald-400' : 'text-red-400'
-                                }`}>
-                                {systemStatus}
-                            </span>
-                        </button>
+
 
                         {/* Alert Bell */}
                         <button
